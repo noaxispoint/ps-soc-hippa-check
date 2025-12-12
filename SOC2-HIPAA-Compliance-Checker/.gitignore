@@ -1,0 +1,29 @@
+# Reports
+reports/*.json
+reports/*.csv
+reports/*.html
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*~
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# PowerShell
+*.ps1~
+
+# System files
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Keep directory structure
+!reports/.gitkeep
+!.gitkeep
