@@ -18,6 +18,11 @@ if ($w32timeService) {
     Add-ComplianceCheck -Category "Time Synchronization" `
         -Check "Windows Time Service Running" `
         -Requirement "SOC 2 CC7.2 - Accurate Audit Timestamps" `
+        -NIST "AU-8" `
+        -CIS "8.4" `
+        -ISO27001 "A.12.4.4" `
+        -PCIDSS "10.4" `
+        -SOX "ITGC-05" `
         -Passed $serviceRunning `
         -CurrentValue $w32timeService.Status `
         -ExpectedValue "Running" `
@@ -32,6 +37,10 @@ if ($w32timeService) {
     Add-ComplianceCheck -Category "Time Synchronization" `
         -Check "Windows Time Service Startup Type" `
         -Requirement "SOC 2 CC7.2 - System Resilience" `
+        -NIST "AU-8" `
+        -CIS "8.4" `
+        -ISO27001 "A.12.4.4" `
+        -SOX "ITGC-05" `
         -Passed $serviceAutomatic `
         -CurrentValue $w32timeService.StartType `
         -ExpectedValue "Automatic" `
@@ -55,6 +64,10 @@ try {
         Add-ComplianceCheck -Category "Time Synchronization" `
             -Check "Time Source Configuration" `
             -Requirement "SOC 2 CC7.2 - Reliable Time Source" `
+            -NIST "AU-8(1)" `
+            -CIS "8.4" `
+            -ISO27001 "A.12.4.4" `
+            -PCIDSS "10.4" `
             -Passed $hasSource `
             -CurrentValue $timeSource `
             -ExpectedValue "External time source (not local clock)" `
@@ -80,6 +93,10 @@ try {
             Add-ComplianceCheck -Category "Time Synchronization" `
                 -Check "Recent Time Synchronization" `
                 -Requirement "SOC 2 CC7.2 - Time Accuracy" `
+                -NIST "AU-8" `
+                -CIS "8.4" `
+                -ISO27001 "A.12.4.4" `
+                -PCIDSS "10.4" `
                 -Passed $recentSync `
                 -CurrentValue "$([Math]::Round($hoursSinceSync, 1)) hours ago" `
                 -ExpectedValue "Within last 24 hours" `
@@ -95,6 +112,10 @@ try {
             Add-ComplianceCheck -Category "Time Synchronization" `
                 -Check "Recent Time Synchronization" `
                 -Requirement "SOC 2 CC7.2 - Time Accuracy" `
+                -NIST "AU-8" `
+                -CIS "8.4" `
+                -ISO27001 "A.12.4.4" `
+                -PCIDSS "10.4" `
                 -Passed $false `
                 -CurrentValue "Unable to determine" `
                 -ExpectedValue "Within last 24 hours" `
@@ -107,6 +128,9 @@ try {
     Add-ComplianceCheck -Category "Time Synchronization" `
         -Check "Time Service Query" `
         -Requirement "SOC 2 CC7.2 - Time Synchronization" `
+        -NIST "AU-8" `
+        -CIS "8.4" `
+        -ISO27001 "A.12.4.4" `
         -Passed $false `
         -CurrentValue "Error querying time service: $($_.Exception.Message)" `
         -ExpectedValue "Time service operational" `
@@ -122,6 +146,9 @@ $tzSet = $null -ne $timeZone
 Add-ComplianceCheck -Category "Time Synchronization" `
     -Check "Time Zone Configured" `
     -Requirement "SOC 2 CC7.2 - Consistent Timestamps" `
+    -NIST "AU-8" `
+    -CIS "8.4" `
+    -ISO27001 "A.12.4.4" `
     -Passed $tzSet `
     -CurrentValue $(if ($tzSet) { $timeZone.Id } else { "Not configured" }) `
     -ExpectedValue "Valid time zone set" `

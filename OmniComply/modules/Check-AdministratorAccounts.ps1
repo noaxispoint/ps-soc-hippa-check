@@ -17,6 +17,10 @@ if ($builtinAdmin) {
     Add-ComplianceCheck -Category "Administrator Accounts" `
         -Check "Built-in Administrator Account Disabled" `
         -Requirement "SOC 2 CC6.2 - Default Account Security" `
+        -NIST "AC-2(1), AC-6" `
+        -CIS "5.4" `
+        -ISO27001 "A.9.2.3" `
+        -PCIDSS "7.1, 7.2" `
         -Passed $adminDisabled `
         -CurrentValue $(if ($adminDisabled) { "Disabled" } else { "Enabled" }) `
         -ExpectedValue "Disabled" `
@@ -34,6 +38,10 @@ if ($builtinAdmin) {
     Add-ComplianceCheck -Category "Administrator Accounts" `
         -Check "Built-in Administrator Account Renamed" `
         -Requirement "SOC 2 CC6.2 - Account Hardening" `
+        -NIST "AC-2(1)" `
+        -CIS "5.4" `
+        -ISO27001 "A.9.2.3" `
+        -PCIDSS "7.1" `
         -Passed $adminRenamed `
         -CurrentValue $builtinAdmin.Name `
         -ExpectedValue "Renamed (not 'Administrator')" `
@@ -58,6 +66,10 @@ if ($adminGroup) {
     Add-ComplianceCheck -Category "Administrator Accounts" `
         -Check "Local Administrators Group Size" `
         -Requirement "SOC 2 CC6.3 - Least Privilege" `
+        -NIST "AC-6" `
+        -CIS "5.4" `
+        -ISO27001 "A.9.2.3" `
+        -PCIDSS "7.1.2" `
         -Passed $reasonableCount `
         -CurrentValue "$adminCount members: $memberList" `
         -ExpectedValue "3 or fewer members" `
@@ -84,6 +96,10 @@ if ($staleAdmins) {
     Add-ComplianceCheck -Category "Administrator Accounts" `
         -Check "Stale Administrator Accounts" `
         -Requirement "SOC 2 CC6.3 - Account Lifecycle Management" `
+        -NIST "AC-2(3)" `
+        -CIS "5.3" `
+        -ISO27001 "A.9.2.1, A.9.2.6" `
+        -PCIDSS "8.1.4" `
         -Passed ($staleCount -eq 0) `
         -CurrentValue "$staleCount stale accounts: $staleList" `
         -ExpectedValue "No stale accounts (unused >90 days)" `
@@ -98,6 +114,10 @@ if ($staleAdmins) {
     Add-ComplianceCheck -Category "Administrator Accounts" `
         -Check "Stale Administrator Accounts" `
         -Requirement "SOC 2 CC6.3 - Account Lifecycle Management" `
+        -NIST "AC-2(3)" `
+        -CIS "5.3" `
+        -ISO27001 "A.9.2.1, A.9.2.6" `
+        -PCIDSS "8.1.4" `
         -Passed $true `
         -CurrentValue "No stale accounts" `
         -ExpectedValue "No stale accounts (unused >90 days)" `

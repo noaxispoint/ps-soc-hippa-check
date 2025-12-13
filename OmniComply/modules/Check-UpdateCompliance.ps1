@@ -17,6 +17,11 @@ if ($wuService) {
     Add-ComplianceCheck -Category "Update Management" `
         -Check "Windows Update Service" `
         -Requirement "SOC 2 CC8.1 - Change Management" `
+        -NIST "SI-2" `
+        -CIS "7.1" `
+        -ISO27001 "A.12.6.1" `
+        -PCIDSS "6.2" `
+        -SOX "ITGC-06" `
         -Passed $serviceRunning `
         -CurrentValue "$($wuService.Status) ($($wuService.StartType))" `
         -ExpectedValue "Running or Manual" `
@@ -43,6 +48,11 @@ if ($lastUpdateLog) {
     Add-ComplianceCheck -Category "Update Management" `
         -Check "Recent Update Installation" `
         -Requirement "SOC 2 CC8.1 - Regular Patching" `
+        -NIST "SI-2(2)" `
+        -CIS "7.1, 7.3" `
+        -ISO27001 "A.12.6.1" `
+        -PCIDSS "6.2" `
+        -SOX "ITGC-06" `
         -Passed $updateRecent `
         -CurrentValue "$daysSinceUpdate days ago" `
         -ExpectedValue "Within 30 days" `
@@ -64,6 +74,10 @@ $supportedBuild = $buildNumber -ge $windows11MinBuild
 Add-ComplianceCheck -Category "Update Management" `
     -Check "Supported Windows Version" `
     -Requirement "SOC 2 CC8.1 - Supported Software" `
+    -NIST "SI-2" `
+    -CIS "7.2" `
+    -ISO27001 "A.12.6.1" `
+    -PCIDSS "6.2" `
     -Passed $supportedBuild `
     -CurrentValue "Build $buildNumber" `
     -ExpectedValue "Supported Windows 11 build (22000+)" `

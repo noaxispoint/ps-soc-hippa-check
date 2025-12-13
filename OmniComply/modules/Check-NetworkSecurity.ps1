@@ -17,6 +17,10 @@ if ($smbv1) {
     Add-ComplianceCheck -Category "Network Security" `
         -Check "SMBv1 Protocol Disabled" `
         -Requirement "SOC 2 CC6.1 - Insecure Protocol Mitigation" `
+        -NIST "CM-7(1), SI-2" `
+        -CIS "4.8" `
+        -ISO27001 "A.12.6.2" `
+        -PCIDSS "2.2.2" `
         -Passed $smbv1Disabled `
         -CurrentValue $smbv1.State `
         -ExpectedValue "Disabled" `
@@ -36,6 +40,10 @@ $smbServerSigning = (Get-SmbServerConfiguration).RequireSecuritySignature
 Add-ComplianceCheck -Category "Network Security" `
     -Check "SMB Client Signing Required" `
     -Requirement "HIPAA § 164.312(e)(1) - Transmission Security" `
+    -NIST "SC-8" `
+    -CIS "13.9" `
+    -ISO27001 "A.13.1.1" `
+    -PCIDSS "4.2" `
     -Passed $smbClientSigning `
     -CurrentValue $(if ($smbClientSigning) { "Required" } else { "Not Required" }) `
     -ExpectedValue "Required" `
@@ -50,6 +58,10 @@ if ($smbClientSigning) {
 Add-ComplianceCheck -Category "Network Security" `
     -Check "SMB Server Signing Required" `
     -Requirement "HIPAA § 164.312(e)(1) - Transmission Security" `
+    -NIST "SC-8" `
+    -CIS "13.9" `
+    -ISO27001 "A.13.1.1" `
+    -PCIDSS "4.2" `
     -Passed $smbServerSigning `
     -CurrentValue $(if ($smbServerSigning) { "Required" } else { "Not Required" }) `
     -ExpectedValue "Required" `
@@ -70,6 +82,9 @@ if ($rdpEnabled) {
     Add-ComplianceCheck -Category "Network Security" `
         -Check "Remote Desktop Status" `
         -Requirement "SOC 2 CC6.1 - Remote Access Control" `
+        -NIST "AC-17" `
+        -CIS "12.6" `
+        -ISO27001 "A.9.4.2" `
         -Passed $rdpDisabled `
         -CurrentValue $(if ($rdpDisabled) { "Disabled" } else { "Enabled" }) `
         -ExpectedValue "Disabled (unless required for remote support)" `

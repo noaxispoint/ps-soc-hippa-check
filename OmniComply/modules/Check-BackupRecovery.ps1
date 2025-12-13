@@ -17,6 +17,10 @@ if ($wbService) {
     Add-ComplianceCheck -Category "Backup and Recovery" `
         -Check "Windows Backup Service (wbengine)" `
         -Requirement "SOC 2 CC5.1 - Backup Infrastructure" `
+        -NIST "CP-9" `
+        -CIS "11.1" `
+        -ISO27001 "A.12.3.1" `
+        -SOX "ITGC-08" `
         -Passed $true `
         -CurrentValue "Status: $($wbService.Status), StartType: $($wbService.StartType)" `
         -ExpectedValue "Service exists (Manual start is normal)" `
@@ -31,6 +35,10 @@ if ($wbService) {
     Add-ComplianceCheck -Category "Backup and Recovery" `
         -Check "Windows Backup Service" `
         -Requirement "SOC 2 CC5.1 - Backup Infrastructure" `
+        -NIST "CP-9" `
+        -CIS "11.1" `
+        -ISO27001 "A.12.3.1" `
+        -SOX "ITGC-08" `
         -Passed $false `
         -CurrentValue "Service not found" `
         -ExpectedValue "Windows Backup service available" `
@@ -57,6 +65,11 @@ try {
         Add-ComplianceCheck -Category "Backup and Recovery" `
             -Check "Windows Backup Policy Configured" `
             -Requirement "HIPAA § 164.308(a)(7)(ii)(A) - Backup Plan" `
+            -NIST "CP-9, CP-9(1)" `
+            -CIS "11.1" `
+            -ISO27001 "A.12.3.1" `
+            -PCIDSS "12.10.1" `
+            -SOX "ITGC-08" `
             -Passed $backupConfigured `
             -CurrentValue $scheduleInfo `
             -ExpectedValue "Backup policy configured with schedule" `
@@ -74,6 +87,11 @@ try {
         Add-ComplianceCheck -Category "Backup and Recovery" `
             -Check "Windows Backup Policy Configured" `
             -Requirement "HIPAA § 164.308(a)(7)(ii)(A) - Backup Plan" `
+            -NIST "CP-9, CP-9(1)" `
+            -CIS "11.1" `
+            -ISO27001 "A.12.3.1" `
+            -PCIDSS "12.10.1" `
+            -SOX "ITGC-08" `
             -Passed $false `
             -CurrentValue "No backup policy configured" `
             -ExpectedValue "Backup policy configured" `
@@ -86,6 +104,10 @@ try {
     Add-ComplianceCheck -Category "Backup and Recovery" `
         -Check "Windows Backup Policy Query" `
         -Requirement "SOC 2 CC5.1 - Backup Configuration" `
+        -NIST "CP-9" `
+        -CIS "11.1" `
+        -ISO27001 "A.12.3.1" `
+        -SOX "ITGC-08" `
         -Passed $false `
         -CurrentValue "Unable to query backup policy" `
         -ExpectedValue "Backup policy queryable" `
@@ -104,6 +126,10 @@ if ($vssService) {
     Add-ComplianceCheck -Category "Backup and Recovery" `
         -Check "Volume Shadow Copy Service (VSS)" `
         -Requirement "SOC 2 CC5.1 - Point-in-Time Recovery" `
+        -NIST "CP-9" `
+        -CIS "11.2" `
+        -ISO27001 "A.12.3.1" `
+        -SOX "ITGC-08" `
         -Passed $vssAutomatic `
         -CurrentValue "Status: $($vssService.Status), StartType: $($vssService.StartType)" `
         -ExpectedValue "Manual or Automatic" `
@@ -133,6 +159,9 @@ try {
         Add-ComplianceCheck -Category "Backup and Recovery" `
             -Check "System Volume Shadow Copies" `
             -Requirement "SOC 2 CC5.1 - Recovery Points" `
+            -NIST "CP-9" `
+            -CIS "11.2" `
+            -ISO27001 "A.12.3.1" `
             -Passed $hasShadowCopies `
             -CurrentValue "$shadowCount shadow copies (most recent: $mostRecentDate)" `
             -ExpectedValue "Shadow copies available" `
@@ -147,6 +176,9 @@ try {
         Add-ComplianceCheck -Category "Backup and Recovery" `
             -Check "System Volume Shadow Copies" `
             -Requirement "SOC 2 CC5.1 - Recovery Points" `
+            -NIST "CP-9" `
+            -CIS "11.2" `
+            -ISO27001 "A.12.3.1" `
             -Passed $false `
             -CurrentValue "No shadow copies" `
             -ExpectedValue "Shadow copies available" `
@@ -168,6 +200,9 @@ try {
         Add-ComplianceCheck -Category "Backup and Recovery" `
             -Check "System Protection (Restore Points)" `
             -Requirement "SOC 2 CC5.1 - System Recovery" `
+            -NIST "CP-9" `
+            -CIS "11.2" `
+            -ISO27001 "A.12.3.1" `
             -Passed $true `
             -CurrentValue "System restore points available" `
             -ExpectedValue "System Protection enabled" `
@@ -178,6 +213,9 @@ try {
         Add-ComplianceCheck -Category "Backup and Recovery" `
             -Check "System Protection (Restore Points)" `
             -Requirement "SOC 2 CC5.1 - System Recovery" `
+            -NIST "CP-9" `
+            -CIS "11.2" `
+            -ISO27001 "A.12.3.1" `
             -Passed $false `
             -CurrentValue "No restore points available" `
             -ExpectedValue "System Protection enabled" `
@@ -204,6 +242,11 @@ try {
         Add-ComplianceCheck -Category "Backup and Recovery" `
             -Check "Recent Backup Completion" `
             -Requirement "HIPAA § 164.308(a)(7)(ii)(A) - Retrievable Backup" `
+            -NIST "CP-9, CP-9(1)" `
+            -CIS "11.1" `
+            -ISO27001 "A.12.3.1" `
+            -PCIDSS "12.10.1" `
+            -SOX "ITGC-08" `
             -Passed $backupRecent `
             -CurrentValue "Last backup: $($lastBackup.ToString('yyyy-MM-dd HH:mm')) ($([Math]::Round($daysSinceBackup.TotalDays, 1)) days ago)" `
             -ExpectedValue "Backup within last 7 days" `
@@ -243,6 +286,9 @@ try {
         Add-ComplianceCheck -Category "Backup and Recovery" `
             -Check "BitLocker Recovery Key Backup" `
             -Requirement "HIPAA § 164.308(a)(7)(ii)(D) - Encryption Key Backup" `
+            -NIST "CP-9, SC-12" `
+            -CIS "11.3" `
+            -ISO27001 "A.10.1.2" `
             -Passed $allHaveRecovery `
             -CurrentValue "$volumesWithRecovery of $totalEncrypted encrypted volume(s) have recovery protectors" `
             -ExpectedValue "All encrypted volumes have recovery keys" `
@@ -271,6 +317,9 @@ if ($fileHistoryService) {
     Add-ComplianceCheck -Category "Backup and Recovery" `
         -Check "File History Service" `
         -Requirement "SOC 2 CC5.1 - User Data Backup" `
+        -NIST "CP-9" `
+        -CIS "11.1" `
+        -ISO27001 "A.12.3.1" `
         -Passed $fhAutomatic `
         -CurrentValue "Status: $($fileHistoryService.Status), StartType: $($fileHistoryService.StartType)" `
         -ExpectedValue "Manual or Automatic" `

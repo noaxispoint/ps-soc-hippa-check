@@ -15,6 +15,11 @@ $RequiredAuditPolicies = @(
         Expected = "Success and Failure"
         Requirement = "HIPAA § 164.312(b) - Audit Controls"
         Category = "Account Logon"
+        NIST = "AU-2, AU-12, AC-7"
+        CIS = "8.2, 8.5"
+        ISO27001 = "A.9.4.2, A.12.4.1"
+        PCIDSS = "10.2.4, 10.2.5"
+        SOX = "ITGC-05"
     },
     @{
         Subcategory = "Kerberos Authentication Service"
@@ -35,6 +40,11 @@ $RequiredAuditPolicies = @(
         Expected = "Success and Failure"
         Requirement = "SOC 2 CC6.2 - System Credentials / HIPAA § 164.308(a)(3)(ii)(A)"
         Category = "Account Management"
+        NIST = "AC-2(4), AU-2"
+        CIS = "5.1, 5.2"
+        ISO27001 = "A.9.2.1, A.9.2.5"
+        PCIDSS = "8.1.1, 8.1.4, 10.2.5"
+        SOX = "ITGC-01"
     },
     @{
         Subcategory = "Computer Account Management"
@@ -47,6 +57,11 @@ $RequiredAuditPolicies = @(
         Expected = "Success and Failure"
         Requirement = "SOC 2 CC6.3 - Access Removal / HIPAA § 164.308(a)(4)(ii)(C)"
         Category = "Account Management"
+        NIST = "AC-2(4), AU-2"
+        CIS = "5.4, 6.8"
+        ISO27001 = "A.9.2.5, A.9.4.4"
+        PCIDSS = "7.2.2, 10.2.5"
+        SOX = "ITGC-01"
     },
     @{
         Subcategory = "Distribution Group Management"
@@ -73,6 +88,11 @@ $RequiredAuditPolicies = @(
         Expected = "Success and Failure"
         Requirement = "HIPAA § 164.308(a)(5)(ii)(C) - Log-in Monitoring"
         Category = "Logon/Logoff"
+        NIST = "AU-2, AC-7, AU-14"
+        CIS = "8.2, 8.3"
+        ISO27001 = "A.9.4.2, A.12.4.1"
+        PCIDSS = "10.2.4, 10.2.5"
+        SOX = "ITGC-05"
     },
     @{
         Subcategory = "Logoff"
@@ -99,6 +119,11 @@ $RequiredAuditPolicies = @(
         Expected = "Success and Failure"
         Requirement = "HIPAA § 164.312(b) - Audit Controls (File Access)"
         Category = "Object Access"
+        NIST = "AU-2, AU-12"
+        CIS = "8.5"
+        ISO27001 = "A.12.4.1, A.12.4.3"
+        PCIDSS = "10.2.1, 10.2.7"
+        SOX = "ITGC-04"
     },
     @{
         Subcategory = "Registry"
@@ -125,6 +150,11 @@ $RequiredAuditPolicies = @(
         Expected = "Success and Failure"
         Requirement = "SOC 2 CC7.3 - Evaluation of Security Events"
         Category = "Policy Change"
+        NIST = "AU-2, AU-6, CM-3"
+        CIS = "8.11"
+        ISO27001 = "A.12.4.1, A.12.4.4"
+        PCIDSS = "10.2.7, 10.5.5"
+        SOX = "ITGC-03"
     },
     @{
         Subcategory = "Authentication Policy Change"
@@ -192,6 +222,11 @@ foreach ($policy in $RequiredAuditPolicies) {
         Add-ComplianceCheck -Category "Audit Policy - $($policy.Category)" `
             -Check $policy.Subcategory `
             -Requirement $policy.Requirement `
+            -NIST $policy.NIST `
+            -CIS $policy.CIS `
+            -ISO27001 $policy.ISO27001 `
+            -PCIDSS $policy.PCIDSS `
+            -SOX $policy.SOX `
             -Passed $passed `
             -CurrentValue $currentSetting `
             -ExpectedValue $policy.Expected `
@@ -206,6 +241,11 @@ foreach ($policy in $RequiredAuditPolicies) {
         Add-ComplianceCheck -Category "Audit Policy - $($policy.Category)" `
             -Check $policy.Subcategory `
             -Requirement $policy.Requirement `
+            -NIST $policy.NIST `
+            -CIS $policy.CIS `
+            -ISO27001 $policy.ISO27001 `
+            -PCIDSS $policy.PCIDSS `
+            -SOX $policy.SOX `
             -Passed $false `
             -CurrentValue "Not Found" `
             -ExpectedValue $policy.Expected `

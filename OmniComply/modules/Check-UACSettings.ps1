@@ -17,6 +17,10 @@ if ($uacEnabled) {
     Add-ComplianceCheck -Category "User Account Control" `
         -Check "UAC Enabled" `
         -Requirement "SOC 2 CC6.1 / HIPAA § 164.312(a)(1)" `
+        -NIST "AC-6(2)" `
+        -CIS "5.4" `
+        -ISO27001 "A.9.2.3" `
+        -PCIDSS "7.1.2" `
         -Passed $isEnabled `
         -CurrentValue $(if ($isEnabled) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `
@@ -47,6 +51,9 @@ if ($consentPrompt) {
     Add-ComplianceCheck -Category "User Account Control" `
         -Check "UAC Prompt Level for Administrators" `
         -Requirement "SOC 2 CC6.1 - Least Privilege" `
+        -NIST "AC-6(2)" `
+        -CIS "5.4" `
+        -ISO27001 "A.9.2.3" `
         -Passed $properLevel `
         -CurrentValue $levelText `
         -ExpectedValue "Prompt for consent on secure desktop" `
@@ -68,6 +75,9 @@ if ($secureDesktop) {
     Add-ComplianceCheck -Category "User Account Control" `
         -Check "UAC Prompt on Secure Desktop" `
         -Requirement "SOC 2 CC6.1 - Credential Protection" `
+        -NIST "AC-6(2)" `
+        -CIS "5.4" `
+        -ISO27001 "A.9.2.3" `
         -Passed $isSecure `
         -CurrentValue $(if ($isSecure) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `

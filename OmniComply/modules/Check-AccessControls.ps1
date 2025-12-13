@@ -19,6 +19,11 @@ $minLengthGood = [int]$minPasswordLength -ge 12
 Add-ComplianceCheck -Category "Access Controls" `
     -Check "Minimum Password Length" `
     -Requirement "SOC 2 CC6.1 / HIPAA § 164.308(a)(5)(ii)(D)" `
+    -NIST "IA-5(1)" `
+    -CIS "5.2" `
+    -ISO27001 "A.9.4.3" `
+    -PCIDSS "8.3.6" `
+    -SOX "ITGC-02" `
     -Passed $minLengthGood `
     -CurrentValue "$minPasswordLength characters" `
     -ExpectedValue "12 or more characters" `
@@ -37,6 +42,11 @@ $complexityGood = $complexityEnabled -eq "1"
 Add-ComplianceCheck -Category "Access Controls" `
     -Check "Password Complexity Requirements" `
     -Requirement "SOC 2 CC6.1 / HIPAA § 164.308(a)(5)(ii)(D)" `
+    -NIST "IA-5(1)" `
+    -CIS "5.2" `
+    -ISO27001 "A.9.4.3" `
+    -PCIDSS "8.3.6" `
+    -SOX "ITGC-02" `
     -Passed $complexityGood `
     -CurrentValue $(if ($complexityGood) { "Enabled" } else { "Disabled" }) `
     -ExpectedValue "Enabled" `
@@ -55,6 +65,11 @@ $historyGood = [int]$passwordHistory -ge 12
 Add-ComplianceCheck -Category "Access Controls" `
     -Check "Password History" `
     -Requirement "SOC 2 CC6.1 / HIPAA § 164.308(a)(5)(ii)(D)" `
+    -NIST "IA-5(1)" `
+    -CIS "5.2" `
+    -ISO27001 "A.9.4.3" `
+    -PCIDSS "8.3.9" `
+    -SOX "ITGC-02" `
     -Passed $historyGood `
     -CurrentValue "$passwordHistory passwords remembered" `
     -ExpectedValue "12 or more passwords" `
@@ -73,6 +88,11 @@ $lockoutGood = [int]$lockoutThreshold -gt 0 -and [int]$lockoutThreshold -le 10
 Add-ComplianceCheck -Category "Access Controls" `
     -Check "Account Lockout Threshold" `
     -Requirement "SOC 2 CC6.1 / HIPAA § 164.308(a)(5)(ii)(C)" `
+    -NIST "AC-7" `
+    -CIS "6.2" `
+    -ISO27001 "A.9.4.2" `
+    -PCIDSS "8.3.4" `
+    -SOX "ITGC-02" `
     -Passed $lockoutGood `
     -CurrentValue "$lockoutThreshold invalid attempts" `
     -ExpectedValue "5-10 invalid attempts" `
@@ -90,6 +110,10 @@ $guestDisabled = (Get-LocalUser -Name "Guest" -ErrorAction SilentlyContinue).Ena
 Add-ComplianceCheck -Category "Access Controls" `
     -Check "Guest Account Disabled" `
     -Requirement "SOC 2 CC6.1 / HIPAA § 164.312(a)(2)(i)" `
+    -NIST "AC-2" `
+    -CIS "5.1" `
+    -ISO27001 "A.9.2.1" `
+    -PCIDSS "8.1.1" `
     -Passed $guestDisabled `
     -CurrentValue $(if ($guestDisabled) { "Disabled" } else { "Enabled" }) `
     -ExpectedValue "Disabled" `

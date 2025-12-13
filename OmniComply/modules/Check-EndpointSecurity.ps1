@@ -18,6 +18,10 @@ if ($defenderStatus) {
     Add-ComplianceCheck -Category "Endpoint Security" `
         -Check "Real-Time Protection" `
         -Requirement "SOC 2 CC7.1 / HIPAA § 164.308(a)(5)(ii)(B)" `
+        -NIST "SI-3(1)" `
+        -CIS "10.1" `
+        -ISO27001 "A.12.2.1" `
+        -PCIDSS "5.1.2" `
         -Passed $rtpEnabled `
         -CurrentValue $(if ($rtpEnabled) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `
@@ -36,6 +40,10 @@ if ($defenderStatus) {
     Add-ComplianceCheck -Category "Endpoint Security" `
         -Check "Antivirus Signature Age" `
         -Requirement "SOC 2 CC7.1 / HIPAA § 164.308(a)(5)(ii)(B)" `
+        -NIST "SI-3" `
+        -CIS "10.1" `
+        -ISO27001 "A.12.2.1" `
+        -PCIDSS "5.1, 5.2" `
         -Passed $signaturesRecent `
         -CurrentValue "$([Math]::Round($signaturesAge.TotalDays, 1)) days old" `
         -ExpectedValue "Updated within 7 days" `
@@ -58,6 +66,10 @@ if ($firewallProfiles) {
         Add-ComplianceCheck -Category "Endpoint Security" `
             -Check "Firewall - $($profile.Name) Profile" `
             -Requirement "SOC 2 CC6.1 / HIPAA § 164.312(c)(1)" `
+            -NIST "SC-7" `
+            -CIS "13.3" `
+            -ISO27001 "A.13.1.1" `
+            -PCIDSS "1.1, 1.2" `
             -Passed $enabled `
             -CurrentValue $(if ($enabled) { "Enabled" } else { "Disabled" }) `
             -ExpectedValue "Enabled" `
