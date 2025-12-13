@@ -5,7 +5,7 @@
     Rapid validation of critical logging and security requirements for fast assessment.
     This script checks the most important controls that are frequently out of compliance.
 .NOTES
-    Version: 1.0.0
+    Version: 1.1.0
     Author: Compliance Automation Team
     Requires: PowerShell 5.1+, Administrator privileges
 .EXAMPLE
@@ -22,6 +22,14 @@ Write-Host "  Quick SOC 2 / HIPAA Compliance Check" -ForegroundColor Cyan
 Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Computer: $env:COMPUTERNAME" -ForegroundColor White
+
+# Detect ARM architecture
+$cpuArch = (Get-CimInstance Win32_Processor).Architecture
+if ($cpuArch -eq 5 -or $cpuArch -eq 12) {
+    $archName = if ($cpuArch -eq 12) { "ARM64" } else { "ARM" }
+    Write-Host "Architecture: $archName (some checks may behave differently)" -ForegroundColor Yellow
+}
+
 Write-Host "Date: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')" -ForegroundColor White
 Write-Host ""
 

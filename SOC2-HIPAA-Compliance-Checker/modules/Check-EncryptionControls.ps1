@@ -80,18 +80,33 @@ if ($tpm) {
 }
 
 # Check for secure boot
-$secureBootEnabled = Confirm-SecureBootUEFI -ErrorAction SilentlyContinue
+$cpuArch = (Get-CimInstance Win32_Processor).Architecture
+$isARM = ($cpuArch -eq 5 -or $cpuArch -eq 12)
+
+try {
+    $secureBootEnabled = Confirm-SecureBootUEFI -ErrorAction Stop
+    $secureBootStatus = "Enabled"
+} catch {
+    $secureBootEnabled = $false
+    if ($isARM) {
+        $secureBootStatus = "Cannot detect on ARM (firmware may vary)"
+    } else {
+        $secureBootStatus = "Disabled or not supported"
+    }
+}
 
 Add-ComplianceCheck -Category "Encryption Controls" `
     -Check "Secure Boot" `
     -Requirement "SOC 2 CC6.1 - Boot Integrity" `
     -Passed $secureBootEnabled `
-    -CurrentValue $(if ($secureBootEnabled) { "Enabled" } else { "Disabled or not supported" }) `
+    -CurrentValue $secureBootStatus `
     -ExpectedValue "Enabled" `
-    -Remediation "Enable Secure Boot in UEFI/BIOS settings"
+    -Remediation $(if ($isARM) { "Enable Secure Boot in device firmware settings (check manufacturer documentation)" } else { "Enable Secure Boot in UEFI/BIOS settings" })
 
 if ($secureBootEnabled) {
     Write-Host "  [PASS] Secure Boot is enabled" -ForegroundColor Green
+} elseif ($isARM) {
+    Write-Host "  [WARN] Secure Boot detection not supported on this ARM device" -ForegroundColor Yellow
 } else {
     Write-Host "  [WARN] Secure Boot is not enabled or not supported" -ForegroundColor Yellow
 }

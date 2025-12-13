@@ -18,6 +18,42 @@ A comprehensive PowerShell-based compliance validation toolkit for Windows 11 la
 - Administrator privileges
 - Execution policy allowing script execution
 
+## Platform Compatibility
+
+### x64 (Intel/AMD) Architecture
+✅ **Fully Supported** - All checks and features work as expected on x64 Windows systems.
+
+### ARM64 Architecture
+⚠️ **Supported with Limitations** - The toolkit has been tested and enhanced for ARM64 Windows devices (Surface Pro X, Snapdragon-based PCs), with the following considerations:
+
+**What Works:**
+- ✅ All PowerShell cmdlets and core functionality
+- ✅ Windows Defender checks
+- ✅ Firewall and network security validation
+- ✅ BitLocker encryption checks (if supported by device)
+- ✅ Audit policy configuration (using ARM64-native tools)
+- ✅ Event log analysis
+- ✅ Password policy checks
+- ✅ Registry-based security settings
+
+**Known Limitations:**
+- ⚠️ **Secure Boot Detection**: May not work on all ARM devices due to varying firmware implementations. The script will detect this and provide an appropriate warning rather than failing the check.
+- ⚠️ **Native Tools**: Commands like `auditpol.exe`, `secedit.exe`, and `wevtutil.exe` should be ARM64-native on Windows 11 ARM, but performance may vary on older ARM devices using x64 emulation.
+- ⚠️ **TPM Support**: Some ARM devices may have different TPM implementations or lack TPM entirely.
+
+**ARM Detection:**
+The scripts automatically detect ARM architecture and:
+- Display architecture information in the output
+- Provide ARM-specific warnings where applicable
+- Adjust remediation guidance for ARM-specific firmware settings
+- Handle Secure Boot checks gracefully on unsupported devices
+
+**Recommendations for ARM Deployment:**
+1. Test thoroughly on your specific ARM device model
+2. Review Secure Boot results manually if detection fails
+3. Verify that native Windows tools are ARM64 versions (check in Task Manager)
+4. Consider manufacturer-specific firmware documentation for UEFI/Secure Boot settings
+
 ## Project Structure
 
 ```
@@ -348,6 +384,16 @@ For issues, questions, or suggestions:
 - Check existing issues for solutions
 
 ## Changelog
+
+### Version 1.1.0 (2024-12-12)
+- **ARM64 Compatibility**: Added full support for Windows 11 on ARM devices
+  - Automatic ARM architecture detection and warnings
+  - ARM-specific handling for Secure Boot checks
+  - Enhanced error handling for ARM firmware variations
+  - Architecture display in all script outputs
+  - Updated documentation with ARM compatibility notes
+- Improved error handling for platform-specific features
+- Enhanced remediation guidance for different architectures
 
 ### Version 1.0.0 (2024-12-11)
 - Initial release

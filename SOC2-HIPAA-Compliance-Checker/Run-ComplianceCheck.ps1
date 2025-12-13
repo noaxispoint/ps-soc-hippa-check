@@ -5,7 +5,7 @@
     Comprehensive audit of logging and security configuration against SOC 2 and HIPAA requirements.
     This is the main entry point that orchestrates all individual check modules.
 .NOTES
-    Version: 1.0.0
+    Version: 1.1.0
     Author: Compliance Automation Team
     Requires: PowerShell 5.1+, Administrator privileges
 .EXAMPLE
@@ -39,7 +39,7 @@ $script:ComplianceResults = @{
     Checks = @()
     Timestamp = Get-Date
     ComputerName = $env:COMPUTERNAME
-    ScriptVersion = "1.0.0"
+    ScriptVersion = "1.1.0"
     WindowsVersion = (Get-CimInstance Win32_OperatingSystem).Caption
     WindowsBuild = (Get-CimInstance Win32_OperatingSystem).BuildNumber
 }
@@ -122,6 +122,29 @@ Clear-Host
 Write-Header "SOC 2 / HIPAA COMPLIANCE CHECKER v$($script:ComplianceResults.ScriptVersion)"
 Write-Host "Computer: $env:COMPUTERNAME" -ForegroundColor White
 Write-Host "OS: $($script:ComplianceResults.WindowsVersion) (Build $($script:ComplianceResults.WindowsBuild))" -ForegroundColor White
+
+# Detect architecture
+$cpuArch = (Get-CimInstance Win32_Processor).Architecture
+$archName = switch ($cpuArch) {
+    0 { "x86 (32-bit)" }
+    5 { "ARM (32-bit)" }
+    9 { "x64 (64-bit)" }
+    12 { "ARM64 (64-bit)" }
+    default { "Unknown ($cpuArch)" }
+}
+Write-Host "Architecture: $archName" -ForegroundColor White
+
+# ARM compatibility warning
+if ($cpuArch -eq 5 -or $cpuArch -eq 12) {
+    Write-Host ""
+    Write-Host "⚠ ARM ARCHITECTURE DETECTED" -ForegroundColor Yellow
+    Write-Host "  Some checks may behave differently on ARM devices:" -ForegroundColor Yellow
+    Write-Host "  • Secure Boot detection may not work on all ARM devices" -ForegroundColor Gray
+    Write-Host "  • Native system tools (auditpol, secedit) should be ARM-native" -ForegroundColor Gray
+    Write-Host "  • Performance may vary on emulated components" -ForegroundColor Gray
+    Write-Host ""
+}
+
 Write-Host "Date: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')" -ForegroundColor White
 Write-Host "User: $env:USERNAME" -ForegroundColor White
 
