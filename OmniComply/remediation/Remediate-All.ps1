@@ -16,7 +16,9 @@ Write-Host ""
 Write-Host "WARNING: This will make significant changes to:" -ForegroundColor Yellow
 Write-Host "  • Audit policies" -ForegroundColor Yellow
 Write-Host "  • Event log sizes" -ForegroundColor Yellow
-Write-Host "  • Security settings" -ForegroundColor Yellow
+Write-Host "  • Password policies" -ForegroundColor Yellow
+Write-Host "  • Network security settings" -ForegroundColor Yellow
+Write-Host "  • Windows Defender configuration" -ForegroundColor Yellow
 Write-Host ""
 Write-Host "It is STRONGLY recommended to:" -ForegroundColor Yellow
 Write-Host "  1. Review individual remediation scripts first" -ForegroundColor Yellow
@@ -37,12 +39,32 @@ Write-Host ""
 # Run individual remediation scripts
 $scriptPath = $PSScriptRoot
 
+Write-Host "Running remediation scripts..." -ForegroundColor Cyan
+Write-Host ""
+
 if (Test-Path "$scriptPath\Remediate-AuditPolicies.ps1") {
+    Write-Host "1. Audit Policies" -ForegroundColor White
     & "$scriptPath\Remediate-AuditPolicies.ps1"
 }
 
 if (Test-Path "$scriptPath\Remediate-EventLogs.ps1") {
+    Write-Host "2. Event Logs" -ForegroundColor White
     & "$scriptPath\Remediate-EventLogs.ps1"
+}
+
+if (Test-Path "$scriptPath\Remediate-PasswordPolicies.ps1") {
+    Write-Host "3. Password Policies" -ForegroundColor White
+    & "$scriptPath\Remediate-PasswordPolicies.ps1"
+}
+
+if (Test-Path "$scriptPath\Remediate-NetworkSecurity.ps1") {
+    Write-Host "4. Network Security" -ForegroundColor White
+    & "$scriptPath\Remediate-NetworkSecurity.ps1"
+}
+
+if (Test-Path "$scriptPath\Remediate-WindowsDefender.ps1") {
+    Write-Host "5. Windows Defender & Firewall" -ForegroundColor White
+    & "$scriptPath\Remediate-WindowsDefender.ps1"
 }
 
 Write-Host ""
