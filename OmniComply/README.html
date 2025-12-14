@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniComply Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+        }
+        h3 {
+            color: #546e7a;
+            margin-top: 25px;
+        }
+        h4 {
+            color: #607d8b;
+            margin-top: 20px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #c7254e;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid #3498db;
+        }
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        ul, ol {
+            padding-left: 30px;
+            margin: 15px 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        p {
+            margin: 15px 0;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #ecf0f1;
+            margin: 30px 0;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+<h1>OmniComply</h1>
+<p><strong>Universal Multi-Framework Security Compliance Validator for Windows</strong></p>
+<p><a href="https://img.shields.io/badge/PowerShell-5.1%2B-blue">![PowerShell</a>](https://github.com/PowerShell/PowerShell)</p>
+<p><a href="https://img.shields.io/badge/Platform-Windows%2010%2F11%20|%20Server%202019%2F2022-brightgreen">![Platform</a>](https://www.microsoft.com/windows)</p>
+<p><a href="https://img.shields.io/badge/Architecture-x64%20|%20ARM64-orange">![Architecture</a>](https://docs.microsoft.com/windows)</p>
+<p><a href="https://img.shields.io/badge/License-MIT-green">![License</a>](LICENSE)</p>
+<p>![](https://img.shields.io/badge/Frameworks-7-blueviolet)</p>
+<p>![](https://img.shields.io/badge/Modules-33-blue)</p>
+<p>![](https://img.shields.io/badge/Checks-280%2B-success)</p>
+<hr>
+<h2>🎯 Overview</h2>
+<p><strong>OmniComply</strong> is a comprehensive PowerShell-based security and compliance validation tool that audits Windows systems against <strong>multiple compliance frameworks simultaneously</strong>. Instead of running separate tools for each framework, OmniComply provides a unified assessment across:</p>
+<ul>
+<li><strong>SOC 2</strong> Trust Services Criteria</li>
+<li><strong>HIPAA</strong> Security Rule</li>
+<li><strong>NIST 800-53</strong> Rev. 5</li>
+<li><strong>CIS Controls</strong> v8</li>
+<li><strong>ISO 27001:2013</strong></li>
+<li><strong>PCI-DSS</strong> v4.0</li>
+<li><strong>SOX</strong> IT General Controls (ITGC)</li>
+</ul>
+<p>With <strong>280+ technical compliance checks</strong> across <strong>33 security domains</strong>, OmniComply helps organizations demonstrate multi-framework compliance with a single tool.</p>
+<hr>
+<h2>✨ Key Features</h2>
+<ul>
+<li>✅ <strong>Multi-Framework Compliance</strong> - Single scan generates evidence for 7+ frameworks</li>
+<li>✅ <strong>Comprehensive Coverage</strong> - 280+ checks across 33 security domains</li>
+<li>✅ <strong>Automated Remediation Guidance</strong> - PowerShell commands to fix issues</li>
+<li>✅ <strong>Multiple Report Formats</strong> - JSON, CSV, and HTML reports</li>
+<li>✅ <strong>ARM64 Compatible</strong> - Full support for Windows on ARM devices</li>
+<li>✅ <strong>No Agent Required</strong> - Pure PowerShell, no installation needed</li>
+<li>✅ <strong>Offline Capable</strong> - No internet connection required</li>
+<li>✅ <strong>Enterprise Ready</strong> - Suitable for SIEM integration and automation</li>
+</ul>
+<hr>
+<h2>🚀 Quick Start</h2>
+<h3>Prerequisites</h3>
+<ul>
+<li>Windows 10/11 or Windows Server 2019/2022</li>
+<li>PowerShell 5.1 or later</li>
+<li>Administrator privileges</li>
+</ul>
+<h3>Basic Usage</h3>
+<ol>
+<li><strong>Clone or download this repository:</strong></li>
+<p>   ```powershell</p>
+<p>   git clone https://github.com/yourusername/omnicomply.git</p>
+<p>   cd omnicomply/OmniComply</p>
+<p>   ```</p>
+</ul>
+<ol>
+<li><strong>Run the complete compliance scan:</strong></li>
+<p>   ```powershell</p>
+<p>   .\Invoke-OmniComply.ps1</p>
+<p>   ```</p>
+</ul>
+<ol>
+<li><strong>Run a quick check (critical controls only):</strong></li>
+<p>   ```powershell</p>
+<p>   .\Quick-Check.ps1</p>
+<p>   ```</p>
+</ul>
+<ol>
+<li><strong>View generated reports:</strong></li>
+<p>   Reports are saved to <code>.\reports\</code> by default in JSON, CSV, and HTML formats.</p>
+</ul>
+<hr>
+<h2>📊 Compliance Frameworks Covered</h2>
+<h3>SOC 2 Trust Services Criteria</h3>
+<ul>
+<li><strong>CC5.1</strong> - COSO Internal Control Monitoring</li>
+<li><strong>CC6.1</strong> - Logical Access Controls</li>
+<li><strong>CC6.2</strong> - Access Credentials</li>
+<li><strong>CC6.3</strong> - Access Removal</li>
+<li><strong>CC6.7</strong> - Authentication & Authorization</li>
+<li><strong>CC7.1</strong> - Security Incident Detection</li>
+<li><strong>CC7.2</strong> - Security Event Monitoring</li>
+<li><strong>CC7.3</strong> - Security Event Evaluation</li>
+<li><strong>CC8.1</strong> - Change Management</li>
+</ul>
+<h3>HIPAA Security Rule</h3>
+<ul>
+<li><strong>§ 164.308(a)</strong> - Administrative Safeguards</li>
+<li><strong>§ 164.310</strong> - Physical Safeguards</li>
+<li><strong>§ 164.312</strong> - Technical Safeguards</li>
+<li><strong>§ 164.316</strong> - Audit Controls</li>
+</ul>
+<h3>NIST 800-53 Rev. 5</h3>
+<ul>
+<li><strong>AC</strong> - Access Control (18 controls)</li>
+<li><strong>AU</strong> - Audit and Accountability (15 controls)</li>
+<li><strong>CM</strong> - Configuration Management (12 controls)</li>
+<li><strong>CP</strong> - Contingency Planning (8 controls)</li>
+<li><strong>IA</strong> - Identification and Authentication (10 controls)</li>
+<li><strong>MP</strong> - Media Protection (6 controls)</li>
+<li><strong>SC</strong> - System and Communications Protection (20 controls)</li>
+<li><strong>SI</strong> - System and Information Integrity (14 controls)</li>
+</ul>
+<h3>CIS Controls v8</h3>
+<ul>
+<li><strong>IG1</strong> - Basic Cyber Hygiene (90% coverage)</li>
+<li><strong>IG2</strong> - Intermediate Security Controls (85% coverage)</li>
+<li><strong>IG3</strong> - Advanced Security Controls (70% coverage)</li>
+</ul>
+<h3>ISO 27001:2013 Annex A</h3>
+<ul>
+<li><strong>A.9</strong> - Access Control (11 controls)</li>
+<li><strong>A.10</strong> - Cryptography (5 controls)</li>
+<li><strong>A.12</strong> - Operations Security (15 controls)</li>
+<li><strong>A.13</strong> - Communications Security (7 controls)</li>
+</ul>
+<h3>PCI-DSS v4.0</h3>
+<ul>
+<li><strong>Req 1</strong> - Firewalls & Network Security</li>
+<li><strong>Req 2</strong> - Secure Configurations</li>
+<li><strong>Req 3</strong> - Protect Cardholder Data</li>
+<li><strong>Req 5</strong> - Anti-Malware</li>
+<li><strong>Req 7</strong> - Access Control</li>
+<li><strong>Req 8</strong> - Authentication</li>
+<li><strong>Req 10</strong> - Logging & Monitoring</li>
+<li><strong>Req 11</strong> - Security Testing</li>
+</ul>
+<h3>SOX IT General Controls (ITGC)</h3>
+<ul>
+<li><strong>ITGC-01</strong> - User Access Management</li>
+<li><strong>ITGC-02</strong> - Password & Authentication</li>
+<li><strong>ITGC-03</strong> - Change Management</li>
+<li><strong>ITGC-04</strong> - Data Integrity</li>
+<li><strong>ITGC-05</strong> - Security Event Logging</li>
+<li><strong>ITGC-06</strong> - Patch Management</li>
+<li><strong>ITGC-07</strong> - Data Encryption</li>
+<li><strong>ITGC-08</strong> - Backup & Recovery</li>
+</ul>
+<hr>
+<h2>📁 Compliance Modules (33 Total)</h2>
+<h3>Core Security Baseline</h3>
+<ol>
+<li><strong>Audit Policies</strong> - Advanced audit policy configuration</li>
+<li><strong>Event Log Configuration</strong> - Log size, retention, and protection</li>
+<li><strong>File System Auditing</strong> - NTFS permission auditing</li>
+<li><strong>Logging Services</strong> - Windows Event Log service</li>
+<li><strong>Security Settings</strong> - Password policies, account lockout</li>
+<li><strong>Access Controls</strong> - User rights assignments</li>
+<li><strong>Encryption Controls</strong> - BitLocker, TPM, Secure Boot</li>
+<li><strong>Endpoint Security</strong> - Windows Defender, real-time protection</li>
+<li><strong>Screen Lock Settings</strong> - Inactivity timeouts</li>
+<li><strong>Update Compliance</strong> - Windows Update status</li>
+<li><strong>Network Security</strong> - Firewall, RDP, SMB settings</li>
+</ul>
+<h3>Advanced Security</h3>
+<ol>
+<li><strong>UAC Settings</strong> - User Account Control</li>
+<li><strong>Administrator Accounts</strong> - Admin group membership</li>
+<li><strong>Advanced Network Security</strong> - LLMNR, NetBIOS, RDP NLA</li>
+<li><strong>Time Synchronization</strong> - NTP configuration</li>
+<li><strong>Advanced Defender</strong> - ASR rules, Controlled Folder Access</li>
+<li><strong>Virtualization-Based Security</strong> - VBS, HVCI, Core Isolation</li>
+<li><strong>Credential Guard</strong> - Credential theft protection</li>
+<li><strong>Application Control</strong> - AppLocker, WDAC</li>
+<li><strong>Removable Storage</strong> - USB controls, BitLocker To Go</li>
+<li><strong>Interactive Logon</strong> - Banners, session policies</li>
+</ul>
+<h3>Enterprise & Compliance</h3>
+<ol>
+<li><strong>Certificate Management</strong> - Certificate expiration, validation</li>
+<li><strong>DNS Security</strong> - DNS over HTTPS, secure DNS</li>
+<li><strong>Shared Resources</strong> - SMB shares, permissions</li>
+<li><strong>Browser Security</strong> - Edge, Internet Explorer settings</li>
+<li><strong>Backup & Recovery</strong> - Windows Backup, VSS, restore points</li>
+</ul>
+<h3>PCI-DSS Specific</h3>
+<ol>
+<li><strong>Network Segmentation</strong> - VLANs, firewall rules, IPsec</li>
+<li><strong>Database Security</strong> - SQL Server hardening</li>
+<li><strong>Vulnerability Management</strong> - Scanning, patch management</li>
+<li><strong>Data Retention & Destruction</strong> - Retention policies, secure deletion</li>
+</ul>
+<h3>SOX Specific</h3>
+<ol>
+<li><strong>Change Management</strong> - Change logging, approval tracking</li>
+<li><strong>Segregation of Duties</strong> - Role conflicts, shared accounts</li>
+<li><strong>Data Integrity</strong> - Transaction logging, audit protection</li>
+</ul>
+<hr>
+<h2>📖 Usage Examples</h2>
+<h3>Standard Compliance Scan</h3>
+<pre><code class="language-powershell">.\Invoke-OmniComply.ps1</code></pre>
+<h3>Custom Report Directory</h3>
+<pre><code class="language-powershell">.\Invoke-OmniComply.ps1 -OutputDirectory &quot;C:\Compliance\Reports&quot;</code></pre>
+<h3>Console Output Only (No Reports)</h3>
+<pre><code class="language-powershell">.\Invoke-OmniComply.ps1 -SkipReportGeneration</code></pre>
+<h3>Quick Assessment (Critical Controls)</h3>
+<pre><code class="language-powershell">.\Quick-Check.ps1</code></pre>
+<hr>
+<h2>📄 Report Formats</h2>
+<p>OmniComply generates three report formats:</p>
+<h3>1. JSON Report</h3>
+<ul>
+<li><strong>Use case</strong>: SIEM integration, automation, API consumption</li>
+<li><strong>Contains</strong>: Full compliance data with framework mappings</li>
+<li><strong>Example</strong>: <code>OmniComply-Report-20251213-143022.json</code></li>
+</ul>
+<h3>2. CSV Report</h3>
+<ul>
+<li><strong>Use case</strong>: Spreadsheet analysis, filtering, pivot tables</li>
+<li><strong>Contains</strong>: All checks in tabular format</li>
+<li><strong>Example</strong>: <code>OmniComply-Report-20251213-143022.csv</code></li>
+</ul>
+<h3>3. HTML Report</h3>
+<ul>
+<li><strong>Use case</strong>: Executive reporting, audit evidence</li>
+<li><strong>Contains</strong>: Summary, failed checks, category breakdown</li>
+<li><strong>Example</strong>: <code>OmniComply-Report-20251213-143022.html</code></li>
+</ul>
+<hr>
+<h2>🏗️ Architecture</h2>
+<pre><code class="language-">OmniComply/
+├── Invoke-OmniComply.ps1      # Main orchestration script
+├── Quick-Check.ps1             # Rapid critical control validation
+├── modules/                    # Individual compliance check modules (33)
+│   ├── Check-AuditPolicies.ps1
+│   ├── Check-EncryptionControls.ps1
+│   ├── Check-NetworkSegmentation.ps1
+│   └── ...
+├── docs/                       # Documentation
+│   ├── COMPLIANCE-FRAMEWORK-MAPPINGS.md
+│   └── REMEDIATION.md
+├── remediation/                # Automated fix scripts
+└── reports/                    # Generated compliance reports</code></pre>
+<hr>
+<h2>🛠️ Remediation</h2>
+<p>Each failed check includes PowerShell remediation commands. Example:</p>
+<pre><code class="language-powershell"># Issue: BitLocker not enabled
+# Remediation:
+Enable-BitLocker -MountPoint 'C:' -EncryptionMethod XtsAes256 -RecoveryPasswordProtector</code></pre>
+<p>See <code>docs/REMEDIATION.md</code> for detailed remediation guidance.</p>
+<hr>
+<h2>🌐 Platform Compatibility</h2>
+<p>| Platform | Architecture | Status |</p>
+<p>|----------|-------------|--------|</p>
+<p>| Windows 10 | x64 | ✅ Fully Supported |</p>
+<p>| Windows 10 | ARM64 | ✅ Fully Supported* |</p>
+<p>| Windows 11 | x64 | ✅ Fully Supported |</p>
+<p>| Windows 11 | ARM64 | ✅ Fully Supported* |</p>
+<p>| Server 2019 | x64 | ✅ Fully Supported |</p>
+<p>| Server 2022 | x64 | ✅ Fully Supported |</p>
+<p>| Server 2022 | ARM64 | ✅ Fully Supported* |</p>
+<p>*ARM devices: Some checks (e.g., Secure Boot detection) may vary by device manufacturer.</p>
+<hr>
+<h2>🔒 Security Considerations</h2>
+<ul>
+<li><strong>Read-Only</strong>: OmniComply performs read-only checks and does not modify system configuration</li>
+<li><strong>No Telemetry</strong>: No data is sent externally</li>
+<li><strong>No Installation</strong>: Pure PowerShell scripts, no agent required</li>
+<li><strong>Audit Safe</strong>: All actions are logged in Windows Event Logs</li>
+<li><strong>Open Source</strong>: Full transparency - review the code yourself</li>
+</ul>
+<hr>
+<h2>📚 Documentation</h2>
+<ul>
+<li><strong><a href="docs/COMPLIANCE-FRAMEWORK-MAPPINGS.md">Compliance Framework Mappings</a></strong> - Detailed framework-to-control mappings</li>
+<li><strong><a href="docs/REMEDIATION.md">Remediation Guide</a></strong> - Fix guidance for common issues</li>
+</ul>
+<hr>
+<h2>📝 License</h2>
+<p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details.</p>
+<hr>
+<h2>⚠️ Disclaimer</h2>
+<p>OmniComply is a compliance assessment tool and does not guarantee compliance with any framework. Organizations should:</p>
+<ul>
+<li>Validate results with qualified compliance professionals</li>
+<li>Perform regular manual reviews</li>
+<li>Implement defense-in-depth security practices</li>
+<li>Maintain current compliance documentation</li>
+</ul>
+<p>Compliance is an ongoing process requiring people, processes, and technology.</p>
+<hr>
+<h2>🏆 Version History</h2>
+<h3>v1.4.0 (Current)</h3>
+<ul>
+<li><strong>New</strong>: Multi-framework support (NIST, CIS, ISO, PCI-DSS, SOX)</li>
+<li><strong>New</strong>: PCI-DSS specific modules (Network Segmentation, Database Security, Vulnerability Management, Data Retention)</li>
+<li><strong>New</strong>: SOX ITGC modules (Change Management, Segregation of Duties, Data Integrity)</li>
+<li><strong>Enhanced</strong>: All checks now mapped to 7 frameworks</li>
+<li><strong>Improved</strong>: ARM64 architecture detection and compatibility</li>
+<li><strong>Total</strong>: 33 modules, 280+ checks</li>
+</ul>
+<h3>v1.3.0</h3>
+<ul>
+<li><strong>New</strong>: Phase 3 modules (Certificates, DNS, Shared Resources, Browser, Backup)</li>
+<li><strong>Total</strong>: 26 modules, 230+ checks</li>
+</ul>
+<h3>v1.2.0</h3>
+<ul>
+<li><strong>New</strong>: Phase 1 & 2 modules (UAC, Admin Accounts, VBS, Credential Guard, etc.)</li>
+<li><strong>Enhanced</strong>: ARM compatibility warnings</li>
+<li><strong>Total</strong>: 21 modules, 180+ checks</li>
+</ul>
+<h3>v1.1.0</h3>
+<ul>
+<li><strong>New</strong>: ARM architecture detection</li>
+<li><strong>Fixed</strong>: UTF-8 BOM encoding issues</li>
+<li><strong>Total</strong>: 16 modules, 100+ checks</li>
+</ul>
+<h3>v1.0.0</h3>
+<ul>
+<li><strong>Initial</strong>: SOC 2 and HIPAA baseline modules</li>
+<li><strong>Total</strong>: 11 modules, 100+ checks</li>
+</ul>
+<hr>
+<p><strong>Made with ❤️ for the compliance community</strong></p>
+<p><em>Version 1.4.0 - December 2025</em></p>
+    </div>
+</body>
+</html>

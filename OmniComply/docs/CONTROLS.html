@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniComply Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+        }
+        h3 {
+            color: #546e7a;
+            margin-top: 25px;
+        }
+        h4 {
+            color: #607d8b;
+            margin-top: 20px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #c7254e;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid #3498db;
+        }
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        ul, ol {
+            padding-left: 30px;
+            margin: 15px 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        p {
+            margin: 15px 0;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #ecf0f1;
+            margin: 30px 0;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+<h1>SOC 2 and HIPAA Controls Reference</h1>
+<p>This document maps each compliance check in the tool to specific SOC 2 Trust Services Criteria and HIPAA Security Rule requirements.</p>
+<h2>SOC 2 Trust Services Criteria</h2>
+<h3>CC6 - Logical and Physical Access Controls</h3>
+<h4>CC6.1 - Logical Access Security</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Password length, complexity, history, age</li>
+<li>Account lockout threshold and duration</li>
+<li>Guest account disabled</li>
+<li>Privileged access monitoring (Special Logon auditing)</li>
+<li>BitLocker encryption</li>
+<li>TPM status</li>
+<li>Secure Boot</li>
+<li>Windows Firewall enabled</li>
+<li>SMBv1 disabled</li>
+<li>RDP security</li>
+</ul>
+<p><strong>Purpose:</strong> Implements logical access security software, infrastructure, and architectures over protected information assets.</p>
+<h4>CC6.2 - Prior to Issuing System Credentials</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>User Account Management auditing</li>
+<li>Computer Account Management auditing</li>
+<li>Credential Validation auditing</li>
+</ul>
+<p><strong>Purpose:</strong> Registers and authorizes new users before issuing system credentials.</p>
+<h4>CC6.3 - Removal of Access</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Security Group Management auditing</li>
+<li>Distribution Group Management auditing</li>
+<li>Application Group Management auditing</li>
+<li>Stale account detection (90+ days inactive)</li>
+</ul>
+<p><strong>Purpose:</strong> Removes system access when user access is no longer appropriate.</p>
+<h3>CC7 - System Operations</h3>
+<h4>CC7.1 - Detection of Security Events</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Windows Defender real-time protection</li>
+<li>Antivirus signature freshness</li>
+<li>Behavior monitoring</li>
+<li>Tamper protection</li>
+</ul>
+<p><strong>Purpose:</strong> Monitors for security events indicating malicious acts, natural disasters, and errors.</p>
+<h4>CC7.2 - System Monitoring</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>All audit policy configurations</li>
+<li>Event log sizes and activity</li>
+<li>Logging service health</li>
+<li>Registry auditing</li>
+<li>PowerShell logging</li>
+<li>Recent security scans</li>
+</ul>
+<p><strong>Purpose:</strong> Monitors system components and operations for anomalies.</p>
+<h4>CC7.3 - Evaluation of Security Events</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Audit Policy Change auditing</li>
+<li>Authentication Policy Change auditing</li>
+<li>Authorization Policy Change auditing</li>
+</ul>
+<p><strong>Purpose:</strong> Evaluates security events to determine if they represent failures to meet objectives.</p>
+<h3>CC8 - Change Management</h3>
+<h4>CC8.1 - Change Management Controls</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Windows Update service status</li>
+<li>Pending critical updates</li>
+<li>Recent update installation</li>
+<li>Supported Windows version</li>
+<li>Update configuration</li>
+</ul>
+<p><strong>Purpose:</strong> Manages changes to information assets through formal change management processes.</p>
+<h2>HIPAA Security Rule</h2>
+<h3>Administrative Safeguards (§ 164.308)</h3>
+<h4>§ 164.308(a)(1)(ii)(D) - Information System Activity Review</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Event log sizes and retention</li>
+<li>Security log activity</li>
+<li>Logging service health</li>
+</ul>
+<p><strong>Purpose:</strong> Implement procedures to regularly review records of information system activity.</p>
+<h4>§ 164.308(a)(3)(ii)(A) - Authorization and/or Supervision</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>User Account Management auditing</li>
+<li>Authorization Policy Change auditing</li>
+</ul>
+<p><strong>Purpose:</strong> Implement procedures for authorization and supervision of workforce members working with ePHI.</p>
+<h4>§ 164.308(a)(4)(ii)(C) - Access Authorization</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Security Group Management auditing</li>
+<li>Access control policies</li>
+</ul>
+<p><strong>Purpose:</strong> Implement policies for granting access to ePHI.</p>
+<h4>§ 164.308(a)(5) - Security Awareness and Training</h4>
+<p>##### (ii)(B) - Protection from Malicious Software</p>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Windows Defender status</li>
+<li>Antivirus signatures</li>
+<li>Real-time protection</li>
+<li>Update compliance</li>
+</ul>
+<p><strong>Purpose:</strong> Implement procedures for guarding against and detecting malicious software.</p>
+<p>##### (ii)(C) - Log-in Monitoring</p>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Logon auditing</li>
+<li>Logoff auditing</li>
+<li>Account Lockout auditing</li>
+<li>Account lockout threshold</li>
+</ul>
+<p><strong>Purpose:</strong> Implement procedures for monitoring log-in attempts.</p>
+<p>##### (ii)(D) - Password Management</p>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Password length (12+ characters)</li>
+<li>Password complexity</li>
+<li>Password history</li>
+<li>Password age</li>
+<li>Account lockout</li>
+</ul>
+<p><strong>Purpose:</strong> Implement procedures for creating, changing, and safeguarding passwords.</p>
+<h3>Physical Safeguards (§ 164.310)</h3>
+<h4>§ 164.310(d)(2)(iii) - Accountability (Device Encryption)</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>BitLocker encryption</li>
+<li>Encryption status</li>
+<li>Protection status</li>
+</ul>
+<p><strong>Purpose:</strong> Maintain a record of device movements and implement encryption.</p>
+<h3>Technical Safeguards (§ 164.312)</h3>
+<h4>§ 164.312(a)(1) - Access Control</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>All access control checks</li>
+<li>Authentication auditing</li>
+</ul>
+<p><strong>Purpose:</strong> Implement technical policies and procedures for information systems with ePHI.</p>
+<h4>§ 164.312(a)(2)(i) - Unique User Identification</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>User Account Management auditing</li>
+<li>Guest account disabled</li>
+<li>Unique credential auditing</li>
+</ul>
+<p><strong>Purpose:</strong> Assign unique identifiers for tracking user identity.</p>
+<h4>§ 164.312(a)(2)(iii) - Automatic Logoff</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Screen saver timeout</li>
+<li>Password-protected screen saver</li>
+<li>Display timeout settings</li>
+</ul>
+<p><strong>Purpose:</strong> Terminate electronic session after predetermined time of inactivity.</p>
+<h4>§ 164.312(a)(2)(iv) - Encryption and Decryption</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>BitLocker encryption</li>
+<li>Encryption strength</li>
+<li>TPM status</li>
+<li>Secure Boot</li>
+</ul>
+<p><strong>Purpose:</strong> Implement mechanism to encrypt and decrypt ePHI.</p>
+<h4>§ 164.312(b) - Audit Controls</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>All audit policy configurations</li>
+<li>Event log configuration</li>
+<li>File system auditing</li>
+<li>Process creation auditing</li>
+<li>Command line auditing</li>
+</ul>
+<p><strong>Purpose:</strong> Implement hardware/software mechanisms to record and examine activity in systems with ePHI.</p>
+<h4>§ 164.312(c)(1) - Integrity Controls</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Windows Firewall</li>
+<li>System Integrity auditing</li>
+</ul>
+<p><strong>Purpose:</strong> Implement policies to ensure ePHI is not improperly altered or destroyed.</p>
+<h4>§ 164.312(d) - Person or Entity Authentication</h4>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Credential Validation auditing</li>
+<li>Kerberos authentication auditing</li>
+<li>Authentication Policy Change auditing</li>
+</ul>
+<p><strong>Purpose:</strong> Implement procedures to verify claimed identity.</p>
+<h4>§ 164.312(e) - Transmission Security</h4>
+<p>##### (1) - Integrity Controls</p>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>SMB signing required</li>
+<li>Network protocol security</li>
+</ul>
+<p><strong>Purpose:</strong> Implement security measures to ensure transmitted ePHI is not improperly modified.</p>
+<p>##### (2)(ii) - Encryption</p>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>SMB encryption</li>
+<li>Network security protocols</li>
+</ul>
+<p><strong>Purpose:</strong> Implement mechanism to encrypt ePHI during transmission.</p>
+<h2>Compliance Matrix</h2>
+<p>| Check Category | SOC 2 Controls | HIPAA Controls |</p>
+<p>|---|---|---|</p>
+<p>| Audit Policies | CC7.2, CC7.3 | § 164.312(b) |</p>
+<p>| Event Logs | CC7.2 | § 164.308(a)(1)(ii)(D), § 164.312(b) |</p>
+<p>| Access Controls | CC6.1, CC6.2, CC6.3 | § 164.308(a)(5)(ii)(D), § 164.312(a)(2)(i) |</p>
+<p>| Encryption | CC6.1 | § 164.310(d)(2)(iii), § 164.312(a)(2)(iv) |</p>
+<p>| Endpoint Security | CC7.1, CC7.2 | § 164.308(a)(5)(ii)(B), § 164.312(c)(1) |</p>
+<p>| Screen Lock | CC6.1 | § 164.312(a)(2)(iii) |</p>
+<p>| Updates | CC8.1 | § 164.308(a)(5)(ii)(B) |</p>
+<p>| Network Security | CC6.1 | § 164.312(e) |</p>
+<h2>Implementation Priority</h2>
+<h3>Critical (Implement Immediately)</h3>
+<ol>
+<li>Audit logging enabled (§ 164.312(b))</li>
+<li>Event log sizes configured</li>
+<li>Password policies (§ 164.308(a)(5)(ii)(D))</li>
+<li>Antivirus enabled (§ 164.308(a)(5)(ii)(B))</li>
+<li>Firewall enabled (§ 164.312(c)(1))</li>
+</ul>
+<h3>High Priority (Within 30 Days)</h3>
+<ol>
+<li>BitLocker encryption (§ 164.312(a)(2)(iv))</li>
+<li>Account lockout policies</li>
+<li>Screen lock timeout (§ 164.312(a)(2)(iii))</li>
+<li>File system auditing</li>
+<li>SMB security</li>
+</ul>
+<h3>Medium Priority (Within 90 Days)</h3>
+<ol>
+<li>PowerShell logging</li>
+<li>Process creation auditing</li>
+<li>Network protocol hardening</li>
+<li>Stale account cleanup</li>
+<li>Update compliance</li>
+</ul>
+<h2>References</h2>
+<ul>
+<li><a href="https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf">SOC 2 Trust Services Criteria</a></li>
+<li><a href="https://www.hhs.gov/hipaa/for-professionals/security/index.html">HIPAA Security Rule</a></li>
+<li><a href="https://www.nist.gov/cyberframework">NIST Cybersecurity Framework</a></li>
+</ul>
+    </div>
+</body>
+</html>

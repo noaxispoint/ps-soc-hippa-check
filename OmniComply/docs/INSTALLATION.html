@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniComply Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+        }
+        h3 {
+            color: #546e7a;
+            margin-top: 25px;
+        }
+        h4 {
+            color: #607d8b;
+            margin-top: 20px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #c7254e;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid #3498db;
+        }
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        ul, ol {
+            padding-left: 30px;
+            margin: 15px 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        p {
+            margin: 15px 0;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #ecf0f1;
+            margin: 30px 0;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+<h1>Installation and Setup Guide</h1>
+<h2>System Requirements</h2>
+<ul>
+<li><strong>Operating System:</strong> Windows 11 or Windows Server 2016/2019/2022/2025</li>
+<li><strong>PowerShell:</strong> Version 5.1 or later</li>
+<li><strong>Privileges:</strong> Administrator/elevated privileges required</li>
+<li><strong>Disk Space:</strong> ~50MB for the tool and reports</li>
+</ul>
+<h2>Installation Steps</h2>
+<h3>1. Download the Tool</h3>
+<pre><code class="language-powershell"># Clone or download the repository
+# Extract to your preferred location, e.g., C:\Tools\OmniComply</code></pre>
+<h3>2. Set Execution Policy</h3>
+<p>Open PowerShell as Administrator and run:</p>
+<pre><code class="language-powershell"># Allow script execution (choose one)
+
+# Option 1: For current user only (recommended)
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# Option 2: For all users
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine</code></pre>
+<h3>3. Verify Installation</h3>
+<pre><code class="language-powershell"># Navigate to the tool directory
+cd C:\Tools\OmniComply
+
+# Verify all files are present
+Get-ChildItem -Recurse
+
+# Should show:
+# - Invoke-OmniComply.ps1
+# - Quick-Check.ps1
+# - modules\ directory with check scripts
+# - remediation\ directory
+# - docs\ directory</code></pre>
+<h3>4. Test Run</h3>
+<pre><code class="language-powershell"># Run quick check to verify basic functionality
+.\Quick-Check.ps1
+
+# If successful, run full compliance check
+.\Invoke-OmniComply.ps1</code></pre>
+<h2>Deployment Options</h2>
+<h3>Option 1: Standalone Workstation</h3>
+<p>Simply extract and run on individual Windows 11 laptops.</p>
+<h3>Option 2: Network Share</h3>
+<ol>
+<li>Copy to network share accessible by target machines</li>
+<li>Create scheduled task or startup script</li>
+<li>Reports can be centrally collected</li>
+</ul>
+<pre><code class="language-powershell"># Example: Run from network share
+\\fileserver\compliance\Invoke-OmniComply.ps1 -OutputDirectory &quot;\\fileserver\compliance\reports\%COMPUTERNAME%&quot;</code></pre>
+<h3>Option 3: Intune Deployment</h3>
+<p>Deploy as Proactive Remediation or Win32 app:</p>
+<ol>
+<li>Package scripts as .intunewin file</li>
+<li>Deploy to device groups</li>
+<li>Configure detection and remediation scripts</li>
+<li>Collect results via Azure Log Analytics</li>
+</ul>
+<p>See <a href="./INTUNE-DEPLOYMENT.md">Intune Deployment Guide</a> for details.</p>
+<h3>Option 4: Group Policy</h3>
+<p>Deploy via Group Policy startup/shutdown scripts:</p>
+<ol>
+<li>Copy scripts to SYSVOL</li>
+<li>Create GPO with script assignment</li>
+<li>Link to appropriate OUs</li>
+</ul>
+<h2>Configuration</h2>
+<h3>Customizing Checks</h3>
+<p>Edit check modules in <code>modules\</code> directory to add/remove checks:</p>
+<pre><code class="language-powershell"># Example: Add custom check in modules\Check-AccessControls.ps1
+
+Add-ComplianceCheck -Category &quot;Access Controls&quot; `
+    -Check &quot;Custom Password Policy&quot; `
+    -Requirement &quot;Internal Policy 123&quot; `
+    -Passed $myCustomCheck `
+    -CurrentValue &quot;Current state&quot; `
+    -ExpectedValue &quot;Expected state&quot; `
+    -Remediation &quot;Fix command here&quot;</code></pre>
+<h3>Output Directory</h3>
+<p>Change default output location:</p>
+<pre><code class="language-powershell">.\Invoke-OmniComply.ps1 -OutputDirectory &quot;C:\ComplianceReports&quot;</code></pre>
+<h3>Scheduled Execution</h3>
+<p>Create scheduled task for regular compliance checks:</p>
+<pre><code class="language-powershell"># Run compliance check weekly
+$action = New-ScheduledTaskAction -Execute &quot;PowerShell.exe&quot; `
+    -Argument &quot;-ExecutionPolicy Bypass -File C:\Tools\OmniComply\Invoke-OmniComply.ps1&quot;
+
+$trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday -At 2am
+
+$principal = New-ScheduledTaskPrincipal -UserID &quot;NT AUTHORITY\SYSTEM&quot; -LogonType ServiceAccount -RunLevel Highest
+
+Register-ScheduledTask -TaskName &quot;Weekly Compliance Check&quot; `
+    -Action $action `
+    -Trigger $trigger `
+    -Principal $principal `
+    -Description &quot;SOC 2 / HIPAA compliance validation&quot;</code></pre>
+<h2>Troubleshooting</h2>
+<h3>Issue: "Execution Policy" Error</h3>
+<p><strong>Solution:</strong></p>
+<pre><code class="language-powershell">Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code></pre>
+<h3>Issue: "Access Denied" Errors</h3>
+<p><strong>Solution:</strong> Run PowerShell as Administrator</p>
+<ul>
+<li>Right-click PowerShell icon</li>
+<li>Select "Run as Administrator"</li>
+</ul>
+<h3>Issue: Scripts Not Found</h3>
+<p><strong>Solution:</strong> Verify you're in the correct directory</p>
+<pre><code class="language-powershell">cd C:\Tools\OmniComply
+Get-Location  # Should show the tool directory</code></pre>
+<h3>Issue: BitLocker Checks Fail</h3>
+<p><strong>Cause:</strong> Windows Home edition doesn't support BitLocker</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Upgrade to Windows Pro, Enterprise, or Education</li>
+<li>Or use third-party encryption (modify check script)</li>
+</ul>
+<h3>Issue: Module Import Errors</h3>
+<p><strong>Solution:</strong> Ensure all files extracted properly</p>
+<pre><code class="language-powershell"># Verify modules exist
+Test-Path .\modules\Check-AuditPolicies.ps1
+Test-Path .\modules\Check-AccessControls.ps1
+# etc.</code></pre>
+<h2>Uninstallation</h2>
+<p>Simply delete the tool directory:</p>
+<pre><code class="language-powershell">Remove-Item -Path &quot;C:\Tools\OmniComply&quot; -Recurse -Force</code></pre>
+<p>If you created scheduled tasks, remove them:</p>
+<pre><code class="language-powershell">Unregister-ScheduledTask -TaskName &quot;Weekly Compliance Check&quot; -Confirm:$false</code></pre>
+<h2>Updates</h2>
+<p>To update the tool:</p>
+<ol>
+<li>Backup your current installation</li>
+<li>Download/extract new version</li>
+<li>Copy any custom modifications from old version</li>
+<li>Test in non-production environment</li>
+</ul>
+<h2>Support</h2>
+<p>For installation issues:</p>
+<ul>
+<li>Review this guide thoroughly</li>
+<li>Check the main README.md</li>
+<li>Review error messages carefully</li>
+<li>Test with Quick-Check.ps1 first</li>
+</ul>
+    </div>
+</body>
+</html>
