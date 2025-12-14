@@ -4,10 +4,17 @@
 .DESCRIPTION
     Automatically configures password complexity, length, history, and account lockout policies
     for SOC 2, HIPAA, NIST, CIS, ISO 27001, PCI-DSS, and SOX compliance
+.PARAMETER Force
+    Bypass confirmation prompts for automated execution
 .NOTES
     WARNING: This will modify system password policies. Review before running.
     Requires: Administrator privileges
 #>
+
+[CmdletBinding()]
+param(
+    [switch]$Force
+)
 
 #Requires -RunAsAdministrator
 
@@ -28,10 +35,12 @@ Write-Host ""
 Write-Host "WARNING: These changes will affect all user accounts!" -ForegroundColor Yellow
 Write-Host ""
 
-$confirm = Read-Host "Continue? (yes/no)"
-if ($confirm -ne "yes") {
-    Write-Host "Remediation cancelled" -ForegroundColor Yellow
-    exit 0
+if (-not $Force) {
+    $confirm = Read-Host "Continue? (yes/no)"
+    if ($confirm -ne "yes") {
+        Write-Host "Remediation cancelled" -ForegroundColor Yellow
+        exit 0
+    }
 }
 
 Write-Host ""

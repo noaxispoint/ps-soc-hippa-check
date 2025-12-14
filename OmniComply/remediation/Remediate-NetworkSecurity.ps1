@@ -4,11 +4,18 @@
 .DESCRIPTION
     Disables insecure protocols (SMBv1, LLMNR, NetBIOS) and enables secure configurations
     for SOC 2, HIPAA, NIST, CIS, ISO 27001, and PCI-DSS compliance
+.PARAMETER Force
+    Bypass confirmation prompts for automated execution
 .NOTES
     WARNING: This will modify network security settings. Review before running.
     Requires: Administrator privileges
     May require system restart
 #>
+
+[CmdletBinding()]
+param(
+    [switch]$Force
+)
 
 #Requires -RunAsAdministrator
 
@@ -27,10 +34,12 @@ Write-Host ""
 Write-Host "WARNING: Some changes may require a system restart!" -ForegroundColor Yellow
 Write-Host ""
 
-$confirm = Read-Host "Continue? (yes/no)"
-if ($confirm -ne "yes") {
-    Write-Host "Remediation cancelled" -ForegroundColor Yellow
-    exit 0
+if (-not $Force) {
+    $confirm = Read-Host "Continue? (yes/no)"
+    if ($confirm -ne "yes") {
+        Write-Host "Remediation cancelled" -ForegroundColor Yellow
+        exit 0
+    }
 }
 
 Write-Host ""
@@ -102,10 +111,10 @@ try {
 # 6. Enable Windows Firewall Logging
 Write-Host "[6/6] Enabling Windows Firewall logging..." -ForegroundColor Gray
 try {
-    $profiles = @("Domain", "Public", "Private")
-    foreach ($profile in $profiles) {
-        Set-NetFirewallProfile -Name $profile -LogAllowed True -LogBlocked True -LogMaxSizeKilobytes 16384 -ErrorAction Stop
-        Write-Host "  ✓ Firewall logging enabled for $profile profile" -ForegroundColor Green
+    $fwProfiles = @("Domain", "Public", "Private")
+    foreach ($fwProfile in $fwProfiles) {
+        Set-NetFirewallProfile -Name $fwProfile -LogAllowed True -LogBlocked True -LogMaxSizeKilobytes 16384 -ErrorAction Stop
+        Write-Host "  ✓ Firewall logging enabled for $fwProfile profile" -ForegroundColor Green
     }
 } catch {
     Write-Host "  ✗ Failed to enable firewall logging: $($_.Exception.Message)" -ForegroundColor Red

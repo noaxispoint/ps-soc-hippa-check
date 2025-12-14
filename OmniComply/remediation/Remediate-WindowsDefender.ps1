@@ -4,10 +4,17 @@
 .DESCRIPTION
     Enables and configures Windows Defender real-time protection, updates signatures,
     enables advanced features, and configures Windows Firewall
+.PARAMETER Force
+    Bypass confirmation prompts for automated execution
 .NOTES
     WARNING: This will modify Windows Defender and Firewall settings.
     Requires: Administrator privileges
 #>
+
+[CmdletBinding()]
+param(
+    [switch]$Force
+)
 
 #Requires -RunAsAdministrator
 
@@ -25,10 +32,12 @@ Write-Host "  • Enable Cloud-delivered protection" -ForegroundColor White
 Write-Host "  • Enable Behavior Monitoring" -ForegroundColor White
 Write-Host ""
 
-$confirm = Read-Host "Continue? (yes/no)"
-if ($confirm -ne "yes") {
-    Write-Host "Remediation cancelled" -ForegroundColor Yellow
-    exit 0
+if (-not $Force) {
+    $confirm = Read-Host "Continue? (yes/no)"
+    if ($confirm -ne "yes") {
+        Write-Host "Remediation cancelled" -ForegroundColor Yellow
+        exit 0
+    }
 }
 
 Write-Host ""

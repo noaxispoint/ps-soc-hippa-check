@@ -3,9 +3,16 @@
     Remediate Audit Policy Configuration
 .DESCRIPTION
     Automatically configures all required audit policies for SOC 2 and HIPAA compliance
+.PARAMETER Force
+    Bypass confirmation prompts for automated execution
 .NOTES
     WARNING: This will modify system audit policies. Review before running.
 #>
+
+[CmdletBinding()]
+param(
+    [switch]$Force
+)
 
 #Requires -RunAsAdministrator
 
@@ -13,10 +20,12 @@ Write-Host "Remediating Audit Policies..." -ForegroundColor Cyan
 Write-Host "WARNING: This will modify system audit policies" -ForegroundColor Yellow
 Write-Host ""
 
-$confirm = Read-Host "Continue? (yes/no)"
-if ($confirm -ne "yes") {
-    Write-Host "Remediation cancelled" -ForegroundColor Yellow
-    exit 0
+if (-not $Force) {
+    $confirm = Read-Host "Continue? (yes/no)"
+    if ($confirm -ne "yes") {
+        Write-Host "Remediation cancelled" -ForegroundColor Yellow
+        exit 0
+    }
 }
 
 # Configure all required audit policies
