@@ -462,8 +462,8 @@ Invoke-Item .\reports\OmniComply-Report-*.html
 
 ---
 
-**Version:** 1.1.0
-**Created:** December 2024
+**Version:** 1.4.0
+**Created:** 2025
 **License:** MIT
 **Platform:** Windows 10/11, Server 2016-2025
 **Repository:** https://github.com/noaxispoint/omnicomply
