@@ -13,7 +13,7 @@
     - GDPR (General Data Protection Regulation)
     - CCPA (California Consumer Privacy Act)
 
-    OmniComply provides 170+ technical compliance checks across 36 security domains,
+    OmniComply provides 175+ technical compliance checks across 37 security domains,
     generating detailed reports mapped to multiple compliance frameworks simultaneously.
 .NOTES
     Product: OmniComply
@@ -272,6 +272,7 @@ $checkModules = @(
     "Check-NetworkSecurity.ps1",
     "Check-UACSettings.ps1",
     "Check-AdministratorAccounts.ps1",
+    "Check-LAPSDetection.ps1",
     "Check-AdvancedNetworkSecurity.ps1",
     "Check-TimeSync.ps1",
     "Check-AdvancedDefender.ps1",

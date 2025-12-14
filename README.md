@@ -41,7 +41,7 @@ OmniComply/
 ├── Invoke-OmniComply.ps1             # Main entry point (orchestrator)
 ├── Quick-Check.ps1                   # Rapid validation script
 │
-├── modules/                          # Individual check modules (36 total)
+├── modules/                          # Individual check modules (37 total)
 │   ├── Check-AccessControls.ps1      # Password & lockout policies
 │   ├── Check-AdministratorAccounts.ps1
 │   ├── Check-AdvancedDefender.ps1    # ASR, Network Protection, Cloud Protection
@@ -63,6 +63,7 @@ OmniComply/
 │   ├── Check-EventLogConfiguration.ps1
 │   ├── Check-FileSystemAuditing.ps1
 │   ├── Check-InteractiveLogon.ps1
+│   ├── Check-LAPSDetection.ps1       # Local Admin Password Solution (LAPS)
 │   ├── Check-LoggingServices.ps1
 │   ├── Check-NetworkEncryption.ps1   # TLS, SMB encryption, LDAP signing (GDPR Art. 32.1.a)
 │   ├── Check-NetworkSecurity.ps1     # SMB, RDP, LLMNR, NetBIOS
@@ -456,10 +457,10 @@ Invoke-Item .\reports\OmniComply-Report-*.html
 
 ## 📊 Statistics
 
-- **36** compliance check modules
-- **170+** individual security checks
+- **37** compliance check modules
+- **175+** individual security checks
 - **9** compliance frameworks (SOC 2, HIPAA, NIST, CIS, ISO 27001, PCI-DSS, SOX, GDPR, CCPA)
-- **53** Intune policy recommendations
+- **54** Intune policy recommendations
 - **5** automated remediation scripts
 - **3** report output formats (JSON, CSV, HTML)
 
