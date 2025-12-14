@@ -28,7 +28,7 @@ SOFTWARE.
 
 ## 📦 Overview
 
-A comprehensive PowerShell-based compliance validation toolkit for Windows systems. This project provides a fully structured, ready-to-use solution for validating security configurations against multiple compliance frameworks including SOC 2, HIPAA, NIST 800-53, CIS Controls v8, ISO 27001:2013, PCI-DSS, and SOX.
+A comprehensive PowerShell-based compliance validation toolkit for Windows systems. This project provides a fully structured, ready-to-use solution for validating security configurations against multiple compliance frameworks including SOC 2, HIPAA, NIST 800-53, CIS Controls v8, ISO 27001:2013, PCI-DSS, SOX, GDPR (General Data Protection Regulation), and CCPA (California Consumer Privacy Act).
 
 ## 📦 What's Included
 
@@ -41,13 +41,14 @@ OmniComply/
 ├── Invoke-OmniComply.ps1             # Main entry point (orchestrator)
 ├── Quick-Check.ps1                   # Rapid validation script
 │
-├── modules/                          # Individual check modules (33 total)
+├── modules/                          # Individual check modules (36 total)
 │   ├── Check-AccessControls.ps1      # Password & lockout policies
 │   ├── Check-AdministratorAccounts.ps1
 │   ├── Check-AdvancedDefender.ps1    # ASR, Network Protection, Cloud Protection
 │   ├── Check-AdvancedNetworkSecurity.ps1
 │   ├── Check-ApplicationControl.ps1  # AppLocker, WDAC, SmartScreen
 │   ├── Check-AuditPolicies.ps1       # 26+ audit policy checks
+│   ├── Check-BackupAndRecovery.ps1   # System Restore, VSS, Backup (GDPR Art. 32.1.c)
 │   ├── Check-BackupRecovery.ps1
 │   ├── Check-BrowserSecurity.ps1
 │   ├── Check-CertificateManagement.ps1
@@ -63,8 +64,10 @@ OmniComply/
 │   ├── Check-FileSystemAuditing.ps1
 │   ├── Check-InteractiveLogon.ps1
 │   ├── Check-LoggingServices.ps1
+│   ├── Check-NetworkEncryption.ps1   # TLS, SMB encryption, LDAP signing (GDPR Art. 32.1.a)
 │   ├── Check-NetworkSecurity.ps1     # SMB, RDP, LLMNR, NetBIOS
 │   ├── Check-NetworkSegmentation.ps1
+│   ├── Check-PrivacySettings.ps1     # Telemetry, location, data minimization (GDPR/CCPA)
 │   ├── Check-RemovableStorage.ps1    # USB controls, BitLocker To Go
 │   ├── Check-ScreenLockSettings.ps1
 │   ├── Check-SecuritySettings.ps1
@@ -453,10 +456,10 @@ Invoke-Item .\reports\OmniComply-Report-*.html
 
 ## 📊 Statistics
 
-- **33** compliance check modules
-- **150+** individual security checks
-- **7** compliance frameworks (SOC 2, HIPAA, NIST, CIS, ISO 27001, PCI-DSS, SOX)
-- **24** Intune policy recommendations
+- **36** compliance check modules
+- **170+** individual security checks
+- **9** compliance frameworks (SOC 2, HIPAA, NIST, CIS, ISO 27001, PCI-DSS, SOX, GDPR, CCPA)
+- **53** Intune policy recommendations
 - **5** automated remediation scripts
 - **3** report output formats (JSON, CSV, HTML)
 
@@ -468,4 +471,4 @@ Invoke-Item .\reports\OmniComply-Report-*.html
 **Platform:** Windows 10/11, Server 2016-2025
 **Repository:** https://github.com/noaxispoint/omnicomply
 
-Comprehensive compliance checking for Windows endpoints - from workstations to servers.
+Comprehensive compliance checking for Windows endpoints - from workstations to servers. Now including GDPR and CCPA privacy controls.
