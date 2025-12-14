@@ -17,6 +17,10 @@ if ($eventLogService) {
     Add-ComplianceCheck -Category "Logging Services" `
         -Check "Windows Event Log Service Running" `
         -Requirement "HIPAA § 164.312(b) - Audit Controls Active" `
+        -NIST "AU-6" `
+        -CIS "8.2" `
+        -ISO27001 "A.12.4.1" `
+        -SOX "ITGC-05" `
         -Passed $serviceRunning `
         -CurrentValue $eventLogService.Status `
         -ExpectedValue "Running" `
@@ -31,6 +35,10 @@ if ($eventLogService) {
     Add-ComplianceCheck -Category "Logging Services" `
         -Check "Windows Event Log Service Startup Type" `
         -Requirement "SOC 2 CC7.2 - System Monitoring" `
+        -NIST "AU-6" `
+        -CIS "8.2" `
+        -ISO27001 "A.12.4.1" `
+        -SOX "ITGC-05" `
         -Passed $serviceAutomatic `
         -CurrentValue $eventLogService.StartType `
         -ExpectedValue "Automatic" `
@@ -45,6 +53,10 @@ if ($eventLogService) {
     Add-ComplianceCheck -Category "Logging Services" `
         -Check "Windows Event Log Service" `
         -Requirement "HIPAA § 164.312(b) - Audit Controls" `
+        -NIST "AU-6" `
+        -CIS "8.2" `
+        -ISO27001 "A.12.4.1" `
+        -SOX "ITGC-05" `
         -Passed $false `
         -CurrentValue "Service not found" `
         -ExpectedValue "Service exists and running" `
@@ -62,6 +74,10 @@ if ($winrmService) {
     Add-ComplianceCheck -Category "Logging Services" `
         -Check "WinRM Service (for log forwarding)" `
         -Requirement "SOC 2 CC7.2 - Centralized Log Collection" `
+        -NIST "AU-6, AU-9" `
+        -CIS "8.2" `
+        -ISO27001 "A.12.4.1, A.12.4.2" `
+        -SOX "ITGC-05" `
         -Passed $winrmRunning `
         -CurrentValue $winrmService.Status `
         -ExpectedValue "Running (if using WinRM forwarding)" `
@@ -83,6 +99,10 @@ if ($taskScheduler) {
     Add-ComplianceCheck -Category "Logging Services" `
         -Check "Task Scheduler Service" `
         -Requirement "HIPAA § 164.308(a)(1)(ii)(D) - Automated Log Review" `
+        -NIST "AU-6" `
+        -CIS "8.2" `
+        -ISO27001 "A.12.4.1" `
+        -SOX "ITGC-05" `
         -Passed $taskSchedulerRunning `
         -CurrentValue $taskScheduler.Status `
         -ExpectedValue "Running" `

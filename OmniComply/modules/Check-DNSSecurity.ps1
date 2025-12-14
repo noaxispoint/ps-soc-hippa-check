@@ -19,6 +19,9 @@ try {
         Add-ComplianceCheck -Category "DNS Security" `
             -Check "DNS over HTTPS (DoH) Configuration" `
             -Requirement "SOC 2 CC7.2 - Encrypted DNS Queries" `
+            -NIST "SC-8, SC-13" `
+            -CIS "2.1" `
+            -ISO27001 "A.13.1.1, A.10.1.1" `
             -Passed $dohConfigured `
             -CurrentValue $(if ($dohConfigured) { "$($dohSettings.Count) DoH server(s) configured" } else { "No DoH servers configured" }) `
             -ExpectedValue "DoH servers configured" `
@@ -33,6 +36,9 @@ try {
         Add-ComplianceCheck -Category "DNS Security" `
             -Check "DNS over HTTPS (DoH) Support" `
             -Requirement "SOC 2 CC7.2 - Encrypted DNS Queries" `
+            -NIST "SC-8, SC-13" `
+            -CIS "2.1" `
+            -ISO27001 "A.13.1.1" `
             -Passed $false `
             -CurrentValue "DoH not available on this OS version" `
             -ExpectedValue "Windows 11 or Server 2022+" `
@@ -54,6 +60,9 @@ try {
     Add-ComplianceCheck -Category "DNS Security" `
         -Check "DNS Client Service" `
         -Requirement "SOC 2 CC6.1 - DNS Resolution" `
+        -NIST "SC-20, SC-21" `
+        -CIS "2.1" `
+        -ISO27001 "A.13.1.1" `
         -Passed $dnsClientGood `
         -CurrentValue $(if ($dnsClientGood) { "DNS Client active" } else { "DNS Client not found" }) `
         -ExpectedValue "DNS Client service active" `
@@ -77,6 +86,9 @@ try {
     Add-ComplianceCheck -Category "DNS Security" `
         -Check "DNS Client Service Status" `
         -Requirement "SOC 2 CC7.2 - DNS Caching" `
+        -NIST "SC-20" `
+        -CIS "2.1" `
+        -ISO27001 "A.13.1.1" `
         -Passed ($dnsRunning -and $dnsAutoStart) `
         -CurrentValue "Status: $($dnscache.Status), StartType: $($dnscache.StartType)" `
         -ExpectedValue "Running, Automatic" `
@@ -103,6 +115,9 @@ if ($dnsSocketPool) {
     Add-ComplianceCheck -Category "DNS Security" `
         -Check "DNS Cache TTL Limit" `
         -Requirement "SOC 2 CC7.2 - DNS Cache Poisoning Prevention" `
+        -NIST "SC-20, SC-21" `
+        -CIS "2.1" `
+        -ISO27001 "A.13.1.1" `
         -Passed $ttlGood `
         -CurrentValue "$maxCacheTtl seconds" `
         -ExpectedValue "86400 seconds (1 day) or less" `
@@ -149,6 +164,9 @@ try {
     Add-ComplianceCheck -Category "DNS Security" `
         -Check "Secure DNS Providers" `
         -Requirement "SOC 2 CC7.2 - Trusted DNS Resolution" `
+        -NIST "SC-20, SC-21" `
+        -CIS "2.1" `
+        -ISO27001 "A.13.1.1" `
         -Passed $usingSecureDns `
         -CurrentValue "DNS Servers: $dnsServerList" `
         -ExpectedValue "Using secure DNS providers (Cloudflare, Google, Quad9) or internal DNS" `
@@ -173,6 +191,9 @@ if ($dotSetting) {
     Add-ComplianceCheck -Category "DNS Security" `
         -Check "Automatic DNS over HTTPS" `
         -Requirement "SOC 2 CC7.2 - Automatic Secure DNS" `
+        -NIST "SC-8, SC-13" `
+        -CIS "2.1" `
+        -ISO27001 "A.13.1.1, A.10.1.1" `
         -Passed $autoDohEnabled `
         -CurrentValue $(switch ($dotSetting.EnableAutoDoh) { 0 { "Default" } 1 { "Disabled" } 2 { "Enabled" } default { "Unknown" } }) `
         -ExpectedValue "Enabled" `
@@ -197,6 +218,9 @@ try {
         Add-ComplianceCheck -Category "DNS Security" `
             -Check "DNS Name Resolution Policy Table (NRPT)" `
             -Requirement "SOC 2 CC6.1 - Secure DNS Resolution Policies" `
+            -NIST "SC-20, AC-4" `
+            -CIS "2.1" `
+            -ISO27001 "A.13.1.1" `
             -Passed $nrptConfigured `
             -CurrentValue $(if ($nrptConfigured) { "$($nrpt.Count) NRPT rule(s)" } else { "No NRPT rules" }) `
             -ExpectedValue "NRPT configured (if using DirectAccess/Always On VPN)" `
@@ -223,6 +247,9 @@ if ($queryTimeout) {
     Add-ComplianceCheck -Category "DNS Security" `
         -Check "DNS Query Timeout" `
         -Requirement "SOC 2 CC7.2 - DNS Availability" `
+        -NIST "SC-20" `
+        -CIS "2.1" `
+        -ISO27001 "A.13.1.1" `
         -Passed $timeoutGood `
         -CurrentValue "$timeoutValue seconds" `
         -ExpectedValue "30 seconds or less" `

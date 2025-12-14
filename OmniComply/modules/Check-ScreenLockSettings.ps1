@@ -22,6 +22,9 @@ if ($screenSaverTimeout -and $screenSaverActive) {
     Add-ComplianceCheck -Category "Screen Lock & Session" `
         -Check "Screen Saver Timeout" `
         -Requirement "HIPAA § 164.312(a)(2)(iii) - Automatic Logoff" `
+        -NIST "AC-11" `
+        -CIS "4.3" `
+        -ISO27001 "A.11.2.8" `
         -Passed ($timeoutGood -and $isActive) `
         -CurrentValue "$timeoutMinutes minutes (Active: $isActive)" `
         -ExpectedValue "1-15 minutes and active" `
@@ -40,6 +43,9 @@ if ($screenSaverTimeout -and $screenSaverActive) {
         Add-ComplianceCheck -Category "Screen Lock & Session" `
             -Check "Password-Protected Screen Saver" `
             -Requirement "HIPAA § 164.312(a)(2)(iii) - Automatic Logoff" `
+            -NIST "AC-11" `
+            -CIS "4.3" `
+            -ISO27001 "A.11.2.8" `
             -Passed $isSecure `
             -CurrentValue $(if ($isSecure) { "Enabled" } else { "Disabled" }) `
             -ExpectedValue "Enabled" `
@@ -55,6 +61,9 @@ if ($screenSaverTimeout -and $screenSaverActive) {
     Add-ComplianceCheck -Category "Screen Lock & Session" `
         -Check "Screen Saver Configuration" `
         -Requirement "HIPAA § 164.312(a)(2)(iii) - Automatic Logoff" `
+        -NIST "AC-11" `
+        -CIS "4.3" `
+        -ISO27001 "A.11.2.8" `
         -Passed $false `
         -CurrentValue "Not configured" `
         -ExpectedValue "Configured with 15-minute timeout" `

@@ -16,6 +16,9 @@ $llmnrDisabled = $null -ne $llmnr -and $llmnr.EnableMulticast -eq 0
 Add-ComplianceCheck -Category "Advanced Network Security" `
     -Check "LLMNR Disabled" `
     -Requirement "SOC 2 CC6.1 - Network Attack Surface Reduction" `
+    -NIST "SC-20, SC-21" `
+    -CIS "13.7" `
+    -ISO27001 "A.13.1.1" `
     -Passed $llmnrDisabled `
     -CurrentValue $(if ($llmnrDisabled) { "Disabled" } elseif ($null -eq $llmnr) { "Not configured (enabled by default)" } else { "Enabled" }) `
     -ExpectedValue "Disabled" `
@@ -45,6 +48,9 @@ $allDisabled = ($totalAdapters -gt 0) -and ($netbiosDisabledCount -eq $totalAdap
 Add-ComplianceCheck -Category "Advanced Network Security" `
     -Check "NetBIOS over TCP/IP Disabled" `
     -Requirement "SOC 2 CC6.1 - Legacy Protocol Mitigation" `
+    -NIST "SC-7(12)" `
+    -CIS "13.7" `
+    -ISO27001 "A.13.1.1" `
     -Passed $allDisabled `
     -CurrentValue "$netbiosDisabledCount of $totalAdapters adapters have NetBIOS disabled" `
     -ExpectedValue "Disabled on all adapters" `
@@ -65,6 +71,10 @@ if ($rdpNLA) {
     Add-ComplianceCheck -Category "Advanced Network Security" `
         -Check "RDP Network Level Authentication" `
         -Requirement "HIPAA § 164.312(e) - Transmission Security" `
+        -NIST "AC-17(2), SC-8" `
+        -CIS "12.6" `
+        -ISO27001 "A.9.4.2" `
+        -PCIDSS "8.3.1" `
         -Passed $nlaRequired `
         -CurrentValue $(if ($nlaRequired) { "Required" } else { "Not required" }) `
         -ExpectedValue "Required" `
@@ -93,6 +103,9 @@ $allLogging = $loggingEnabled -eq 3
 Add-ComplianceCheck -Category "Advanced Network Security" `
     -Check "Firewall Logging Enabled" `
     -Requirement "SOC 2 CC7.2 - Network Monitoring" `
+    -NIST "AU-2, AU-12" `
+    -CIS "8.5" `
+    -ISO27001 "A.12.4.1" `
     -Passed $allLogging `
     -CurrentValue "$loggingEnabled of 3 profiles have logging enabled" `
     -ExpectedValue "Logging enabled on all profiles" `
@@ -112,6 +125,9 @@ if ($domainProfile -and $domainProfile.LogMaxSizeKilobytes) {
     Add-ComplianceCheck -Category "Advanced Network Security" `
         -Check "Firewall Log Size" `
         -Requirement "SOC 2 CC7.2 - Adequate Log Retention" `
+        -NIST "AU-4" `
+        -CIS "8.3" `
+        -ISO27001 "A.12.4.1" `
         -Passed $logSizeGood `
         -CurrentValue "$($domainProfile.LogMaxSizeKilobytes) KB" `
         -ExpectedValue "At least 4096 KB (4 MB)" `

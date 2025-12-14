@@ -17,6 +17,10 @@ if ($null -ne $edgeSmartScreen) {
     Add-ComplianceCheck -Category "Browser Security" `
         -Check "Microsoft Edge SmartScreen" `
         -Requirement "SOC 2 CC7.1 - Phishing Protection" `
+        -NIST "SI-3" `
+        -CIS "10.1" `
+        -ISO27001 "A.12.2.1" `
+        -PCIDSS "5.1" `
         -Passed $smartScreenOn `
         -CurrentValue $(if ($smartScreenOn) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `
@@ -49,6 +53,9 @@ if ($null -ne $edgeEnhancedSecurity) {
     Add-ComplianceCheck -Category "Browser Security" `
         -Check "Microsoft Edge Enhanced Security Mode" `
         -Requirement "SOC 2 CC6.1 - Browser Hardening" `
+        -NIST "CM-7(1)" `
+        -CIS "2.1" `
+        -ISO27001 "A.14.1.2" `
         -Passed $enhancedSecurityOn `
         -CurrentValue $securityLevel `
         -ExpectedValue "Basic, Balanced, or Strict" `
@@ -72,6 +79,9 @@ if ($null -ne $edgePasswordManager) {
     Add-ComplianceCheck -Category "Browser Security" `
         -Check "Microsoft Edge Password Manager" `
         -Requirement "SOC 2 CC6.1 - Credential Management" `
+        -NIST "IA-5(1)" `
+        -CIS "5.2" `
+        -ISO27001 "A.9.4.3" `
         -Passed $true `
         -CurrentValue $(if ($passwordMgrEnabled) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled or use enterprise password manager" `
@@ -96,6 +106,9 @@ if ($null -ne $edgeDnsOverHttps) {
     Add-ComplianceCheck -Category "Browser Security" `
         -Check "Microsoft Edge DNS-over-HTTPS" `
         -Requirement "SOC 2 CC6.7 - Encrypted DNS" `
+        -NIST "SC-8" `
+        -CIS "2.1" `
+        -ISO27001 "A.13.1.1, A.10.1.1" `
         -Passed $dohEnabled `
         -CurrentValue $dohMode `
         -ExpectedValue "secure or automatic" `
@@ -119,6 +132,9 @@ if ($null -ne $edgeSiteIsolation) {
     Add-ComplianceCheck -Category "Browser Security" `
         -Check "Microsoft Edge Site Isolation" `
         -Requirement "SOC 2 CC6.1 - Process Isolation" `
+        -NIST "SC-39" `
+        -CIS "2.1" `
+        -ISO27001 "A.14.1.2" `
         -Passed $siteIsolationEnabled `
         -CurrentValue $(if ($siteIsolationEnabled) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `
@@ -142,6 +158,9 @@ if ($ieDisabled) {
     Add-ComplianceCheck -Category "Browser Security" `
         -Check "Internet Explorer 11 Status" `
         -Requirement "SOC 2 CC7.1 - Deprecated Software Removal" `
+        -NIST "CM-7(1), SI-2" `
+        -CIS "2.1" `
+        -ISO27001 "A.12.6.2, A.12.5.1" `
         -Passed $ieRemoved `
         -CurrentValue $(if ($ieRemoved) { "Disabled/Removed" } else { "Enabled" }) `
         -ExpectedValue "Disabled (deprecated)" `
@@ -174,6 +193,10 @@ if ($null -ne $edgeUpdatePolicy) {
     Add-ComplianceCheck -Category "Browser Security" `
         -Check "Microsoft Edge Automatic Updates" `
         -Requirement "SOC 2 CC7.1 - Browser Update Management" `
+        -NIST "SI-2" `
+        -CIS "1.3" `
+        -ISO27001 "A.12.6.1" `
+        -SOX "ITGC-04" `
         -Passed $updatesEnabled `
         -CurrentValue $updateMode `
         -ExpectedValue "Enabled or Automatic" `
@@ -198,6 +221,9 @@ if ($null -ne $edgeExtensionSettings) {
     Add-ComplianceCheck -Category "Browser Security" `
         -Check "Browser Extension Controls" `
         -Requirement "SOC 2 CC6.1 - Extension Management" `
+        -NIST "CM-7(5)" `
+        -CIS "2.1" `
+        -ISO27001 "A.12.5.1, A.12.6.2" `
         -Passed $extensionPolicyExists `
         -CurrentValue "Extension blocklist policy configured" `
         -ExpectedValue "Extension controls configured" `
@@ -208,6 +234,9 @@ if ($null -ne $edgeExtensionSettings) {
     Add-ComplianceCheck -Category "Browser Security" `
         -Check "Browser Extension Controls" `
         -Requirement "SOC 2 CC6.1 - Extension Management" `
+        -NIST "CM-7(5)" `
+        -CIS "2.1" `
+        -ISO27001 "A.12.5.1, A.12.6.2" `
         -Passed $false `
         -CurrentValue "No extension controls configured" `
         -ExpectedValue "Extension allowlist/blocklist configured" `
@@ -234,6 +263,10 @@ if ($null -ne $edgeDownloadRestrictions) {
     Add-ComplianceCheck -Category "Browser Security" `
         -Check "Download Restrictions" `
         -Requirement "SOC 2 CC7.1 - Malware Prevention" `
+        -NIST "SI-3" `
+        -CIS "10.1" `
+        -ISO27001 "A.12.2.1" `
+        -PCIDSS "5.1" `
         -Passed $downloadRestrictionsEnabled `
         -CurrentValue $restrictionLevel `
         -ExpectedValue "Block dangerous or higher" `
@@ -257,6 +290,9 @@ if ($null -ne $edgeThirdPartyCookies) {
     Add-ComplianceCheck -Category "Browser Security" `
         -Check "Third-Party Cookie Blocking" `
         -Requirement "SOC 2 CC6.7 - Privacy Protection" `
+        -NIST "AC-4" `
+        -CIS "2.1" `
+        -ISO27001 "A.18.1.4" `
         -Passed $thirdPartyCookiesBlocked `
         -CurrentValue $(if ($thirdPartyCookiesBlocked) { "Blocked" } else { "Allowed" }) `
         -ExpectedValue "Blocked" `
@@ -280,6 +316,9 @@ if ($null -ne $edgeWebRTC) {
     Add-ComplianceCheck -Category "Browser Security" `
         -Check "WebRTC IP Leak Protection" `
         -Requirement "SOC 2 CC6.7 - Information Disclosure" `
+        -NIST "AC-4" `
+        -CIS "2.1" `
+        -ISO27001 "A.13.1.1" `
         -Passed $false `
         -CurrentValue "Not configured" `
         -ExpectedValue "Restricted to trusted URLs" `

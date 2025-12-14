@@ -14,18 +14,30 @@ $RequiredLogConfigs = @(
         MinSize = 2097152  # 2GB in KB
         Requirement = "HIPAA § 164.308(a)(1)(ii)(D) - Sufficient log retention"
         Category = "Event Log Configuration"
+        NIST = "AU-4, AU-11"
+        CIS = "8.3"
+        ISO27001 = "A.12.4.1, A.12.4.2"
+        SOX = "ITGC-05"
     },
     @{
         LogName = "Application"
         MinSize = 1048576  # 1GB in KB
         Requirement = "SOC 2 CC7.2 - System Monitoring"
         Category = "Event Log Configuration"
+        NIST = "AU-4, AU-11"
+        CIS = "8.3"
+        ISO27001 = "A.12.4.1"
+        SOX = "ITGC-05"
     },
     @{
         LogName = "System"
         MinSize = 1048576  # 1GB in KB
         Requirement = "SOC 2 CC7.2 - System Monitoring"
         Category = "Event Log Configuration"
+        NIST = "AU-4, AU-11"
+        CIS = "8.3"
+        ISO27001 = "A.12.4.1"
+        SOX = "ITGC-05"
     }
 )
 
@@ -41,6 +53,10 @@ foreach ($logConfig in $RequiredLogConfigs) {
         Add-ComplianceCheck -Category $logConfig.Category `
             -Check "$($logConfig.LogName) Log Size" `
             -Requirement $logConfig.Requirement `
+            -NIST $logConfig.NIST `
+            -CIS $logConfig.CIS `
+            -ISO27001 $logConfig.ISO27001 `
+            -SOX $logConfig.SOX `
             -Passed $passed `
             -CurrentValue "$currentSizeKB KB" `
             -ExpectedValue "Minimum $minSizeKB KB" `
@@ -57,6 +73,10 @@ foreach ($logConfig in $RequiredLogConfigs) {
         Add-ComplianceCheck -Category $logConfig.Category `
             -Check "$($logConfig.LogName) Log Enabled" `
             -Requirement $logConfig.Requirement `
+            -NIST $logConfig.NIST `
+            -CIS $logConfig.CIS `
+            -ISO27001 $logConfig.ISO27001 `
+            -SOX $logConfig.SOX `
             -Passed $logEnabled `
             -CurrentValue $logEnabled.ToString() `
             -ExpectedValue "True" `
@@ -75,6 +95,10 @@ foreach ($logConfig in $RequiredLogConfigs) {
         Add-ComplianceCheck -Category $logConfig.Category `
             -Check "$($logConfig.LogName) Retention Policy" `
             -Requirement $logConfig.Requirement `
+            -NIST $logConfig.NIST `
+            -CIS $logConfig.CIS `
+            -ISO27001 $logConfig.ISO27001 `
+            -SOX $logConfig.SOX `
             -Passed $retentionGood `
             -CurrentValue $retentionDays `
             -ExpectedValue "Circular or AutoBackup" `
@@ -90,6 +114,10 @@ foreach ($logConfig in $RequiredLogConfigs) {
         Add-ComplianceCheck -Category $logConfig.Category `
             -Check "$($logConfig.LogName) Log Accessibility" `
             -Requirement $logConfig.Requirement `
+            -NIST $logConfig.NIST `
+            -CIS $logConfig.CIS `
+            -ISO27001 $logConfig.ISO27001 `
+            -SOX $logConfig.SOX `
             -Passed $false `
             -CurrentValue "Error: $($_.Exception.Message)" `
             -ExpectedValue "Accessible" `
@@ -112,6 +140,10 @@ try {
     Add-ComplianceCheck -Category "Event Log Configuration" `
         -Check "Security Log Activity" `
         -Requirement "HIPAA § 164.312(b) - Audit Controls Active" `
+        -NIST "AU-6" `
+        -CIS "8.2" `
+        -ISO27001 "A.12.4.1" `
+        -SOX "ITGC-05" `
         -Passed $logsActive `
         -CurrentValue $(if ($logsActive) { "Events found in last 24 hours" } else { "No events in last 24 hours" }) `
         -ExpectedValue "Events logged within 24 hours" `
@@ -126,6 +158,10 @@ try {
     Add-ComplianceCheck -Category "Event Log Configuration" `
         -Check "Security Log Activity" `
         -Requirement "HIPAA § 164.312(b) - Audit Controls Active" `
+        -NIST "AU-6" `
+        -CIS "8.2" `
+        -ISO27001 "A.12.4.1" `
+        -SOX "ITGC-05" `
         -Passed $false `
         -CurrentValue "Unable to verify" `
         -ExpectedValue "Events logged within 24 hours" `

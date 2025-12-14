@@ -26,6 +26,9 @@ try {
         Add-ComplianceCheck -Category "Virtualization-Based Security" `
             -Check "VBS (Virtualization-Based Security) Status" `
             -Requirement "SOC 2 CC6.1 - Advanced Hardware Security" `
+            -NIST "SC-39, SI-7" `
+            -CIS "9.3" `
+            -ISO27001 "A.14.2.5" `
             -Passed $vbsRunning `
             -CurrentValue $vbsStatus `
             -ExpectedValue "Enabled and running" `
@@ -43,6 +46,9 @@ try {
         Add-ComplianceCheck -Category "Virtualization-Based Security" `
             -Check "Memory Integrity (HVCI) Running" `
             -Requirement "SOC 2 CC7.1 - Kernel Protection" `
+            -NIST "SI-7, SI-16" `
+            -CIS "9.3" `
+            -ISO27001 "A.14.2.5, A.12.6.2" `
             -Passed $hvciRunning `
             -CurrentValue $(if ($hvciRunning) { "Running" } else { "Not running" }) `
             -ExpectedValue "Running" `
@@ -60,6 +66,9 @@ try {
         Add-ComplianceCheck -Category "Virtualization-Based Security" `
             -Check "Memory Integrity (HVCI) Configured" `
             -Requirement "SOC 2 CC7.1 - Kernel Protection" `
+            -NIST "SI-7, SI-16" `
+            -CIS "9.3" `
+            -ISO27001 "A.14.2.5, A.12.6.2" `
             -Passed $hvciConfigured `
             -CurrentValue $(if ($hvciConfigured) { "Configured" } else { "Not configured" }) `
             -ExpectedValue "Configured" `
@@ -96,6 +105,9 @@ try {
             Add-ComplianceCheck -Category "Virtualization-Based Security" `
                 -Check "Hardware Security Capabilities" `
                 -Requirement "SOC 2 CC6.1 - Platform Security" `
+                -NIST "SC-39" `
+                -CIS "9.3" `
+                -ISO27001 "A.14.2.5" `
                 -Passed ($availableProps.Count -ge 2) `
                 -CurrentValue $propsText `
                 -ExpectedValue "Hypervisor and VBS support" `
@@ -112,6 +124,9 @@ try {
     Add-ComplianceCheck -Category "Virtualization-Based Security" `
         -Check "VBS Query Status" `
         -Requirement "SOC 2 CC6.1 - Virtualization-Based Security" `
+        -NIST "SC-39, SI-7" `
+        -CIS "9.3" `
+        -ISO27001 "A.14.2.5" `
         -Passed $false `
         -CurrentValue "Unable to query: $($_.Exception.Message)" `
         -ExpectedValue "VBS supported and queryable" `
@@ -130,6 +145,9 @@ try {
         Add-ComplianceCheck -Category "Virtualization-Based Security" `
             -Check "System Guard Secure Launch" `
             -Requirement "SOC 2 CC6.1 - Boot Security" `
+            -NIST "SI-7" `
+            -CIS "9.3" `
+            -ISO27001 "A.14.2.5" `
             -Passed $secureBootEnabled `
             -CurrentValue $(switch ($systemGuard.SystemGuardStatus) { 0 { "Not configured" } 1 { "Configured" } 2 { "Running" } default { "Unknown" } }) `
             -ExpectedValue "Running" `
@@ -162,6 +180,9 @@ if ($dmaProtection -and $null -ne $dmaProtection.KernelDMAProtectionStatus) {
     Add-ComplianceCheck -Category "Virtualization-Based Security" `
         -Check "Kernel DMA Protection" `
         -Requirement "SOC 2 CC6.1 - DMA Attack Prevention" `
+        -NIST "SC-39, SI-7" `
+        -CIS "9.3" `
+        -ISO27001 "A.14.2.5" `
         -Passed $dmaEnabled `
         -CurrentValue $dmaStatus `
         -ExpectedValue "Enabled" `

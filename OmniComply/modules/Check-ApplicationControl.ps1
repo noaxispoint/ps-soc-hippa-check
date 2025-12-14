@@ -17,6 +17,9 @@ if ($appIDSvc) {
     Add-ComplianceCheck -Category "Application Control" `
         -Check "AppLocker Service (AppIDSvc) Status" `
         -Requirement "SOC 2 CC6.1 - Application Whitelisting" `
+        -NIST "CM-7(2)" `
+        -CIS "9.2" `
+        -ISO27001 "A.12.6.2, A.14.2.5" `
         -Passed $appIDRunning `
         -CurrentValue $appIDSvc.Status `
         -ExpectedValue "Running (if AppLocker is used)" `
@@ -55,6 +58,9 @@ if ($appIDSvc) {
             Add-ComplianceCheck -Category "Application Control" `
                 -Check "AppLocker Policies Configured" `
                 -Requirement "SOC 2 CC6.1 - Application Whitelisting" `
+                -NIST "CM-7(2)" `
+                -CIS "9.2" `
+                -ISO27001 "A.12.6.2, A.14.2.5" `
                 -Passed $hasPolicies `
                 -CurrentValue "$ruleCount total rules ($rulesSummary)" `
                 -ExpectedValue "Policies configured" `
@@ -69,6 +75,9 @@ if ($appIDSvc) {
             Add-ComplianceCheck -Category "Application Control" `
                 -Check "AppLocker Policies Configured" `
                 -Requirement "SOC 2 CC6.1 - Application Whitelisting" `
+                -NIST "CM-7(2)" `
+                -CIS "9.2" `
+                -ISO27001 "A.12.6.2, A.14.2.5" `
                 -Passed $false `
                 -CurrentValue "No effective policy" `
                 -ExpectedValue "Policies configured" `
@@ -80,6 +89,9 @@ if ($appIDSvc) {
         Add-ComplianceCheck -Category "Application Control" `
             -Check "AppLocker Policy Query" `
             -Requirement "SOC 2 CC6.1 - Application Whitelisting" `
+            -NIST "CM-7(2)" `
+            -CIS "9.2" `
+            -ISO27001 "A.12.6.2" `
             -Passed $false `
             -CurrentValue "Unable to query: $($_.Exception.Message)" `
             -ExpectedValue "Policies queryable" `
@@ -106,6 +118,9 @@ try {
         Add-ComplianceCheck -Category "Application Control" `
             -Check "Windows Defender Application Control (WDAC)" `
             -Requirement "SOC 2 CC7.1 - Code Integrity Enforcement" `
+            -NIST "CM-7(2), SI-7" `
+            -CIS "9.2" `
+            -ISO27001 "A.14.2.5, A.12.6.2" `
             -Passed $ciEnabled `
             -CurrentValue $ciStatus `
             -ExpectedValue "Enforced or Audit mode" `
@@ -133,6 +148,9 @@ try {
             Add-ComplianceCheck -Category "Application Control" `
                 -Check "User Mode Code Integrity (UMCI)" `
                 -Requirement "SOC 2 CC6.1 - User-Mode Application Control" `
+                -NIST "CM-7(2), SI-7" `
+                -CIS "9.2" `
+                -ISO27001 "A.14.2.5" `
                 -Passed $umciEnabled `
                 -CurrentValue $umciStatus `
                 -ExpectedValue "Enforced or Audit mode" `
@@ -150,6 +168,9 @@ try {
         Add-ComplianceCheck -Category "Application Control" `
             -Check "Windows Defender Application Control (WDAC)" `
             -Requirement "SOC 2 CC7.1 - Code Integrity" `
+            -NIST "CM-7(2), SI-7" `
+            -CIS "9.2" `
+            -ISO27001 "A.14.2.5, A.12.6.2" `
             -Passed $false `
             -CurrentValue "Not available or not configured" `
             -ExpectedValue "Enforced or Audit mode" `
@@ -161,6 +182,9 @@ try {
     Add-ComplianceCheck -Category "Application Control" `
         -Check "WDAC Query Status" `
         -Requirement "SOC 2 CC7.1 - Application Control" `
+        -NIST "CM-7(2), SI-7" `
+        -CIS "9.2" `
+        -ISO27001 "A.14.2.5" `
         -Passed $false `
         -CurrentValue "Unable to query" `
         -ExpectedValue "WDAC queryable" `
@@ -178,6 +202,10 @@ if ($smartScreen) {
     Add-ComplianceCheck -Category "Application Control" `
         -Check "SmartScreen for Apps and Files" `
         -Requirement "SOC 2 CC7.1 - Unverified Application Protection" `
+        -NIST "SI-3" `
+        -CIS "10.1" `
+        -ISO27001 "A.12.2.1" `
+        -PCIDSS "5.1" `
         -Passed $smartScreenOn `
         -CurrentValue $smartScreen.SmartScreenEnabled `
         -ExpectedValue "RequireAdmin or Warn" `
@@ -198,6 +226,10 @@ if ($smartScreen) {
         Add-ComplianceCheck -Category "Application Control" `
             -Check "SmartScreen for Apps and Files" `
             -Requirement "SOC 2 CC7.1 - Unverified Application Protection" `
+            -NIST "SI-3" `
+            -CIS "10.1" `
+            -ISO27001 "A.12.2.1" `
+            -PCIDSS "5.1" `
             -Passed $smartScreenEnabled `
             -CurrentValue $(if ($smartScreenEnabled) { "Enabled" } else { "Disabled" }) `
             -ExpectedValue "Enabled" `

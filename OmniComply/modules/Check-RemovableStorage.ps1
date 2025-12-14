@@ -51,6 +51,10 @@ if ($removableStoragePolicy) {
     Add-ComplianceCheck -Category "Removable Storage" `
         -Check "Removable Storage Restrictions" `
         -Requirement "HIPAA § 164.310(d)(1) - Device and Media Controls" `
+        -NIST "MP-7" `
+        -CIS "8.4" `
+        -ISO27001 "A.8.2.3, A.11.2.9" `
+        -SOX "ITGC-03" `
         -Passed $hasRestrictions `
         -CurrentValue $restrictionsSummary `
         -ExpectedValue "Restrictions configured" `
@@ -65,6 +69,10 @@ if ($removableStoragePolicy) {
     Add-ComplianceCheck -Category "Removable Storage" `
         -Check "Removable Storage Policy" `
         -Requirement "HIPAA § 164.310(d)(1) - Device and Media Controls" `
+        -NIST "MP-7" `
+        -CIS "8.4" `
+        -ISO27001 "A.8.2.3, A.11.2.9" `
+        -SOX "ITGC-03" `
         -Passed $false `
         -CurrentValue "No policy configured" `
         -ExpectedValue "Policy configured to restrict USB/removable media" `
@@ -82,6 +90,11 @@ if ($bitlockerToGo) {
     Add-ComplianceCheck -Category "Removable Storage" `
         -Check "BitLocker To Go - Unencrypted Write Protection" `
         -Requirement "HIPAA § 164.312(a)(2)(iv) - Encryption of Removable Media" `
+        -NIST "SC-28, MP-5" `
+        -CIS "3.5" `
+        -ISO27001 "A.8.2.3, A.10.1.1" `
+        -PCIDSS "3.4" `
+        -SOX "ITGC-03" `
         -Passed $requireEncryption `
         -CurrentValue $(if ($requireEncryption) { "Write protection enabled (encryption required)" } else { "Not enforced" }) `
         -ExpectedValue "Write protection enabled" `
@@ -103,6 +116,10 @@ $auditEnabled = $null -ne $removableAudit
 Add-ComplianceCheck -Category "Removable Storage" `
     -Check "Removable Storage Auditing" `
     -Requirement "HIPAA § 164.312(b) - Audit Controls for Device Access" `
+    -NIST "AU-2, AU-12" `
+    -CIS "8.2" `
+    -ISO27001 "A.12.4.1" `
+    -SOX "ITGC-05" `
     -Passed $auditEnabled `
     -CurrentValue $(if ($auditEnabled) { $removableAudit.'Inclusion Setting' } else { "Not audited" }) `
     -ExpectedValue "Success and Failure" `
@@ -124,6 +141,10 @@ if ($defenderUSB) {
     Add-ComplianceCheck -Category "Removable Storage" `
         -Check "Windows Defender - Removable Drive Scanning" `
         -Requirement "SOC 2 CC7.1 - Malware Protection for External Media" `
+        -NIST "SI-3" `
+        -CIS "10.1" `
+        -ISO27001 "A.12.2.1" `
+        -PCIDSS "5.1" `
         -Passed $scanRemovable `
         -CurrentValue $(if ($scanRemovable) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `
@@ -148,6 +169,10 @@ if ($defenderUSB) {
         Add-ComplianceCheck -Category "Removable Storage" `
             -Check "AutoRun Disabled for Removable Drives" `
             -Requirement "SOC 2 CC7.1 - Autorun Malware Prevention" `
+            -NIST "SI-3" `
+            -CIS "10.1" `
+            -ISO27001 "A.12.2.1" `
+            -PCIDSS "5.1" `
             -Passed $autoRunDisabled `
             -CurrentValue "$autoRunValue" `
             -ExpectedValue "0xFF (all) or 0x9C (removable)" `
@@ -162,6 +187,10 @@ if ($defenderUSB) {
         Add-ComplianceCheck -Category "Removable Storage" `
             -Check "AutoRun Configuration" `
             -Requirement "SOC 2 CC7.1 - Autorun Malware Prevention" `
+            -NIST "SI-3" `
+            -CIS "10.1" `
+            -ISO27001 "A.12.2.1" `
+            -PCIDSS "5.1" `
             -Passed $false `
             -CurrentValue "Not configured (AutoRun may be enabled)" `
             -ExpectedValue "Disabled for removable drives" `

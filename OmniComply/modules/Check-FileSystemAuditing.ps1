@@ -17,6 +17,10 @@ if ($objectAccessEnabled) {
     Add-ComplianceCheck -Category "File System Auditing" `
         -Check "Object Access Policy Enabled" `
         -Requirement "HIPAA § 164.312(b) - File Access Auditing" `
+        -NIST "AU-2, AU-12" `
+        -CIS "8.2" `
+        -ISO27001 "A.12.4.1" `
+        -SOX "ITGC-05" `
         -Passed $true `
         -CurrentValue "Enabled" `
         -ExpectedValue "Enabled" `
@@ -27,6 +31,10 @@ if ($objectAccessEnabled) {
     Add-ComplianceCheck -Category "File System Auditing" `
         -Check "Object Access Policy Enabled" `
         -Requirement "HIPAA § 164.312(b) - File Access Auditing" `
+        -NIST "AU-2, AU-12" `
+        -CIS "8.2" `
+        -ISO27001 "A.12.4.1" `
+        -SOX "ITGC-05" `
         -Passed $false `
         -CurrentValue "Disabled or Partial" `
         -ExpectedValue "Success and Failure" `
@@ -65,6 +73,10 @@ $saclsConfigured = $saclCount -gt 0
 Add-ComplianceCheck -Category "File System Auditing" `
     -Check "SACL Configuration on Sensitive Folders" `
     -Requirement "HIPAA § 164.312(b) - Audit Controls for File Access" `
+    -NIST "AU-2, AU-9" `
+    -CIS "8.2" `
+    -ISO27001 "A.12.4.1, A.12.4.3" `
+    -SOX "ITGC-05" `
     -Passed $saclsConfigured `
     -CurrentValue "$saclCount of $foldersChecked checked folders have auditing" `
     -ExpectedValue "Auditing configured on folders containing ePHI/sensitive data" `
@@ -85,6 +97,10 @@ $fileSharePassed = $null -ne $detailedFileShare
 Add-ComplianceCheck -Category "File System Auditing" `
     -Check "Detailed File Share Auditing" `
     -Requirement "HIPAA § 164.312(b) - Network Share Access Auditing" `
+    -NIST "AU-2, AU-12" `
+    -CIS "8.2" `
+    -ISO27001 "A.12.4.1, A.13.1.1" `
+    -SOX "ITGC-05" `
     -Passed $fileSharePassed `
     -CurrentValue $(if ($fileSharePassed) { "Enabled" } else { "Not Fully Enabled" }) `
     -ExpectedValue "Success and Failure" `

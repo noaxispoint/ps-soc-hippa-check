@@ -36,6 +36,10 @@ try {
     Add-ComplianceCheck -Category "Certificate Management" `
         -Check "Certificates Expiring Soon (30 days)" `
         -Requirement "SOC 2 CC7.1 - Certificate Lifecycle Management" `
+        -NIST "SC-12, SC-17" `
+        -CIS "9.1" `
+        -ISO27001 "A.12.3.1, A.10.1.2" `
+        -SOX "ITGC-03" `
         -Passed $noExpiringSoon `
         -CurrentValue "$($expiringCerts.Count) expiring: $expiringInfo" `
         -ExpectedValue "No certificates expiring within 30 days" `
@@ -61,6 +65,10 @@ try {
     Add-ComplianceCheck -Category "Certificate Management" `
         -Check "Expired Certificates in Store" `
         -Requirement "SOC 2 CC7.1 - Certificate Validity" `
+        -NIST "SC-12" `
+        -CIS "9.1" `
+        -ISO27001 "A.10.1.2" `
+        -SOX "ITGC-03" `
         -Passed $noExpired `
         -CurrentValue "$($expiredCerts.Count) expired: $expiredInfo" `
         -ExpectedValue "No expired certificates" `
@@ -80,6 +88,9 @@ try {
     Add-ComplianceCheck -Category "Certificate Management" `
         -Check "Certificate Store Access" `
         -Requirement "SOC 2 CC7.1 - Certificate Management" `
+        -NIST "SC-12" `
+        -CIS "9.1" `
+        -ISO27001 "A.10.1.2" `
         -Passed $false `
         -CurrentValue "Unable to access: $($_.Exception.Message)" `
         -ExpectedValue "Certificate store accessible" `
@@ -110,6 +121,11 @@ try {
     Add-ComplianceCheck -Category "Certificate Management" `
         -Check "Weak Cryptographic Algorithms" `
         -Requirement "HIPAA § 164.312(e)(2)(i) - Cryptographic Standards" `
+        -NIST "SC-13" `
+        -CIS "9.1" `
+        -ISO27001 "A.10.1.1" `
+        -PCIDSS "4.1" `
+        -SOX "ITGC-03" `
         -Passed $noWeakCerts `
         -CurrentValue "$($weakCerts.Count) weak: $weakInfo" `
         -ExpectedValue "No SHA1 or MD5 signed certificates" `
@@ -144,6 +160,10 @@ try {
     Add-ComplianceCheck -Category "Certificate Management" `
         -Check "Self-Signed Certificates" `
         -Requirement "SOC 2 CC6.1 - Trusted Certificate Authorities" `
+        -NIST "SC-12, SC-17" `
+        -CIS "9.1" `
+        -ISO27001 "A.10.1.2" `
+        -SOX "ITGC-03" `
         -Passed $noSelfSigned `
         -CurrentValue $selfSignedInfo `
         -ExpectedValue "No self-signed certificates in production" `
@@ -170,6 +190,9 @@ try {
     Add-ComplianceCheck -Category "Certificate Management" `
         -Check "Root Certificate Store Size" `
         -Requirement "SOC 2 CC7.1 - Certificate Trust Management" `
+        -NIST "SC-12" `
+        -CIS "9.1" `
+        -ISO27001 "A.10.1.2" `
         -Passed $rootCountNormal `
         -CurrentValue "$rootCount root certificates" `
         -ExpectedValue "30-250 root certificates (typical)" `
@@ -196,6 +219,10 @@ try {
     Add-ComplianceCheck -Category "Certificate Management" `
         -Check "EFS Certificate Present" `
         -Requirement "HIPAA § 164.312(a)(2)(iv) - Encryption Key Management" `
+        -NIST "SC-12, SC-28" `
+        -CIS "3.5" `
+        -ISO27001 "A.10.1.2" `
+        -PCIDSS "3.4" `
         -Passed $hasEfsCert `
         -CurrentValue $(if ($hasEfsCert) { "EFS certificate(s) present" } else { "No EFS certificates" }) `
         -ExpectedValue "EFS certificate present (if EFS is used)" `
@@ -221,6 +248,9 @@ if ($crlCheck) {
     Add-ComplianceCheck -Category "Certificate Management" `
         -Check "Certificate Revocation Checking" `
         -Requirement "SOC 2 CC6.1 - Certificate Validation" `
+        -NIST "SC-12, SC-17" `
+        -CIS "9.1" `
+        -ISO27001 "A.10.1.2" `
         -Passed $crlEnabled `
         -CurrentValue "CRL checking configured" `
         -ExpectedValue "CRL/OCSP checking enabled" `

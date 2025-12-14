@@ -25,6 +25,10 @@ try {
     Add-ComplianceCheck -Category "Shared Resources" `
         -Check "File Shares Present" `
         -Requirement "SOC 2 CC6.1 - Shared Resource Management" `
+        -NIST "AC-3" `
+        -CIS "13.9" `
+        -ISO27001 "A.13.1.1, A.13.2.1" `
+        -SOX "ITGC-01" `
         -Passed $true `
         -CurrentValue "$($shares.Count) share(s): $sharesList" `
         -ExpectedValue "Shares should be reviewed and justified" `
@@ -40,6 +44,9 @@ try {
     Add-ComplianceCheck -Category "Shared Resources" `
         -Check "SMB Share Query" `
         -Requirement "SOC 2 CC6.1 - Shared Resources" `
+        -NIST "AC-3" `
+        -CIS "13.9" `
+        -ISO27001 "A.13.1.1" `
         -Passed $false `
         -CurrentValue "Unable to query: $($_.Exception.Message)" `
         -ExpectedValue "SMB shares queryable" `
@@ -85,6 +92,11 @@ try {
     Add-ComplianceCheck -Category "Shared Resources" `
         -Check "Share Permissions Security" `
         -Requirement "HIPAA § 164.308(a)(4)(i) - Access Authorization" `
+        -NIST "AC-3, AC-6" `
+        -CIS "13.9" `
+        -ISO27001 "A.9.1.2, A.9.4.1" `
+        -PCIDSS "7.1" `
+        -SOX "ITGC-01" `
         -Passed $noInsecureShares `
         -CurrentValue "$($insecureShares.Count) insecure: $insecureList" `
         -ExpectedValue "No shares with 'Everyone Full Control' or Guest access" `
@@ -109,6 +121,10 @@ if ($null -ne $adminSharesEnabled) {
     Add-ComplianceCheck -Category "Shared Resources" `
         -Check "Administrative Shares (C$, ADMIN$)" `
         -Requirement "SOC 2 CC6.1 - Administrative Access Control" `
+        -NIST "AC-6" `
+        -CIS "13.9" `
+        -ISO27001 "A.9.2.3" `
+        -SOX "ITGC-01" `
         -Passed $adminEnabled `
         -CurrentValue $(if ($adminEnabled) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled (for remote administration)" `
@@ -132,6 +148,10 @@ if ($null -ne $restrictNullSessions) {
     Add-ComplianceCheck -Category "Shared Resources" `
         -Check "Null Session Access to Shares" `
         -Requirement "SOC 2 CC6.7 - Anonymous Access Prevention" `
+        -NIST "AC-14" `
+        -CIS "13.9" `
+        -ISO27001 "A.9.1.2, A.13.1.1" `
+        -SOX "ITGC-01" `
         -Passed $nullSessionsRestricted `
         -CurrentValue $(if ($nullSessionsRestricted) { "Restricted" } else { "Not restricted" }) `
         -ExpectedValue "Restricted" `
@@ -146,6 +166,10 @@ if ($null -ne $restrictNullSessions) {
     Add-ComplianceCheck -Category "Shared Resources" `
         -Check "Null Session Access to Shares" `
         -Requirement "SOC 2 CC6.7 - Anonymous Access Prevention" `
+        -NIST "AC-14" `
+        -CIS "13.9" `
+        -ISO27001 "A.9.1.2, A.13.1.1" `
+        -SOX "ITGC-01" `
         -Passed $false `
         -CurrentValue "Not configured" `
         -ExpectedValue "Restricted" `
@@ -169,6 +193,9 @@ try {
     Add-ComplianceCheck -Category "Shared Resources" `
         -Check "Shared Printers" `
         -Requirement "SOC 2 CC6.1 - Printer Security" `
+        -NIST "AC-3" `
+        -CIS "13.9" `
+        -ISO27001 "A.11.2.9" `
         -Passed $true `
         -CurrentValue "$($printers.Count) shared: $printerList" `
         -ExpectedValue "Shared printers should be reviewed" `
@@ -193,6 +220,10 @@ if ($null -ne $smbSigning) {
     Add-ComplianceCheck -Category "Shared Resources" `
         -Check "SMB Signing Required (Server)" `
         -Requirement "SOC 2 CC6.7 - SMB Security" `
+        -NIST "SC-8" `
+        -CIS "13.9" `
+        -ISO27001 "A.13.1.1, A.13.2.3" `
+        -PCIDSS "4.2" `
         -Passed $signingRequired `
         -CurrentValue $(if ($signingRequired) { "Required" } else { "Not required" }) `
         -ExpectedValue "Required" `
@@ -216,6 +247,11 @@ try {
     Add-ComplianceCheck -Category "Shared Resources" `
         -Check "SMB Encryption" `
         -Requirement "HIPAA § 164.312(e)(1) - Transmission Security" `
+        -NIST "SC-8, SC-13" `
+        -CIS "13.9" `
+        -ISO27001 "A.10.1.1, A.13.1.1" `
+        -PCIDSS "4.1" `
+        -SOX "ITGC-03" `
         -Passed $encryptionEnabled `
         -CurrentValue $(if ($encryptionEnabled) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `
@@ -233,6 +269,10 @@ try {
     Add-ComplianceCheck -Category "Shared Resources" `
         -Check "SMB v1 Protocol" `
         -Requirement "SOC 2 CC7.1 - Deprecated Protocol Removal" `
+        -NIST "CM-7(1), SI-2" `
+        -CIS "4.8" `
+        -ISO27001 "A.12.6.2" `
+        -PCIDSS "2.2.2" `
         -Passed (-not $smb1Enabled) `
         -CurrentValue $(if ($smb1Enabled) { "Enabled (INSECURE)" } else { "Disabled" }) `
         -ExpectedValue "Disabled" `
@@ -265,6 +305,10 @@ if ($null -ne $restrictAnonymous) {
     Add-ComplianceCheck -Category "Shared Resources" `
         -Check "Anonymous Enumeration of Shares" `
         -Requirement "SOC 2 CC6.7 - Information Disclosure Prevention" `
+        -NIST "AC-14" `
+        -CIS "13.9" `
+        -ISO27001 "A.9.1.2" `
+        -SOX "ITGC-01" `
         -Passed $anonymousRestricted `
         -CurrentValue $restrictValue `
         -ExpectedValue "No enumeration (1) or No access (2)" `

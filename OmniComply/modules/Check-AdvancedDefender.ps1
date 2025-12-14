@@ -17,6 +17,10 @@ if ($defenderPrefs) {
     Add-ComplianceCheck -Category "Advanced Defender" `
         -Check "Controlled Folder Access (Ransomware Protection)" `
         -Requirement "HIPAA § 164.312(a)(2)(iv) - Data Protection" `
+        -NIST "SI-3, CP-9" `
+        -CIS "10.5" `
+        -ISO27001 "A.12.3.1" `
+        -PCIDSS "5.1, 12.10.1" `
         -Passed $cfaEnabled `
         -CurrentValue $(if ($cfaEnabled) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `
@@ -35,6 +39,9 @@ if ($defenderPrefs) {
     Add-ComplianceCheck -Category "Advanced Defender" `
         -Check "Network Protection" `
         -Requirement "SOC 2 CC7.1 - Malicious Site Protection" `
+        -NIST "SI-3, SI-4" `
+        -CIS "10.1" `
+        -ISO27001 "A.12.2.1" `
         -Passed $networkEnabled `
         -CurrentValue $(switch ($networkProtection) { 0 { "Disabled" } 1 { "Enabled (Block)" } 2 { "Audit Mode" } default { "Unknown" } }) `
         -ExpectedValue "Enabled (Block mode)" `
@@ -53,6 +60,10 @@ if ($defenderPrefs) {
     Add-ComplianceCheck -Category "Advanced Defender" `
         -Check "Cloud-Delivered Protection" `
         -Requirement "SOC 2 CC7.1 - Advanced Threat Protection" `
+        -NIST "SI-3(2)" `
+        -CIS "10.1" `
+        -ISO27001 "A.12.2.1" `
+        -PCIDSS "5.1.2" `
         -Passed $cloudEnabled `
         -CurrentValue $(switch ($cloudProtection) { 0 { "Disabled" } 1 { "Basic" } 2 { "Advanced" } default { "Unknown" } }) `
         -ExpectedValue "Basic or Advanced" `
@@ -70,6 +81,9 @@ if ($defenderPrefs) {
     Add-ComplianceCheck -Category "Advanced Defender" `
         -Check "Behavior Monitoring" `
         -Requirement "SOC 2 CC7.1 - Threat Detection" `
+        -NIST "SI-3(1)" `
+        -CIS "10.1" `
+        -ISO27001 "A.12.2.1" `
         -Passed $behaviorMonitoring `
         -CurrentValue $(if ($behaviorMonitoring) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `
@@ -88,6 +102,9 @@ if ($defenderPrefs) {
     Add-ComplianceCheck -Category "Advanced Defender" `
         -Check "PUA (Potentially Unwanted Applications) Protection" `
         -Requirement "SOC 2 CC7.1 - Unwanted Software Protection" `
+        -NIST "SI-3" `
+        -CIS "10.1" `
+        -ISO27001 "A.12.2.1" `
         -Passed $puaEnabled `
         -CurrentValue $(switch ($puaProtection) { 0 { "Disabled" } 1 { "Enabled (Block)" } 2 { "Audit Mode" } default { "Unknown" } }) `
         -ExpectedValue "Enabled (Block mode)" `
@@ -118,6 +135,10 @@ try {
         Add-ComplianceCheck -Category "Advanced Defender" `
             -Check "Attack Surface Reduction (ASR) Rules" `
             -Requirement "SOC 2 CC7.1 - Attack Prevention" `
+            -NIST "SI-3, SI-4" `
+            -CIS "10.5" `
+            -ISO27001 "A.12.2.1" `
+            -PCIDSS "5.1" `
             -Passed $hasASR `
             -CurrentValue "$enabledRules of $($asrRules.Count) rules in block mode" `
             -ExpectedValue "At least 1 ASR rule enabled" `
@@ -132,6 +153,10 @@ try {
         Add-ComplianceCheck -Category "Advanced Defender" `
             -Check "Attack Surface Reduction (ASR) Rules" `
             -Requirement "SOC 2 CC7.1 - Attack Prevention" `
+            -NIST "SI-3, SI-4" `
+            -CIS "10.5" `
+            -ISO27001 "A.12.2.1" `
+            -PCIDSS "5.1" `
             -Passed $false `
             -CurrentValue "No rules configured" `
             -ExpectedValue "At least 1 ASR rule enabled" `
@@ -143,6 +168,10 @@ try {
     Add-ComplianceCheck -Category "Advanced Defender" `
         -Check "Attack Surface Reduction (ASR) Rules" `
         -Requirement "SOC 2 CC7.1 - Attack Prevention" `
+        -NIST "SI-3, SI-4" `
+        -CIS "10.5" `
+        -ISO27001 "A.12.2.1" `
+        -PCIDSS "5.1" `
         -Passed $false `
         -CurrentValue "Unable to query ASR rules" `
         -ExpectedValue "At least 1 ASR rule enabled" `
@@ -162,6 +191,9 @@ try {
     Add-ComplianceCheck -Category "Advanced Defender" `
         -Check "Exploit Protection - DEP (Data Execution Prevention)" `
         -Requirement "SOC 2 CC6.1 - Memory Protection" `
+        -NIST "SI-16, SI-7(1)" `
+        -CIS "10.5" `
+        -ISO27001 "A.12.2.1" `
         -Passed $dep `
         -CurrentValue $(if ($dep) { "Enabled" } else { "Disabled or NotSet" }) `
         -ExpectedValue "Enabled" `
@@ -176,6 +208,9 @@ try {
     Add-ComplianceCheck -Category "Advanced Defender" `
         -Check "Exploit Protection - SEHOP" `
         -Requirement "SOC 2 CC6.1 - Exploit Mitigation" `
+        -NIST "SI-16, SI-7(1)" `
+        -CIS "10.5" `
+        -ISO27001 "A.12.2.1" `
         -Passed $sehop `
         -CurrentValue $(if ($sehop) { "Enabled" } else { "Disabled or NotSet" }) `
         -ExpectedValue "Enabled" `
@@ -190,6 +225,9 @@ try {
     Add-ComplianceCheck -Category "Advanced Defender" `
         -Check "Exploit Protection Status" `
         -Requirement "SOC 2 CC6.1 - Exploit Mitigation" `
+        -NIST "SI-16, SI-7(1)" `
+        -CIS "10.5" `
+        -ISO27001 "A.12.2.1" `
         -Passed $false `
         -CurrentValue "Unable to query exploit protection" `
         -ExpectedValue "Exploit protections enabled" `

@@ -19,6 +19,9 @@ try {
         Add-ComplianceCheck -Category "Credential Guard" `
             -Check "Credential Guard Running" `
             -Requirement "SOC 2 CC6.7 - Credential Protection" `
+            -NIST "IA-5(1), SC-12" `
+            -CIS "9.3" `
+            -ISO27001 "A.9.4.3, A.10.1.2" `
             -Passed $credGuardRunning `
             -CurrentValue $(if ($credGuardRunning) { "Running" } else { "Not running" }) `
             -ExpectedValue "Running (Enterprise/Education only)" `
@@ -36,6 +39,9 @@ try {
         Add-ComplianceCheck -Category "Credential Guard" `
             -Check "Credential Guard Configured" `
             -Requirement "SOC 2 CC6.7 - Credential Protection Configuration" `
+            -NIST "IA-5(1), SC-12" `
+            -CIS "9.3" `
+            -ISO27001 "A.9.4.3, A.10.1.2" `
             -Passed $credGuardConfigured `
             -CurrentValue $(if ($credGuardConfigured) { "Configured" } else { "Not configured" }) `
             -ExpectedValue "Configured (Enterprise/Education only)" `
@@ -54,6 +60,9 @@ try {
         Add-ComplianceCheck -Category "Credential Guard" `
             -Check "Windows Edition Support" `
             -Requirement "SOC 2 CC6.7 - Platform Compatibility" `
+            -NIST "SC-12" `
+            -CIS "9.3" `
+            -ISO27001 "A.9.4.3" `
             -Passed $isEnterprise `
             -CurrentValue $osInfo.Caption `
             -ExpectedValue "Windows Enterprise or Education" `
@@ -82,6 +91,9 @@ try {
                 Add-ComplianceCheck -Category "Credential Guard" `
                     -Check "Credential Guard UEFI Lock" `
                     -Requirement "SOC 2 CC6.1 - Tamper Protection" `
+                    -NIST "SC-12, SI-7" `
+                    -CIS "9.3" `
+                    -ISO27001 "A.9.4.3, A.14.2.5" `
                     -Passed $isLocked `
                     -CurrentValue $lockStatus `
                     -ExpectedValue "Locked (UEFI)" `
@@ -99,6 +111,9 @@ try {
     Add-ComplianceCheck -Category "Credential Guard" `
         -Check "Credential Guard Query" `
         -Requirement "SOC 2 CC6.7 - Credential Protection" `
+        -NIST "IA-5(1), SC-12" `
+        -CIS "9.3" `
+        -ISO27001 "A.9.4.3" `
         -Passed $false `
         -CurrentValue "Unable to query: $($_.Exception.Message)" `
         -ExpectedValue "Queryable on Enterprise/Education" `
@@ -116,6 +131,9 @@ if ($lsaProtection) {
     Add-ComplianceCheck -Category "Credential Guard" `
         -Check "LSA Protection (Credential Hardening)" `
         -Requirement "SOC 2 CC6.7 - Additional Credential Protection" `
+        -NIST "IA-5(1), SC-12" `
+        -CIS "9.3" `
+        -ISO27001 "A.9.4.3" `
         -Passed $lsaEnabled `
         -CurrentValue $(if ($lsaEnabled) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `
@@ -130,6 +148,9 @@ if ($lsaProtection) {
     Add-ComplianceCheck -Category "Credential Guard" `
         -Check "LSA Protection (Credential Hardening)" `
         -Requirement "SOC 2 CC6.7 - Additional Credential Protection" `
+        -NIST "IA-5(1), SC-12" `
+        -CIS "9.3" `
+        -ISO27001 "A.9.4.3" `
         -Passed $false `
         -CurrentValue "Not configured" `
         -ExpectedValue "Enabled" `
@@ -148,6 +169,9 @@ if ($cachedLogons) {
     Add-ComplianceCheck -Category "Credential Guard" `
         -Check "Cached Logon Credentials Limit" `
         -Requirement "SOC 2 CC6.7 - Credential Storage" `
+        -NIST "IA-5(13)" `
+        -CIS "5.3" `
+        -ISO27001 "A.9.4.3" `
         -Passed $cacheSecure `
         -CurrentValue "$cacheCount cached logons allowed" `
         -ExpectedValue "2 or fewer" `

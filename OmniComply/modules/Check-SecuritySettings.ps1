@@ -16,6 +16,10 @@ $cmdLineEnabled = $null -ne $cmdLineAudit -and $cmdLineAudit.ProcessCreationIncl
 Add-ComplianceCheck -Category "Security Settings" `
     -Check "Command Line Process Auditing" `
     -Requirement "HIPAA § 164.312(b) - Detailed Process Tracking" `
+    -NIST "AU-2, AU-12" `
+    -CIS "8.2" `
+    -ISO27001 "A.12.4.1, A.12.4.3" `
+    -SOX "ITGC-05" `
     -Passed $cmdLineEnabled `
     -CurrentValue $(if ($cmdLineEnabled) { "Enabled" } else { "Disabled" }) `
     -ExpectedValue "Enabled" `
@@ -36,6 +40,10 @@ $overrideEnabled = $null -ne $auditPolicyOverride -and $auditPolicyOverride.SCEN
 Add-ComplianceCheck -Category "Security Settings" `
     -Check "Advanced Audit Policy Override" `
     -Requirement "SOC 2 CC6.1 - Proper Audit Configuration" `
+    -NIST "AU-3" `
+    -CIS "8.2" `
+    -ISO27001 "A.12.4.1" `
+    -SOX "ITGC-05" `
     -Passed $overrideEnabled `
     -CurrentValue $(if ($overrideEnabled) { "Enabled" } else { "Disabled" }) `
     -ExpectedValue "Enabled" `
@@ -56,6 +64,10 @@ $psModuleEnabled = $null -ne $psModuleLogging -and $psModuleLogging.EnableModule
 Add-ComplianceCheck -Category "Security Settings" `
     -Check "PowerShell Module Logging" `
     -Requirement "SOC 2 CC7.2 - Command Execution Monitoring" `
+    -NIST "AU-2, AU-12" `
+    -CIS "8.2" `
+    -ISO27001 "A.12.4.1, A.12.4.3" `
+    -SOX "ITGC-05" `
     -Passed $psModuleEnabled `
     -CurrentValue $(if ($psModuleEnabled) { "Enabled" } else { "Disabled" }) `
     -ExpectedValue "Enabled" `
@@ -76,6 +88,10 @@ $psScriptBlockEnabled = $null -ne $psScriptBlockLogging -and $psScriptBlockLoggi
 Add-ComplianceCheck -Category "Security Settings" `
     -Check "PowerShell Script Block Logging" `
     -Requirement "SOC 2 CC7.2 - Command Execution Monitoring" `
+    -NIST "AU-2, AU-12" `
+    -CIS "8.2" `
+    -ISO27001 "A.12.4.1, A.12.4.3" `
+    -SOX "ITGC-05" `
     -Passed $psScriptBlockEnabled `
     -CurrentValue $(if ($psScriptBlockEnabled) { "Enabled" } else { "Disabled" }) `
     -ExpectedValue "Enabled" `

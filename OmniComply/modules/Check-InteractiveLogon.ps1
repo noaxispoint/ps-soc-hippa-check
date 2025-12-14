@@ -24,6 +24,9 @@ $bannerInfo = if ($hasBanner) {
 Add-ComplianceCheck -Category "Interactive Logon" `
     -Check "Legal Notice/Logon Banner" `
     -Requirement "SOC 2 CC6.1 - User Acknowledgment of Security Policies" `
+    -NIST "AC-8" `
+    -CIS "5.1" `
+    -ISO27001 "A.9.1.2" `
     -Passed $hasBanner `
     -CurrentValue $bannerInfo `
     -ExpectedValue "Configured with legal notice" `
@@ -44,6 +47,9 @@ if ($dontDisplayLastUser) {
     Add-ComplianceCheck -Category "Interactive Logon" `
         -Check "Don't Display Last Username" `
         -Requirement "SOC 2 CC6.7 - Username Enumeration Prevention" `
+        -NIST "AC-14" `
+        -CIS "5.1" `
+        -ISO27001 "A.9.4.2" `
         -Passed $hideLastUser `
         -CurrentValue $(if ($hideLastUser) { "Hidden" } else { "Displayed" }) `
         -ExpectedValue "Hidden" `
@@ -58,6 +64,9 @@ if ($dontDisplayLastUser) {
     Add-ComplianceCheck -Category "Interactive Logon" `
         -Check "Don't Display Last Username" `
         -Requirement "SOC 2 CC6.7 - Username Enumeration Prevention" `
+        -NIST "AC-14" `
+        -CIS "5.1" `
+        -ISO27001 "A.9.4.2" `
         -Passed $false `
         -CurrentValue "Not configured (username may be displayed)" `
         -ExpectedValue "Hidden" `
@@ -77,6 +86,9 @@ if ($inactivityLimit) {
     Add-ComplianceCheck -Category "Interactive Logon" `
         -Check "Machine Inactivity Limit" `
         -Requirement "HIPAA § 164.312(a)(2)(iii) - Automatic Logoff" `
+        -NIST "AC-11" `
+        -CIS "4.3" `
+        -ISO27001 "A.11.2.8" `
         -Passed $timeoutGood `
         -CurrentValue "$timeoutMinutes minutes" `
         -ExpectedValue "15 minutes or less" `
@@ -91,6 +103,9 @@ if ($inactivityLimit) {
     Add-ComplianceCheck -Category "Interactive Logon" `
         -Check "Machine Inactivity Limit" `
         -Requirement "HIPAA § 164.312(a)(2)(iii) - Automatic Logoff" `
+        -NIST "AC-11" `
+        -CIS "4.3" `
+        -ISO27001 "A.11.2.8" `
         -Passed $false `
         -CurrentValue "Not configured" `
         -ExpectedValue "15 minutes or less" `
@@ -116,6 +131,9 @@ if ($scRemoval) {
     Add-ComplianceCheck -Category "Interactive Logon" `
         -Check "Smart Card Removal Action" `
         -Requirement "SOC 2 CC6.1 - Physical Token Security" `
+        -NIST "IA-2(12)" `
+        -CIS "5.6" `
+        -ISO27001 "A.9.4.3" `
         -Passed $scLockWorkstation `
         -CurrentValue $scBehavior `
         -ExpectedValue "Lock workstation" `
@@ -137,6 +155,9 @@ if ($disableCAD) {
     Add-ComplianceCheck -Category "Interactive Logon" `
         -Check "Require Ctrl+Alt+Del for Logon" `
         -Requirement "SOC 2 CC6.7 - Secure Attention Sequence" `
+        -NIST "IA-2" `
+        -CIS "5.1" `
+        -ISO27001 "A.9.4.2" `
         -Passed $cadRequired `
         -CurrentValue $(if ($cadRequired) { "Required" } else { "Not required" }) `
         -ExpectedValue "Required" `
@@ -159,6 +180,9 @@ if ($cachedLogons) {
     Add-ComplianceCheck -Category "Interactive Logon" `
         -Check "Cached Logon Credentials Count" `
         -Requirement "SOC 2 CC6.7 - Credential Caching Limits" `
+        -NIST "IA-5(13)" `
+        -CIS "5.3" `
+        -ISO27001 "A.9.4.2" `
         -Passed $cacheSecure `
         -CurrentValue "$cacheCount cached logons" `
         -ExpectedValue "2 or fewer" `
@@ -181,6 +205,9 @@ if ($passwordExpiryWarning) {
     Add-ComplianceCheck -Category "Interactive Logon" `
         -Check "Password Expiry Warning Days" `
         -Requirement "SOC 2 CC6.1 - Password Management" `
+        -NIST "IA-5(1)" `
+        -CIS "5.2" `
+        -ISO27001 "A.9.4.3" `
         -Passed $warningGood `
         -CurrentValue "$warningDays days" `
         -ExpectedValue "14 days or more" `
