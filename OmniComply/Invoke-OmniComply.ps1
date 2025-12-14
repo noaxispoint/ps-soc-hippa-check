@@ -10,8 +10,10 @@
     - ISO 27001:2013
     - PCI-DSS v4.0
     - SOX IT General Controls
+    - GDPR (General Data Protection Regulation)
+    - CCPA (California Consumer Privacy Act)
 
-    OmniComply provides 280+ technical compliance checks across 33 security domains,
+    OmniComply provides 170+ technical compliance checks across 36 security domains,
     generating detailed reports mapped to multiple compliance frameworks simultaneously.
 .NOTES
     Product: OmniComply
@@ -75,6 +77,10 @@ function Add-ComplianceCheck {
         PCI-DSS v4.0 requirement (e.g., "8.2.1", "10.2.2")
     .PARAMETER SOX
         SOX IT General Control mapping (e.g., "ITGC-01", "ITGC-05")
+    .PARAMETER GDPR
+        GDPR Article mapping (e.g., "Article 25", "Article 32.1.a")
+    .PARAMETER CCPA
+        CCPA compliance indicator (e.g., "Yes", "§ 1798.150")
     .PARAMETER Passed
         Boolean indicating if the check passed
     .PARAMETER CurrentValue
@@ -111,6 +117,12 @@ function Add-ComplianceCheck {
         [Parameter(Mandatory=$false)]
         [string]$SOX,
 
+        [Parameter(Mandatory=$false)]
+        [string]$GDPR,
+
+        [Parameter(Mandatory=$false)]
+        [string]$CCPA,
+
         [Parameter(Mandatory=$true)]
         [bool]$Passed,
 
@@ -137,6 +149,8 @@ function Add-ComplianceCheck {
     if ($ISO27001) { $frameworks["ISO_27001"] = $ISO27001 }
     if ($PCIDSS) { $frameworks["PCI_DSS_v4"] = $PCIDSS }
     if ($SOX) { $frameworks["SOX_ITGC"] = $SOX }
+    if ($GDPR) { $frameworks["GDPR"] = $GDPR }
+    if ($CCPA) { $frameworks["CCPA"] = $CCPA }
 
     $script:ComplianceResults.Checks += [PSCustomObject]@{
         Category = $Category
@@ -271,13 +285,16 @@ $checkModules = @(
     "Check-SharedResources.ps1",
     "Check-BrowserSecurity.ps1",
     "Check-BackupRecovery.ps1",
+    "Check-BackupAndRecovery.ps1",
     "Check-NetworkSegmentation.ps1",
+    "Check-NetworkEncryption.ps1",
     "Check-DatabaseSecurity.ps1",
     "Check-VulnerabilityManagement.ps1",
     "Check-DataRetentionDestruction.ps1",
     "Check-ChangeManagement.ps1",
     "Check-SegregationOfDuties.ps1",
-    "Check-DataIntegrity.ps1"
+    "Check-DataIntegrity.ps1",
+    "Check-PrivacySettings.ps1"
 )
 
 $moduleCount = 0
@@ -422,7 +439,7 @@ if (-not $SkipReportGeneration) {
     <div class="header">
         <h1>OmniComply Multi-Framework Compliance Report</h1>
         <p>Computer: $env:COMPUTERNAME | Date: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')</p>
-        <p style="font-size: 0.9em; opacity: 0.9;">Frameworks: SOC 2, HIPAA, NIST 800-53, CIS v8, ISO 27001, PCI-DSS, SOX</p>
+        <p style="font-size: 0.9em; opacity: 0.9;">Frameworks: SOC 2, HIPAA, NIST 800-53, CIS v8, ISO 27001, PCI-DSS, SOX, GDPR, CCPA</p>
     </div>
     
     <div class="summary">
