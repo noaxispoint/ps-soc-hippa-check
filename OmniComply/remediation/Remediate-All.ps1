@@ -52,5 +52,5 @@ Write-Host "══════════════════════�
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Cyan
 Write-Host "  1. Restart your computer" -ForegroundColor White
-Write-Host "  2. Run .\Run-ComplianceCheck.ps1 to verify" -ForegroundColor White
+Write-Host "  2. Run .\Invoke-OmniComply.ps1 to verify" -ForegroundColor White
 Write-Host ""

@@ -198,7 +198,7 @@ if ($issues.Count -gt 0) {
     $issues | ForEach-Object { Write-Host $_ -ForegroundColor Red }
     Write-Host ""
     Write-Host "► For detailed analysis and remediation steps:" -ForegroundColor Yellow
-    Write-Host "  Run: .\Run-ComplianceCheck.ps1" -ForegroundColor Cyan
+    Write-Host "  Run: .\Invoke-OmniComply.ps1" -ForegroundColor Cyan
     Write-Host ""
     exit 1
 } else {
@@ -206,7 +206,7 @@ if ($issues.Count -gt 0) {
     Write-Host "✓ No critical issues found!" -ForegroundColor Green
     Write-Host ""
     Write-Host "► For comprehensive compliance validation:" -ForegroundColor Gray
-    Write-Host "  Run: .\Run-ComplianceCheck.ps1" -ForegroundColor Cyan
+    Write-Host "  Run: .\Invoke-OmniComply.ps1" -ForegroundColor Cyan
     Write-Host ""
     exit 0
 }

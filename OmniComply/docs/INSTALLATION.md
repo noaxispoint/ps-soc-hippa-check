@@ -13,7 +13,7 @@
 
 ```powershell
 # Clone or download the repository
-# Extract to your preferred location, e.g., C:\Tools\SOC2-HIPAA-Compliance-Checker
+# Extract to your preferred location, e.g., C:\Tools\OmniComply
 ```
 
 ### 2. Set Execution Policy
@@ -34,15 +34,15 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ```powershell
 # Navigate to the tool directory
-cd C:\Tools\SOC2-HIPAA-Compliance-Checker
+cd C:\Tools\OmniComply
 
 # Verify all files are present
 Get-ChildItem -Recurse
 
 # Should show:
-# - Run-ComplianceCheck.ps1
+# - Invoke-OmniComply.ps1
 # - Quick-Check.ps1
-# - modules\ directory with 11 check scripts
+# - modules\ directory with check scripts
 # - remediation\ directory
 # - docs\ directory
 ```
@@ -54,7 +54,7 @@ Get-ChildItem -Recurse
 .\Quick-Check.ps1
 
 # If successful, run full compliance check
-.\Run-ComplianceCheck.ps1
+.\Invoke-OmniComply.ps1
 ```
 
 ## Deployment Options
@@ -71,7 +71,7 @@ Simply extract and run on individual Windows 11 laptops.
 
 ```powershell
 # Example: Run from network share
-\\fileserver\compliance\Run-ComplianceCheck.ps1 -OutputDirectory "\\fileserver\compliance\reports\%COMPUTERNAME%"
+\\fileserver\compliance\Invoke-OmniComply.ps1 -OutputDirectory "\\fileserver\compliance\reports\%COMPUTERNAME%"
 ```
 
 ### Option 3: Intune Deployment
@@ -116,7 +116,7 @@ Add-ComplianceCheck -Category "Access Controls" `
 Change default output location:
 
 ```powershell
-.\Run-ComplianceCheck.ps1 -OutputDirectory "C:\ComplianceReports"
+.\Invoke-OmniComply.ps1 -OutputDirectory "C:\ComplianceReports"
 ```
 
 ### Scheduled Execution
@@ -126,7 +126,7 @@ Create scheduled task for regular compliance checks:
 ```powershell
 # Run compliance check weekly
 $action = New-ScheduledTaskAction -Execute "PowerShell.exe" `
-    -Argument "-ExecutionPolicy Bypass -File C:\Tools\SOC2-HIPAA-Compliance-Checker\Run-ComplianceCheck.ps1"
+    -Argument "-ExecutionPolicy Bypass -File C:\Tools\OmniComply\Invoke-OmniComply.ps1"
 
 $trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday -At 2am
 
@@ -158,7 +158,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 **Solution:** Verify you're in the correct directory
 ```powershell
-cd C:\Tools\SOC2-HIPAA-Compliance-Checker
+cd C:\Tools\OmniComply
 Get-Location  # Should show the tool directory
 ```
 
@@ -185,7 +185,7 @@ Test-Path .\modules\Check-AccessControls.ps1
 Simply delete the tool directory:
 
 ```powershell
-Remove-Item -Path "C:\Tools\SOC2-HIPAA-Compliance-Checker" -Recurse -Force
+Remove-Item -Path "C:\Tools\OmniComply" -Recurse -Force
 ```
 
 If you created scheduled tasks, remove them:

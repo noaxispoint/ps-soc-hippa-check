@@ -1,18 +1,18 @@
-# SOC2-HIPAA Compliance Checker
+# OmniComply
 
 ## 📦 Overview
 
-A comprehensive PowerShell-based compliance validation toolkit for Windows 11 systems. This project provides a fully structured, ready-to-use solution for validating security configurations.
+A comprehensive PowerShell-based compliance validation toolkit for Windows systems. This project provides a fully structured, ready-to-use solution for validating security configurations against multiple compliance frameworks including SOC 2, HIPAA, NIST, CIS, ISO 27001, PCI-DSS, and SOX.
 
 ## 📦 What's Included
 
 ### Complete Project Structure
 ```
-SOC2-HIPAA-Compliance-Checker/
+OmniComply/
 ├── README.md                          # Comprehensive documentation
 ├── LICENSE                            # MIT License
 ├── .gitignore                         # Git configuration
-├── Run-ComplianceCheck.ps1           # Main entry point (orchestrator)
+├── Invoke-OmniComply.ps1             # Main entry point (orchestrator)
 ├── Quick-Check.ps1                   # Rapid validation script
 │
 ├── modules/                          # Individual check modules (11 total)
@@ -46,9 +46,9 @@ SOC2-HIPAA-Compliance-Checker/
 ### 1. Extract the Archive
 ```powershell
 # Extract to your preferred location
-Expand-Archive -Path SOC2-HIPAA-Compliance-Checker.tar.gz -DestinationPath C:\Tools\
+Expand-Archive -Path OmniComply.zip -DestinationPath C:\Tools\
 
-cd C:\Tools\SOC2-HIPAA-Compliance-Checker
+cd C:\Tools\OmniComply
 ```
 
 ### 2. Set Execution Policy
@@ -63,7 +63,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 .\Quick-Check.ps1
 
 # Full compliance scan (100+ checks)
-.\Run-ComplianceCheck.ps1
+.\Invoke-OmniComply.ps1
 ```
 
 ## 📊 What Gets Checked
@@ -165,7 +165,7 @@ auditpol /set /subcategory:"Logon" /success:enable /failure:enable
 ```powershell
 # Create scheduled task
 $action = New-ScheduledTaskAction -Execute "PowerShell.exe" `
-    -Argument "-ExecutionPolicy Bypass -File C:\Tools\SOC2-HIPAA-Compliance-Checker\Run-ComplianceCheck.ps1"
+    -Argument "-ExecutionPolicy Bypass -File C:\Tools\OmniComply\Invoke-OmniComply.ps1"
 
 $trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday -At 2am
 
@@ -175,16 +175,16 @@ Register-ScheduledTask -TaskName "Compliance Check" -Action $action -Trigger $tr
 ### Pre-Audit Validation
 ```powershell
 # Run full check before audit
-.\Run-ComplianceCheck.ps1
+.\Invoke-OmniComply.ps1
 
 # Review failures
-notepad .\reports\SOC2-HIPAA-Compliance-Report-*.html
+notepad .\reports\OmniComply-Report-*.html
 
 # Fix critical issues
 .\remediation\Remediate-AuditPolicies.ps1
 
 # Verify fixes
-.\Run-ComplianceCheck.ps1
+.\Invoke-OmniComply.ps1
 ```
 
 ### New Device Setup
@@ -196,7 +196,7 @@ notepad .\reports\SOC2-HIPAA-Compliance-Report-*.html
 .\remediation\Remediate-All.ps1
 
 # Confirm compliance
-.\Run-ComplianceCheck.ps1
+.\Invoke-OmniComply.ps1
 ```
 
 ## ⚠️ Important Notes
@@ -271,22 +271,22 @@ The compressed archive contains:
 ```powershell
 # 1. Open PowerShell as Administrator
 # 2. Navigate to extracted folder
-cd C:\Tools\SOC2-HIPAA-Compliance-Checker
+cd C:\Tools\OmniComply
 
 # 3. Run quick check
 .\Quick-Check.ps1
 
 # 4. If issues found, run full check
-.\Run-ComplianceCheck.ps1
+.\Invoke-OmniComply.ps1
 
 # 5. Review the HTML report
-Invoke-Item .\reports\SOC2-HIPAA-Compliance-Report-*.html
+Invoke-Item .\reports\OmniComply-Report-*.html
 
 # 6. Fix issues
 .\remediation\Remediate-All.ps1
 
 # 7. Verify
-.\Run-ComplianceCheck.ps1
+.\Invoke-OmniComply.ps1
 ```
 
 ## 🏆 Project Highlights

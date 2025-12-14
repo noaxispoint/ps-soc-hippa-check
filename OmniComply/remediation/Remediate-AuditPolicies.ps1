@@ -71,4 +71,4 @@ Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Lsa" -Name "SCENo
 
 Write-Host ""
 Write-Host "Audit policy remediation complete!" -ForegroundColor Green
-Write-Host "Run .\Run-ComplianceCheck.ps1 to verify" -ForegroundColor Cyan
+Write-Host "Run .\Invoke-OmniComply.ps1 to verify" -ForegroundColor Cyan
