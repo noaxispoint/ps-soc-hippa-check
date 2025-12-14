@@ -4,6 +4,7 @@
 import re
 import os
 import sys
+import glob
 
 def escape_html(text):
     """Escape HTML special characters"""
@@ -266,19 +267,24 @@ def convert_file(input_path, output_path):
 
 def main():
     """Main conversion function"""
-    # List of files to convert
-    files_to_convert = [
-        ('README.md', 'README.html'),
-        ('OmniComply/README.md', 'OmniComply/README.html'),
-        ('OmniComply/docs/INSTALLATION.md', 'OmniComply/docs/INSTALLATION.html'),
-        ('OmniComply/docs/CONTROLS.md', 'OmniComply/docs/CONTROLS.html'),
-        ('OmniComply/docs/COMPLIANCE-FRAMEWORK-MAPPINGS.md', 'OmniComply/docs/COMPLIANCE-FRAMEWORK-MAPPINGS.html'),
-    ]
+    # Find all .md files recursively
+    md_files = glob.glob('**/*.md', recursive=True)
+
+    # Filter out files we don't want to convert (e.g., in .git, node_modules, etc.)
+    exclude_dirs = {'.git', 'node_modules', '__pycache__', '.venv', 'venv'}
+    md_files = [f for f in md_files if not any(excluded in f.split(os.sep) for excluded in exclude_dirs)]
+
+    if not md_files:
+        print("No markdown files found.")
+        return
 
     converted = 0
     skipped = 0
 
-    for input_file, output_file in files_to_convert:
+    for input_file in md_files:
+        # Generate output filename by replacing .md with .html
+        output_file = os.path.splitext(input_file)[0] + '.html'
+
         if os.path.exists(input_file):
             if convert_file(input_file, output_file):
                 converted += 1
