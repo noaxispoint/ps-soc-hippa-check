@@ -30,7 +30,8 @@ Add-ComplianceCheck -Category "Interactive Logon" `
     -Passed $hasBanner `
     -CurrentValue $bannerInfo `
     -ExpectedValue "Configured with legal notice" `
-    -Remediation "Configure via Group Policy: Computer Configuration > Windows Settings > Security Settings > Local Policies > Security Options > Interactive logon: Message text/title for users attempting to log on"
+    -Remediation "Configure via Group Policy: Computer Configuration > Windows Settings > Security Settings > Local Policies > Security Options > Interactive logon: Message text/title for users attempting to log on" `
+    -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Local Policies Security Options > <strong>Interactive logon: Message text for users attempting to log on</strong> = <code>Your legal notice text</code>, <strong>Interactive logon: Message title for users attempting to log on</strong> = <code>Your legal notice title</code>"
 
 if ($hasBanner) {
     Write-Host "  [PASS] Logon banner is configured" -ForegroundColor Green
@@ -53,7 +54,8 @@ if ($dontDisplayLastUser) {
         -Passed $hideLastUser `
         -CurrentValue $(if ($hideLastUser) { "Hidden" } else { "Displayed" }) `
         -ExpectedValue "Hidden" `
-        -Remediation "Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'DontDisplayLastUserName' -Value 1"
+        -Remediation "Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'DontDisplayLastUserName' -Value 1" `
+        -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Local Policies Security Options > <strong>Interactive logon: Don't display last signed-in</strong> = <code>Enabled</code>"
 
     if ($hideLastUser) {
         Write-Host "  [PASS] Last username is not displayed at logon" -ForegroundColor Green
@@ -92,7 +94,8 @@ if ($inactivityLimit) {
         -Passed $timeoutGood `
         -CurrentValue "$timeoutMinutes minutes" `
         -ExpectedValue "15 minutes or less" `
-        -Remediation "Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'InactivityTimeoutSecs' -Value 900"
+        -Remediation "Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'InactivityTimeoutSecs' -Value 900" `
+        -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Local Policies Security Options > <strong>Interactive logon: Machine inactivity limit</strong> = <code>900</code> seconds (15 minutes)"
 
     if ($timeoutGood) {
         Write-Host "  [PASS] Machine inactivity limit: $timeoutMinutes minutes" -ForegroundColor Green
@@ -161,7 +164,8 @@ if ($disableCAD) {
         -Passed $cadRequired `
         -CurrentValue $(if ($cadRequired) { "Required" } else { "Not required" }) `
         -ExpectedValue "Required" `
-        -Remediation "Configure via Group Policy: Computer Configuration > Windows Settings > Security Settings > Local Policies > Security Options > Interactive logon: Do not require CTRL+ALT+DEL (set to Disabled)"
+        -Remediation "Configure via Group Policy: Computer Configuration > Windows Settings > Security Settings > Local Policies > Security Options > Interactive logon: Do not require CTRL+ALT+DEL (set to Disabled)" `
+        -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Local Policies Security Options > <strong>Interactive logon: Do not require CTRL+ALT+DEL</strong> = <code>Disabled</code> (to require Ctrl+Alt+Del)"
 
     if ($cadRequired) {
         Write-Host "  [PASS] Ctrl+Alt+Del is required for logon" -ForegroundColor Green

@@ -60,7 +60,8 @@ foreach ($logConfig in $RequiredLogConfigs) {
             -Passed $passed `
             -CurrentValue "$currentSizeKB KB" `
             -ExpectedValue "Minimum $minSizeKB KB" `
-            -Remediation "wevtutil sl $($logConfig.LogName) /ms:$($minSizeKB * 1024)"
+            -Remediation "wevtutil sl $($logConfig.LogName) /ms:$($minSizeKB * 1024)" `
+            -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Administrative Templates > Windows Components > Event Log Service > $($logConfig.LogName) > <strong>Specify the maximum log file size (KB)</strong> = <code>$minSizeKB</code>"
         
         if ($passed) {
             Write-Host "  [PASS] $($logConfig.LogName) log size: $currentSizeKB KB" -ForegroundColor Green

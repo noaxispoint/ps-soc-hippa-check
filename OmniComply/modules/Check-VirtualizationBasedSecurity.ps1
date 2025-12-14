@@ -32,7 +32,8 @@ try {
             -Passed $vbsRunning `
             -CurrentValue $vbsStatus `
             -ExpectedValue "Enabled and running" `
-            -Remediation "Enable via Group Policy: Computer Configuration > Administrative Templates > System > Device Guard > Turn On Virtualization Based Security"
+            -Remediation "Enable via Group Policy: Computer Configuration > Administrative Templates > System > Device Guard > Turn On Virtualization Based Security" `
+            -IntuneRecommendation "Endpoint security > Account protection > Create Policy > Windows Hello for Business > <strong>Turn On Virtualization Based Security</strong> = <code>Enabled</code>, <strong>Select Platform Security Level</strong> = <code>Secure Boot and DMA Protection</code>"
 
         if ($vbsRunning) {
             Write-Host "  [PASS] VBS is enabled and running" -ForegroundColor Green
@@ -52,7 +53,8 @@ try {
             -Passed $hvciRunning `
             -CurrentValue $(if ($hvciRunning) { "Running" } else { "Not running" }) `
             -ExpectedValue "Running" `
-            -Remediation "Enable via Windows Security > Device Security > Core isolation > Memory integrity"
+            -Remediation "Enable via Windows Security > Device Security > Core isolation > Memory integrity" `
+            -IntuneRecommendation "Endpoint security > Account protection > Create Policy > Windows Hello for Business > <strong>Enable Virtualization Based Security</strong> = <code>Enabled</code>, <strong>Hypervisor Enforced Code Integrity</strong> = <code>Enabled with UEFI lock</code>"
 
         if ($hvciRunning) {
             Write-Host "  [PASS] Memory Integrity (HVCI) is running" -ForegroundColor Green

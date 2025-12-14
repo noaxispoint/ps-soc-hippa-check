@@ -24,7 +24,8 @@ if ($null -ne $edgeSmartScreen) {
         -Passed $smartScreenOn `
         -CurrentValue $(if ($smartScreenOn) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `
-        -Remediation "Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SmartScreenEnabled' -Value 1"
+        -Remediation "Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SmartScreenEnabled' -Value 1" `
+        -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Administrative Templates > Microsoft Edge > <strong>Configure Microsoft Defender SmartScreen</strong> = <code>Enabled</code>"
 
     if ($smartScreenOn) {
         Write-Host "  [PASS] Microsoft Edge SmartScreen is enabled" -ForegroundColor Green
@@ -59,7 +60,8 @@ if ($null -ne $edgeEnhancedSecurity) {
         -Passed $enhancedSecurityOn `
         -CurrentValue $securityLevel `
         -ExpectedValue "Basic, Balanced, or Strict" `
-        -Remediation "Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'EnhanceSecurityMode' -Value 2"
+        -Remediation "Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'EnhanceSecurityMode' -Value 2" `
+        -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Administrative Templates > Microsoft Edge > <strong>Enhance security mode</strong> = <code>Balanced</code> or <code>Strict</code>"
 
     if ($enhancedSecurityOn) {
         Write-Host "  [PASS] Edge Enhanced Security Mode is enabled ($securityLevel)" -ForegroundColor Green
