@@ -83,6 +83,8 @@ function Add-ComplianceCheck {
         The expected/required configuration value
     .PARAMETER Remediation
         PowerShell command or instructions to fix the issue
+    .PARAMETER IntuneRecommendation
+        Microsoft Intune policy path and recommended configuration
     #>
     param(
         [Parameter(Mandatory=$true)]
@@ -119,7 +121,10 @@ function Add-ComplianceCheck {
         [string]$ExpectedValue,
 
         [Parameter(Mandatory=$true)]
-        [string]$Remediation
+        [string]$Remediation,
+
+        [Parameter(Mandatory=$false)]
+        [string]$IntuneRecommendation
     )
 
     # Build compliance frameworks object
@@ -142,6 +147,7 @@ function Add-ComplianceCheck {
         CurrentValue = $CurrentValue
         ExpectedValue = $ExpectedValue
         Remediation = $Remediation
+        IntuneRecommendation = if ($IntuneRecommendation) { $IntuneRecommendation } else { "N/A" }
     }
 
     if (-not $Passed) {
@@ -462,7 +468,43 @@ if (-not $SkipReportGeneration) {
         
         $htmlContent += @"
     </table>
-    
+
+    <h2>Intune Policy Recommendations</h2>
+    <div class="summary">
+        <p>Deploy these settings via Microsoft Intune to remediate failed checks across your fleet:</p>
+    </div>
+    <table>
+        <tr>
+            <th>Check</th>
+            <th>Intune Policy Path & Configuration</th>
+        </tr>
+"@
+
+        # Add Intune recommendations for failed checks that have them
+        $intuneItems = $failedItems | Where-Object { $_.IntuneRecommendation -and $_.IntuneRecommendation -ne "N/A" }
+        if ($intuneItems.Count -gt 0) {
+            foreach ($item in $intuneItems) {
+                $htmlContent += @"
+        <tr>
+            <td><strong>$($item.Check)</strong><br/><small style="color: #666;">$($item.Category)</small></td>
+            <td>$($item.IntuneRecommendation)</td>
+        </tr>
+"@
+            }
+        } else {
+            $htmlContent += @"
+        <tr>
+            <td colspan="2" style="text-align: center; padding: 20px; color: #666;">
+                No failed checks have Intune policy recommendations available.<br/>
+                Use the PowerShell remediation scripts in the <code>remediation\</code> directory for manual fixes.
+            </td>
+        </tr>
+"@
+        }
+
+        $htmlContent += @"
+    </table>
+
     <h2>Category Breakdown</h2>
     <table>
         <tr>

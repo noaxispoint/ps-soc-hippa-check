@@ -24,7 +24,8 @@ if ($smbv1) {
         -Passed $smbv1Disabled `
         -CurrentValue $smbv1.State `
         -ExpectedValue "Disabled" `
-        -Remediation "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"
+        -Remediation "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart" `
+        -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Administrative Templates > Network > Lanman Server > <strong>SMB 1.0 Server</strong> = <code>Disabled</code>"
     
     if ($smbv1Disabled) {
         Write-Host "  [PASS] SMBv1 is disabled" -ForegroundColor Green

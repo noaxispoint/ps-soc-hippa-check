@@ -27,7 +27,8 @@ Add-ComplianceCheck -Category "Access Controls" `
     -Passed $minLengthGood `
     -CurrentValue "$minPasswordLength characters" `
     -ExpectedValue "12 or more characters" `
-    -Remediation "Configure via Local Security Policy or Intune"
+    -Remediation "Configure via Local Security Policy or Intune" `
+    -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Administrative Templates > Windows Components > Credential User Interface > <strong>Password length (minimum)</strong> = <code>12</code>"
 
 if ($minLengthGood) {
     Write-Host "  [PASS] Minimum password length: $minPasswordLength characters" -ForegroundColor Green
@@ -50,7 +51,8 @@ Add-ComplianceCheck -Category "Access Controls" `
     -Passed $complexityGood `
     -CurrentValue $(if ($complexityGood) { "Enabled" } else { "Disabled" }) `
     -ExpectedValue "Enabled" `
-    -Remediation "Enable via Local Security Policy"
+    -Remediation "Enable via Local Security Policy" `
+    -IntuneRecommendation "Devices > Configuration profiles > Create profile > Account protection > <strong>Password must meet complexity requirements</strong> = <code>Enabled</code>"
 
 if ($complexityGood) {
     Write-Host "  [PASS] Password complexity is enabled" -ForegroundColor Green
@@ -96,7 +98,8 @@ Add-ComplianceCheck -Category "Access Controls" `
     -Passed $lockoutGood `
     -CurrentValue "$lockoutThreshold invalid attempts" `
     -ExpectedValue "5-10 invalid attempts" `
-    -Remediation "Configure via Local Security Policy"
+    -Remediation "Configure via Local Security Policy" `
+    -IntuneRecommendation "Devices > Configuration profiles > Create profile > Account protection > <strong>Account lockout threshold</strong> = <code>5</code>, <strong>Account lockout duration</strong> = <code>30</code> minutes"
 
 if ($lockoutGood) {
     Write-Host "  [PASS] Account lockout threshold: $lockoutThreshold attempts" -ForegroundColor Green

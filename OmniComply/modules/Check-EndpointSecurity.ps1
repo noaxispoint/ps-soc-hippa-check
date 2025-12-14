@@ -25,7 +25,8 @@ if ($defenderStatus) {
         -Passed $rtpEnabled `
         -CurrentValue $(if ($rtpEnabled) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `
-        -Remediation "Set-MpPreference -DisableRealtimeMonitoring `$false"
+        -Remediation "Set-MpPreference -DisableRealtimeMonitoring `$false" `
+        -IntuneRecommendation "Endpoint security > Antivirus > Create Policy > Microsoft Defender Antivirus > <strong>Turn on real-time protection</strong> = <code>Enabled</code>"
     
     if ($rtpEnabled) {
         Write-Host "  [PASS] Real-time protection is enabled" -ForegroundColor Green
@@ -60,11 +61,11 @@ if ($defenderStatus) {
 $firewallProfiles = Get-NetFirewallProfile -ErrorAction SilentlyContinue
 
 if ($firewallProfiles) {
-    foreach ($profile in $firewallProfiles) {
-        $enabled = $profile.Enabled
-        
+    foreach ($fwProfile in $firewallProfiles) {
+        $enabled = $fwProfile.Enabled
+
         Add-ComplianceCheck -Category "Endpoint Security" `
-            -Check "Firewall - $($profile.Name) Profile" `
+            -Check "Firewall - $($fwProfile.Name) Profile" `
             -Requirement "SOC 2 CC6.1 / HIPAA § 164.312(c)(1)" `
             -NIST "SC-7" `
             -CIS "13.3" `
@@ -73,12 +74,13 @@ if ($firewallProfiles) {
             -Passed $enabled `
             -CurrentValue $(if ($enabled) { "Enabled" } else { "Disabled" }) `
             -ExpectedValue "Enabled" `
-            -Remediation "Set-NetFirewallProfile -Profile $($profile.Name) -Enabled True"
-        
+            -Remediation "Set-NetFirewallProfile -Profile $($fwProfile.Name) -Enabled True" `
+            -IntuneRecommendation "Endpoint security > Firewall > Create Policy > Microsoft Defender Firewall > <strong>$($fwProfile.Name) Profile > Firewall</strong> = <code>Enabled</code>"
+
         if ($enabled) {
-            Write-Host "  [PASS] Firewall $($profile.Name) profile is enabled" -ForegroundColor Green
+            Write-Host "  [PASS] Firewall $($fwProfile.Name) profile is enabled" -ForegroundColor Green
         } else {
-            Write-Host "  [FAIL] Firewall $($profile.Name) profile is disabled" -ForegroundColor Red
+            Write-Host "  [FAIL] Firewall $($fwProfile.Name) profile is disabled" -ForegroundColor Red
         }
     }
 }
