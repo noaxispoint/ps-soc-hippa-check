@@ -110,7 +110,7 @@
 <h1>OmniComply</h1>
 <h2>License</h2>
 <p>MIT License</p>
-<p>Copyright (c) 2024 OmniComply Contributors</p>
+<p>Copyright (c) 2025 OmniComply Contributors</p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy</p>
 <p>of this software and associated documentation files (the "Software"), to deal</p>
 <p>in the Software without restriction, including without limitation the rights</p>
@@ -128,7 +128,7 @@
 <p>SOFTWARE.</p>
 <hr>
 <h2>📦 Overview</h2>
-<p>A comprehensive PowerShell-based compliance validation toolkit for Windows systems. This project provides a fully structured, ready-to-use solution for validating security configurations against multiple compliance frameworks including SOC 2, HIPAA, NIST 800-53, CIS Controls v8, ISO 27001:2013, PCI-DSS, and SOX.</p>
+<p>A comprehensive PowerShell-based compliance validation toolkit for Windows systems. This project provides a fully structured, ready-to-use solution for validating security configurations against multiple compliance frameworks including SOC 2, HIPAA, NIST 800-53, CIS Controls v8, ISO 27001:2013, PCI-DSS, SOX, GDPR (General Data Protection Regulation), and CCPA (California Consumer Privacy Act).</p>
 <h2>📦 What's Included</h2>
 <h3>Complete Project Structure</h3>
 <pre><code class="language-">OmniComply/
@@ -138,13 +138,14 @@
 ├── Invoke-OmniComply.ps1             # Main entry point (orchestrator)
 ├── Quick-Check.ps1                   # Rapid validation script
 │
-├── modules/                          # Individual check modules (33 total)
+├── modules/                          # Individual check modules (36 total)
 │   ├── Check-AccessControls.ps1      # Password &amp; lockout policies
 │   ├── Check-AdministratorAccounts.ps1
 │   ├── Check-AdvancedDefender.ps1    # ASR, Network Protection, Cloud Protection
 │   ├── Check-AdvancedNetworkSecurity.ps1
 │   ├── Check-ApplicationControl.ps1  # AppLocker, WDAC, SmartScreen
 │   ├── Check-AuditPolicies.ps1       # 26+ audit policy checks
+│   ├── Check-BackupAndRecovery.ps1   # System Restore, VSS, Backup (GDPR Art. 32.1.c)
 │   ├── Check-BackupRecovery.ps1
 │   ├── Check-BrowserSecurity.ps1
 │   ├── Check-CertificateManagement.ps1
@@ -160,8 +161,10 @@
 │   ├── Check-FileSystemAuditing.ps1
 │   ├── Check-InteractiveLogon.ps1
 │   ├── Check-LoggingServices.ps1
+│   ├── Check-NetworkEncryption.ps1   # TLS, SMB encryption, LDAP signing (GDPR Art. 32.1.a)
 │   ├── Check-NetworkSecurity.ps1     # SMB, RDP, LLMNR, NetBIOS
 │   ├── Check-NetworkSegmentation.ps1
+│   ├── Check-PrivacySettings.ps1     # Telemetry, location, data minimization (GDPR/CCPA)
 │   ├── Check-RemovableStorage.ps1    # USB controls, BitLocker To Go
 │   ├── Check-ScreenLockSettings.ps1
 │   ├── Check-SecuritySettings.ps1
@@ -505,10 +508,10 @@ Invoke-Item .\reports\OmniComply-Report-*.html
 <hr>
 <h2>📊 Statistics</h2>
 <ul>
-<li><strong>33</strong> compliance check modules</li>
-<li><strong>150+</strong> individual security checks</li>
-<li><strong>7</strong> compliance frameworks (SOC 2, HIPAA, NIST, CIS, ISO 27001, PCI-DSS, SOX)</li>
-<li><strong>24</strong> Intune policy recommendations</li>
+<li><strong>36</strong> compliance check modules</li>
+<li><strong>170+</strong> individual security checks</li>
+<li><strong>9</strong> compliance frameworks (SOC 2, HIPAA, NIST, CIS, ISO 27001, PCI-DSS, SOX, GDPR, CCPA)</li>
+<li><strong>53</strong> Intune policy recommendations</li>
 <li><strong>5</strong> automated remediation scripts</li>
 <li><strong>3</strong> report output formats (JSON, CSV, HTML)</li>
 </ul>
@@ -518,7 +521,7 @@ Invoke-Item .\reports\OmniComply-Report-*.html
 <p><strong>License:</strong> MIT</p>
 <p><strong>Platform:</strong> Windows 10/11, Server 2016-2025</p>
 <p><strong>Repository:</strong> https://github.com/noaxispoint/omnicomply</p>
-<p>Comprehensive compliance checking for Windows endpoints - from workstations to servers.</p>
+<p>Comprehensive compliance checking for Windows endpoints - from workstations to servers. Now including GDPR and CCPA privacy controls.</p>
     </div>
 </body>
 </html>
