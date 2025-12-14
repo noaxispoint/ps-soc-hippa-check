@@ -28,7 +28,8 @@ if ($bitlockerVolumes) {
             -Passed $osEncrypted `
             -CurrentValue "$($osVolume.VolumeStatus)" `
             -ExpectedValue "FullyEncrypted" `
-            -Remediation "Enable-BitLocker -MountPoint 'C:' -EncryptionMethod XtsAes256 -RecoveryPasswordProtector"
+            -Remediation "Enable-BitLocker -MountPoint 'C:' -EncryptionMethod XtsAes256 -RecoveryPasswordProtector" `
+            -IntuneRecommendation "Endpoint security > Disk encryption > Create Policy > BitLocker > <strong>Require Device Encryption</strong> = <code>Yes</code>, <strong>Encryption method</strong> = <code>XTS-AES 256-bit</code>, <strong>Require storage cards to be encrypted</strong> = <code>Yes</code>"
 
         if ($osEncrypted) {
             Write-Host "  [PASS] OS drive is encrypted: $($osVolume.VolumeStatus)" -ForegroundColor Green
@@ -121,7 +122,8 @@ Add-ComplianceCheck -Category "Encryption Controls" `
     -Passed $secureBootEnabled `
     -CurrentValue $secureBootStatus `
     -ExpectedValue "Enabled" `
-    -Remediation $(if ($isARM) { "Enable Secure Boot in device firmware settings (check manufacturer documentation)" } else { "Enable Secure Boot in UEFI/BIOS settings" })
+    -Remediation $(if ($isARM) { "Enable Secure Boot in device firmware settings (check manufacturer documentation)" } else { "Enable Secure Boot in UEFI/BIOS settings" }) `
+    -IntuneRecommendation "Devices > Compliance policies > Create Policy > Device Health > <strong>Require Secure Boot to be enabled on the device</strong> = <code>Require</code> (Note: This enforces compliance reporting, not configuration. Secure Boot must be enabled in UEFI/BIOS)"
 
 if ($secureBootEnabled) {
     Write-Host "  [PASS] Secure Boot is enabled" -ForegroundColor Green

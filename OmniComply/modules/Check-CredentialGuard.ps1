@@ -25,7 +25,8 @@ try {
             -Passed $credGuardRunning `
             -CurrentValue $(if ($credGuardRunning) { "Running" } else { "Not running" }) `
             -ExpectedValue "Running (Enterprise/Education only)" `
-            -Remediation "Enable via Group Policy: Computer Configuration > Administrative Templates > System > Device Guard > Turn On Virtualization Based Security"
+            -Remediation "Enable via Group Policy: Computer Configuration > Administrative Templates > System > Device Guard > Turn On Virtualization Based Security" `
+            -IntuneRecommendation "Endpoint security > Account protection > Create Policy > Windows Hello for Business > <strong>Configure Credential Guard</strong> = <code>Enable with UEFI lock</code> (requires Windows Enterprise or Education with VBS-capable hardware)"
 
         if ($credGuardRunning) {
             Write-Host "  [PASS] Credential Guard is running" -ForegroundColor Green
@@ -137,7 +138,8 @@ if ($lsaProtection) {
         -Passed $lsaEnabled `
         -CurrentValue $(if ($lsaEnabled) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `
-        -Remediation "Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Lsa' -Name 'RunAsPPL' -Value 1"
+        -Remediation "Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Lsa' -Name 'RunAsPPL' -Value 1" `
+        -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Local Policies Security Options > <strong>LSASS.exe: Configure code integrity</strong> = <code>Enabled</code> (enables LSA Protection as a protected process)"
 
     if ($lsaEnabled) {
         Write-Host "  [PASS] LSA Protection is enabled" -ForegroundColor Green

@@ -28,7 +28,8 @@ if ($screenSaverTimeout -and $screenSaverActive) {
         -Passed ($timeoutGood -and $isActive) `
         -CurrentValue "$timeoutMinutes minutes (Active: $isActive)" `
         -ExpectedValue "1-15 minutes and active" `
-        -Remediation "Configure via Settings or Registry"
+        -Remediation "Configure via Settings or Registry" `
+        -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Administrative Templates > Control Panel > Personalization > <strong>Screen saver timeout</strong> = <code>900</code> seconds (15 minutes), <strong>Enable screen saver</strong> = <code>Enabled</code>"
     
     if ($timeoutGood -and $isActive) {
         Write-Host "  [PASS] Screen saver timeout: $timeoutMinutes minutes" -ForegroundColor Green
@@ -49,7 +50,8 @@ if ($screenSaverTimeout -and $screenSaverActive) {
             -Passed $isSecure `
             -CurrentValue $(if ($isSecure) { "Enabled" } else { "Disabled" }) `
             -ExpectedValue "Enabled" `
-            -Remediation "Enable via Settings > Personalization > Lock screen"
+            -Remediation "Enable via Settings > Personalization > Lock screen" `
+            -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Administrative Templates > Control Panel > Personalization > <strong>Password protect the screen saver</strong> = <code>Enabled</code>"
         
         if ($isSecure) {
             Write-Host "  [PASS] Screen saver is password-protected" -ForegroundColor Green

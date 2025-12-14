@@ -56,7 +56,8 @@ if ($lastUpdateLog) {
         -Passed $updateRecent `
         -CurrentValue "$daysSinceUpdate days ago" `
         -ExpectedValue "Within 30 days" `
-        -Remediation "Check for and install Windows updates"
+        -Remediation "Check for and install Windows updates" `
+        -IntuneRecommendation "Devices > Update rings for Windows 10 and later > Create profile > <strong>Quality update deferral period</strong> = <code>0-7 days</code>, <strong>Feature update deferral period</strong> = <code>0-30 days</code>, <strong>Delivery optimization mode</strong> = <code>HTTP blended with peering behind same NAT</code>"
     
     if ($updateRecent) {
         Write-Host "  [PASS] Updates installed $daysSinceUpdate days ago" -ForegroundColor Green

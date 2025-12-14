@@ -64,7 +64,8 @@ if ($appIDSvc) {
                 -Passed $hasPolicies `
                 -CurrentValue "$ruleCount total rules ($rulesSummary)" `
                 -ExpectedValue "Policies configured" `
-                -Remediation "Configure AppLocker policies via Group Policy or PowerShell"
+                -Remediation "Configure AppLocker policies via Group Policy or PowerShell" `
+                -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > AppLocker > <strong>Configure AppLocker rules</strong> for Executable, Windows Installer, Script, and DLL rule collections (requires Windows Enterprise/Education)"
 
             if ($hasPolicies) {
                 Write-Host "  [PASS] AppLocker policies configured: $rulesSummary" -ForegroundColor Green
@@ -124,7 +125,8 @@ try {
             -Passed $ciEnabled `
             -CurrentValue $ciStatus `
             -ExpectedValue "Enforced or Audit mode" `
-            -Remediation "Configure WDAC policy via Group Policy or PowerShell"
+            -Remediation "Configure WDAC policy via Group Policy or PowerShell" `
+            -IntuneRecommendation "Endpoint security > Application control > Create Policy > App Control for Business > Deploy custom WDAC policy XML (create policy with <code>New-CIPolicy</code> and deploy via Intune)"
 
         if ($ciEnabled) {
             Write-Host "  [PASS] WDAC (Code Integrity) is enforced" -ForegroundColor Green
@@ -209,7 +211,8 @@ if ($smartScreen) {
         -Passed $smartScreenOn `
         -CurrentValue $smartScreen.SmartScreenEnabled `
         -ExpectedValue "RequireAdmin or Warn" `
-        -Remediation "Enable via Windows Security > App & browser control > Reputation-based protection"
+        -Remediation "Enable via Windows Security > App & browser control > Reputation-based protection" `
+        -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Administrative Templates > Windows Components > Windows Defender SmartScreen > Explorer > <strong>Configure Windows Defender SmartScreen</strong> = <code>Enabled - Warn and prevent bypass</code>"
 
     if ($smartScreenOn) {
         Write-Host "  [PASS] SmartScreen is enabled ($($smartScreen.SmartScreenEnabled))" -ForegroundColor Green

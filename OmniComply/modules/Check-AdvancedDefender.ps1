@@ -24,7 +24,8 @@ if ($defenderPrefs) {
         -Passed $cfaEnabled `
         -CurrentValue $(if ($cfaEnabled) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `
-        -Remediation "Set-MpPreference -EnableControlledFolderAccess Enabled"
+        -Remediation "Set-MpPreference -EnableControlledFolderAccess Enabled" `
+        -IntuneRecommendation "Endpoint security > Attack surface reduction > Create Policy > <strong>Enable Controlled folder access</strong> = <code>Enabled</code> (or <code>Audit Mode</code> for testing)"
 
     if ($cfaEnabled) {
         Write-Host "  [PASS] Controlled Folder Access is enabled" -ForegroundColor Green
@@ -45,7 +46,8 @@ if ($defenderPrefs) {
         -Passed $networkEnabled `
         -CurrentValue $(switch ($networkProtection) { 0 { "Disabled" } 1 { "Enabled (Block)" } 2 { "Audit Mode" } default { "Unknown" } }) `
         -ExpectedValue "Enabled (Block mode)" `
-        -Remediation "Set-MpPreference -EnableNetworkProtection Enabled"
+        -Remediation "Set-MpPreference -EnableNetworkProtection Enabled" `
+        -IntuneRecommendation "Endpoint security > Attack surface reduction > Create Policy > Exploit protection > <strong>Network protection</strong> = <code>Enable</code> (Block mode)"
 
     if ($networkEnabled) {
         Write-Host "  [PASS] Network Protection is enabled" -ForegroundColor Green
@@ -67,7 +69,8 @@ if ($defenderPrefs) {
         -Passed $cloudEnabled `
         -CurrentValue $(switch ($cloudProtection) { 0 { "Disabled" } 1 { "Basic" } 2 { "Advanced" } default { "Unknown" } }) `
         -ExpectedValue "Basic or Advanced" `
-        -Remediation "Set-MpPreference -MAPSReporting Advanced"
+        -Remediation "Set-MpPreference -MAPSReporting Advanced" `
+        -IntuneRecommendation "Endpoint security > Antivirus > Create Policy > Microsoft Defender Antivirus > <strong>Cloud-delivered protection level</strong> = <code>High</code>, <strong>Extended cloud check</strong> = <code>50</code> seconds"
 
     if ($cloudEnabled) {
         Write-Host "  [PASS] Cloud-delivered protection is enabled" -ForegroundColor Green

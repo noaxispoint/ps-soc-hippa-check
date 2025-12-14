@@ -58,7 +58,8 @@ if ($removableStoragePolicy) {
         -Passed $hasRestrictions `
         -CurrentValue $restrictionsSummary `
         -ExpectedValue "Restrictions configured" `
-        -Remediation "Configure via Group Policy: Computer Configuration > Administrative Templates > System > Removable Storage Access"
+        -Remediation "Configure via Group Policy: Computer Configuration > Administrative Templates > System > Removable Storage Access" `
+        -IntuneRecommendation "Endpoint security > Attack surface reduction > Create Policy > Device control > <strong>Removable storage</strong> = <code>Block</code> or <code>Audit</code>, or Devices > Configuration profiles > Settings catalog > Administrative Templates > System > Removable Storage Access > <strong>All Removable Storage classes: Deny all access</strong> = <code>Enabled</code>"
 
     if ($hasRestrictions) {
         Write-Host "  [PASS] Removable storage restrictions configured: $restrictionsSummary" -ForegroundColor Green
@@ -98,7 +99,8 @@ if ($bitlockerToGo) {
         -Passed $requireEncryption `
         -CurrentValue $(if ($requireEncryption) { "Write protection enabled (encryption required)" } else { "Not enforced" }) `
         -ExpectedValue "Write protection enabled" `
-        -Remediation "Configure via Group Policy: Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Removable Data Drives"
+        -Remediation "Configure via Group Policy: Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Removable Data Drives" `
+        -IntuneRecommendation "Endpoint security > Disk encryption > Create Policy > BitLocker > Removable Data Drives > <strong>Deny write access to removable drives not protected by BitLocker</strong> = <code>Yes</code>"
 
     if ($requireEncryption) {
         Write-Host "  [PASS] BitLocker To Go write protection enabled (unencrypted drives blocked)" -ForegroundColor Green
@@ -176,7 +178,8 @@ if ($defenderUSB) {
             -Passed $autoRunDisabled `
             -CurrentValue "$autoRunValue" `
             -ExpectedValue "0xFF (all) or 0x9C (removable)" `
-            -Remediation "Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'NoDriveTypeAutoRun' -Value 255 -Type DWord"
+            -Remediation "Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'NoDriveTypeAutoRun' -Value 255 -Type DWord" `
+            -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Administrative Templates > Windows Components > AutoPlay Policies > <strong>Turn off Autoplay</strong> = <code>Enabled</code>, <strong>Default behavior</strong> = <code>All drives</code>"
 
         if ($autoRunDisabled) {
             Write-Host "  [PASS] AutoRun is disabled for removable drives" -ForegroundColor Green

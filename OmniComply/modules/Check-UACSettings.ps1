@@ -24,7 +24,8 @@ if ($uacEnabled) {
         -Passed $isEnabled `
         -CurrentValue $(if ($isEnabled) { "Enabled" } else { "Disabled" }) `
         -ExpectedValue "Enabled" `
-        -Remediation "Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableLUA' -Value 1"
+        -Remediation "Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableLUA' -Value 1" `
+        -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Local Policies Security Options > <strong>User Account Control: Run all administrators in Admin Approval Mode</strong> = <code>Enabled</code>"
 
     if ($isEnabled) {
         Write-Host "  [PASS] UAC is enabled" -ForegroundColor Green
@@ -57,7 +58,8 @@ if ($consentPrompt) {
         -Passed $properLevel `
         -CurrentValue $levelText `
         -ExpectedValue "Prompt for consent on secure desktop" `
-        -Remediation "Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'ConsentPromptBehaviorAdmin' -Value 2"
+        -Remediation "Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'ConsentPromptBehaviorAdmin' -Value 2" `
+        -IntuneRecommendation "Devices > Configuration profiles > Create profile > Settings catalog > Local Policies Security Options > <strong>User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode</strong> = <code>Prompt for consent on the secure desktop</code>"
 
     if ($properLevel) {
         Write-Host "  [PASS] UAC prompt level: $levelText" -ForegroundColor Green
